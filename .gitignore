@@ -1,0 +1,9 @@
+node_modules
+dist
+.turbo
+.env*
+!.env.example
+output/
+.expo
+.wrangler
+.DS_Store

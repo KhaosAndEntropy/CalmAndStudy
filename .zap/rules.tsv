@@ -1,0 +1,8 @@
+10020	FAIL	X-Frame-Options header missing
+10021	FAIL	X-Content-Type-Options header missing
+10023	FAIL	Application error or debug details disclosed
+10024	FAIL	Sensitive information disclosed in URL
+10025	FAIL	Sensitive information exposed through Referrer
+10038	FAIL	Content-Security-Policy header missing
+10049	INFO	Cache behavior is defined by Cloudflare Pages _headers and cannot be reproduced by Vite preview
+10109	INFO	Expected PWA/modern web application detection; informational fingerprint only
