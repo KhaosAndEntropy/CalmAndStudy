@@ -303,13 +303,14 @@ export default function PublicResearch() {
           <em>construa conhecimento.</em>
         </h1>
         <p>
-          Artigos acadêmicos só aparecem com licença aberta reconhecida e texto integral testado.
-          Quando disponíveis, cruzamos também o DOI entre catálogos bibliográficos. Uma versão
-          aceita depositada em repositório pode aparecer se tiver licença clara, PDF acessível e DOI
-          confirmado; ela será identificada como cópia de repositório. Nas áreas pertinentes também
-          buscamos documentos técnicos da NASA e publicações do USGS, exigindo catálogo
-          institucional, permissão pública declarada e PDF acessível. A checagem técnica não prova a
-          verdade das conclusões.
+          Artigos acadêmicos só aparecem quando o DOI é confirmado no Crossref e o texto integral
+          pode ser lido publicamente, com acesso testado pelo servidor. A licença de reutilização é
+          mostrada quando o catálogo a informa; sua ausência não impede a leitura, mas também não
+          autoriza copiar ou republicar o documento. Uma versão aceita depositada em repositório
+          pode aparecer com PDF acessível e DOI confirmado; ela será identificada como cópia de
+          repositório. Nas áreas pertinentes também buscamos documentos técnicos da NASA e
+          publicações do USGS, exigindo catálogo institucional, permissão pública declarada e PDF
+          acessível. A checagem técnica não prova a verdade das conclusões.
         </p>
         <div className="research-source-chips">
           <span>OpenAlex + Crossref · artigos OA e DOI</span>
@@ -508,13 +509,13 @@ export default function PublicResearch() {
               </select>
             </label>
             <span className="strict-filter">
-              <Check size={14} /> Filtro obrigatório: catálogo e direitos claros + texto integral
-              testado
+              <Check size={14} /> Filtro obrigatório: procedência + leitura pública testada
             </span>
           </div>
           <p className="research-coverage-note">
-            A busca consulta catálogos públicos. Só exibimos referências que passam pelas
-            verificações automáticas de procedência, direitos e acesso livre.
+            A busca consulta catálogos públicos. Só exibimos referências com procedência conferida e
+            leitura integral pública testada. Direito de leitura e licença para reutilização são
+            coisas diferentes.
           </p>
           <small className="research-privacy">
             O termo de busca é enviado aos provedores públicos selecionados para obter resultados.
@@ -576,7 +577,7 @@ export default function PublicResearch() {
             const diagnostic =
               provider.reason ??
               (provider.provider === 'OpenAlex' && provider.status === 'ok' && provider.count === 0
-                ? 'OpenAlex respondeu, mas nenhum registro passou por todas as verificações de DOI, licença aberta, versão elegível e texto integral acessível.'
+                ? 'OpenAlex respondeu, mas nenhum registro passou pelas verificações de DOI, versão elegível e texto integral público acessível.'
                 : provider.provider === 'OpenAIRE' && provider.status === 'ok'
                   ? 'OpenAIRE agrega registros de várias bases, incluindo outras consultadas aqui. É usado somente para descoberta; seus registros não contam como confirmações independentes.'
                   : undefined);
@@ -594,7 +595,8 @@ export default function PublicResearch() {
                     {item.verification.corroboratedBy.join(' + ')}
                   </span>
                   <span className="access-badge access-open-access">
-                    Texto integral confirmado · {item.license}
+                    Texto integral confirmado · licença{' '}
+                    {item.license ? `informada: ${item.license}` : 'não informada'}
                   </span>
                   {item.publicationChannel === 'repository' && (
                     <span className="repository-badge">
@@ -670,7 +672,7 @@ export default function PublicResearch() {
               <span>
                 {response.providers.some(provider => provider.status === 'unavailable')
                   ? 'Algumas fontes públicas não responderam agora, então esta busca pode estar incompleta. Tente novamente em alguns minutos ou use termos mais curtos e específicos.'
-                  : 'Os catálogos consultados não permitiram confirmar, nesta busca, licença aberta e acesso ao texto integral. Metadados bibliográficos isolados não são suficientes para exibir uma referência. Experimente termos mais curtos, sinônimos ou um nome próprio relacionado ao tema.'}
+                  : 'Os catálogos consultados não permitiram confirmar, nesta busca, um texto integral de leitura pública e sua procedência. A falta de licença de reutilização, por si só, não exclui um documento que pode ser lido publicamente. Metadados bibliográficos isolados não bastam. Experimente termos mais curtos, sinônimos ou um nome próprio relacionado ao tema.'}
               </span>
               <button className="outline-btn" onClick={() => void search()} disabled={loading}>
                 {loading ? <LoaderCircle className="spin" size={15} /> : <RotateCw size={15} />}
@@ -720,18 +722,19 @@ export default function PublicResearch() {
           <h2>Critério do filtro</h2>
           <ol>
             <li>
-              Artigos de periódico: retirar retratações e preprints, exigir licença Creative Commons
-              reconhecida e confirmar o arquivo integral. Quando há DOI, cruzamos OpenAlex ou Europe
-              PMC com Crossref. OpenAIRE ajuda a descobrir artigos de acesso aberto, mas, por
-              agregar outros catálogos, não conta como confirmação independente. Nesta integração, a
-              confirmação do texto completo via Europe PMC exige PMCID, então o ganho de cobertura
-              tende a se concentrar em publicações biomédicas. Registros Crossref sem outra base só
-              entram se a licença declarada e o PDF de versão aceita/publicada forem confirmados
-              diretamente.
+              Artigos de periódico: retirar retratações e preprints, confirmar o DOI no Crossref e
+              testar o acesso público ao arquivo integral. A licença de reutilização é mostrada
+              quando informada, mas não é requisito para oferecer um link de leitura pública. Quando
+              há DOI, cruzamos OpenAlex ou Europe PMC com Crossref. OpenAIRE ajuda a descobrir
+              artigos de acesso aberto, mas, por agregar outros catálogos, não conta como
+              confirmação independente. Nesta integração, a confirmação do texto completo via Europe
+              PMC exige PMCID, então o ganho de cobertura tende a se concentrar em publicações
+              biomédicas. Registros Crossref sem outra base só entram se o PDF de versão
+              aceita/publicada for confirmado diretamente; a licença ausente é sinalizada ao leitor.
             </li>
             <li>
-              NASA STI: aceitar somente distribuição pública, documento liberado, permissão
-              pública/licença registrada e sem material de terceiros não liberado.
+              NASA STI: aceitar somente distribuição pública, documento liberado, permissão pública
+              registrada e sem material de terceiros não liberado.
             </li>
             <li>
               USGS: exigir um registro do Publications Warehouse com autoria atribuída ao USGS e
@@ -739,7 +742,8 @@ export default function PublicResearch() {
             </li>
             <li>
               Abrir o arquivo completo no backend e confirmar resposta, tipo e assinatura PDF/XML.
-              Fontes bloqueadas, sem direitos claros ou com erro ficam fora.
+              Arquivos sem acesso público confirmado ou com erro ficam fora. A licença para cópia e
+              redistribuição continua sujeita às condições do documento original.
             </li>
           </ol>
           <p>

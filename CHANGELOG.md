@@ -2,10 +2,20 @@
 
 Este arquivo registra mudanças percebidas por quem usa a Sala de Calma e Estudo. A seção **Novidades** no site apresenta um resumo em linguagem simples.
 
-## 2026-11-15 — Cartão de trilhas mais legível
+## 2026-11-15 — Dicas de leitura e busca pública mais útil
 
-- O convite para explorar trilhas no Modo aventura agora acompanha as cores do tema selecionado e mantém texto e botão fáceis de ler.
-- O banner da expedição, sua ilustração e os cartões de jornada também acompanham a mesma paleta, sem misturar cores de temas diferentes.
+- Termos técnicos reconhecidos nos textos dos artigos agora têm uma explicação curta ao passar o cursor, focar com o teclado ou tocar no termo. As dicas são opcionais e respeitam a preferência por movimento reduzido.
+- A busca pode indicar um texto integral que o backend conseguiu abrir para leitura, mesmo quando o catálogo não informa licença de reutilização. A tela diferencia claramente leitura pública de permissão para copiar ou republicar.
+- A seleção de paleta passou a colorir também controles e destaques do Modo aventura; o alto contraste continua usando uma combinação própria para leitura.
+- A leitura e a descoberta agora dividem explicações, referências e recomendações em blocos mais claros, facilitando a navegação e a manutenção do projeto.
+
+## 2026-11-15 — Catálogo e leitura em telas pequenas
+
+- Três artigos de Astronomia ampliam o catálogo: tempo de viagem da luz solar, unidade astronômica e origem das estações.
+- Cada artigo lista três referências públicas de organizações diferentes. Eles continuam identificados como aguardando revisão editorial humana; a lista de referências não equivale, por si só, à aprovação para publicação.
+- O total exibido no catálogo continua sendo calculado pelos artigos cadastrados, sem número fixo na interface.
+- Questionários, rodapé e identificação brasileira receberam ajustes para não comprimir texto nem provocar rolagem lateral em celulares estreitos.
+- A marca do Brasil agora usa uma bandeira desenhada em SVG, nítida em qualquer escala e sem depender de imagem remota.
 
 ## 2026-11-15 — Alto contraste mais consistente
 

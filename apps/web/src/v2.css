@@ -3356,10 +3356,10 @@ footer span {
   background:
     radial-gradient(
       ellipse at 80% 48%,
-      color-mix(in srgb, var(--v2-accent) 23%, transparent),
+      color-mix(in srgb, var(--v2-accent) 22%, transparent),
       transparent 23rem
     ),
-    linear-gradient(120deg, var(--v2-hero), var(--v2-page) 70%);
+    linear-gradient(120deg, var(--v2-hero), var(--v2-page) 78%);
   box-shadow: 0 24px 70px rgb(0 0 0 / 18%);
 }
 .adventure-hero-copy {
@@ -3378,7 +3378,7 @@ footer span {
 }
 .adventure-hero h1 {
   margin: 18px 0 14px;
-  color: var(--v2-ink);
+  color: var(--v2-hero-text, var(--v2-ink));
   font:
     600 clamp(37px, 5.2vw, 62px)/1.02 Georgia,
     'Times New Roman',
@@ -3392,7 +3392,7 @@ footer span {
 .adventure-hero-copy > p:not(.adventure-promise) {
   max-width: 54ch;
   margin: 0 0 22px;
-  color: var(--v2-muted);
+  color: var(--v2-hero-copy, var(--v2-muted));
   font-size: 15px;
   line-height: 1.7;
 }
@@ -3406,7 +3406,7 @@ footer span {
   border: 0;
   border-radius: 14px;
   background: var(--v2-highlight);
-  color: var(--v2-highlight-ink);
+  color: var(--v2-highlight-ink, var(--v2-ink));
   font-weight: 750;
   cursor: pointer;
   transition:
@@ -3415,7 +3415,7 @@ footer span {
 }
 .adventure-start-button:hover {
   transform: translateY(-2px);
-  background: var(--v2-highlight-hover);
+  background: var(--v2-highlight-hover, var(--v2-highlight));
 }
 .adventure-start-button:focus-visible,
 .adventure-sidebar :focus-visible {
@@ -3425,7 +3425,7 @@ footer span {
 .adventure-promise {
   max-width: 58ch;
   margin: 14px 0 0;
-  color: var(--v2-muted);
+  color: var(--v2-hero-copy, var(--v2-muted));
   font-size: 11px;
   line-height: 1.6;
 }
@@ -3447,7 +3447,7 @@ footer span {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    color-mix(in srgb, var(--v2-accent) 20%, transparent),
+    color-mix(in srgb, var(--v2-accent) 25%, transparent),
     transparent 70%
   );
   content: '';
@@ -3458,29 +3458,30 @@ footer span {
   aspect-ratio: 1;
   overflow: hidden;
   transform: rotateX(14deg) rotateY(-18deg);
-  border: 1px solid color-mix(in srgb, var(--v2-ink) 30%, transparent);
+  border: 1px solid color-mix(in srgb, var(--v2-accent) 48%, transparent);
   border-radius: 50%;
   background:
-    radial-gradient(
-      ellipse at 27% 30%,
-      color-mix(in srgb, var(--v2-highlight) 66%, transparent),
-      transparent 9%
-    ),
+    radial-gradient(ellipse at 27% 30%, rgb(248 209 145 / 66%), transparent 9%),
     radial-gradient(
       ellipse at 74% 64%,
-      color-mix(in srgb, var(--v2-accent) 80%, var(--v2-page)),
+      color-mix(in srgb, var(--v2-accent) 78%, var(--v2-page)),
       transparent 24%
     ),
     radial-gradient(
       ellipse at 36% 68%,
-      color-mix(in srgb, var(--v2-accent) 90%, var(--v2-page)),
+      color-mix(in srgb, var(--v2-accent) 64%, var(--v2-page)),
       transparent 44%
     ),
-    radial-gradient(circle at 35% 28%, var(--v2-accent), var(--v2-hero) 58%, var(--v2-page) 83%);
+    radial-gradient(
+      circle at 35% 28%,
+      color-mix(in srgb, var(--v2-accent) 52%, white),
+      var(--v2-accent) 58%,
+      color-mix(in srgb, var(--v2-accent) 28%, var(--v2-page)) 83%
+    );
   box-shadow:
     inset -22px -13px 35px rgb(10 10 22 / 68%),
     inset 10px 6px 18px rgb(255 244 218 / 34%),
-    0 0 56px color-mix(in srgb, var(--v2-accent) 25%, transparent);
+    0 0 56px color-mix(in srgb, var(--v2-accent) 28%, transparent);
 }
 .adventure-planet-glow {
   position: absolute;
@@ -3491,10 +3492,10 @@ footer span {
 }
 .adventure-planet-crater {
   position: absolute;
-  border: 1px solid rgb(35 31 65 / 25%);
+  border: 1px solid color-mix(in srgb, var(--v2-page) 32%, transparent);
   border-radius: 50%;
-  background: rgb(49 39 78 / 22%);
-  box-shadow: inset 2px 2px 5px rgb(30 24 57 / 34%);
+  background: color-mix(in srgb, var(--v2-page) 30%, transparent);
+  box-shadow: inset 2px 2px 5px color-mix(in srgb, var(--v2-page) 40%, transparent);
 }
 .crater-one {
   top: 30%;
@@ -3512,14 +3513,14 @@ footer span {
   position: absolute;
   width: 89%;
   height: 36%;
-  border: 1px solid color-mix(in srgb, var(--v2-accent) 46%, transparent);
+  border: 1px solid color-mix(in srgb, var(--v2-accent) 60%, transparent);
   border-radius: 50%;
   transform: rotate(-29deg) rotateX(54deg);
 }
 .adventure-orbit-two {
   width: 70%;
   height: 63%;
-  border-color: color-mix(in srgb, var(--v2-highlight) 38%, transparent);
+  border-color: color-mix(in srgb, var(--v2-highlight) 56%, transparent);
   transform: rotate(46deg) rotateX(62deg);
 }
 .adventure-satellite {
@@ -3530,7 +3531,7 @@ footer span {
   border: 2px solid var(--v2-page);
   border-radius: 50%;
   background: var(--v2-highlight);
-  box-shadow: 0 0 17px color-mix(in srgb, var(--v2-highlight) 55%, transparent);
+  box-shadow: 0 0 17px color-mix(in srgb, var(--v2-highlight) 65%, transparent);
 }
 .satellite-one {
   top: 23%;
@@ -3563,10 +3564,10 @@ footer span {
   align-items: center;
   gap: 7px;
   padding: 9px 11px;
-  border: 1px solid color-mix(in srgb, var(--v2-line) 72%, transparent);
+  border: 1px solid color-mix(in srgb, var(--v2-hero-text, var(--v2-ink)) 24%, transparent);
   border-radius: 12px;
   background: color-mix(in srgb, var(--v2-paper) 88%, transparent);
-  color: var(--v2-ink);
+  color: var(--v2-hero-text, var(--v2-ink));
   font-size: 10px;
   font-weight: 650;
   box-shadow: 0 12px 25px rgb(0 0 0 / 18%);
@@ -3592,13 +3593,13 @@ footer span {
   color: var(--v2-ink);
 }
 .mode-adventure .game-scoreboard {
-  background: var(--v2-soft);
+  background: linear-gradient(110deg, var(--v2-hero), var(--v2-paper));
 }
 .mode-adventure .game-track-card:hover,
 .mode-adventure .game-track-card.is-selected {
   border-color: var(--v2-accent);
-  background: var(--v2-soft);
-  box-shadow: 0 8px 28px color-mix(in srgb, var(--v2-accent) 16%, transparent);
+  background: color-mix(in srgb, var(--v2-accent) 13%, var(--v2-paper));
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--v2-accent) 20%, transparent);
 }
 .mode-adventure .game-track-card:focus-visible,
 .mode-adventure .game-choice:focus-within {
@@ -3609,14 +3610,14 @@ footer span {
   box-shadow: 0 12px 32px rgb(0 0 0 / 16%);
 }
 .mode-adventure .game-choice {
-  background: color-mix(in srgb, var(--v2-paper), var(--v2-soft) 35%);
+  background: var(--v2-page);
   border-color: var(--v2-line);
   color: var(--v2-ink);
 }
 .mode-adventure .game-choice:hover,
 .mode-adventure .game-choice.is-selected {
   border-color: var(--v2-accent);
-  background: var(--v2-soft);
+  background: color-mix(in srgb, var(--v2-accent) 13%, var(--v2-paper));
 }
 .mode-adventure .game-explanation,
 .mode-adventure .game-storage-note {
@@ -3625,10 +3626,6 @@ footer span {
 .mode-adventure .site-footer {
   border-top-color: var(--v2-line);
   color: var(--v2-muted);
-}
-
-.mode-adventure .adventure-start-button:hover {
-  background: var(--v2-highlight-hover);
 }
 
 @media (max-width: 900px) {
@@ -4932,35 +4929,35 @@ footer span {
   resize: vertical;
 }
 .mode-adventure .welcome-adventure {
-  border-color: #8476d1;
+  border-color: var(--v2-accent);
   box-shadow:
-    inset 0 0 0 1px rgb(169 156 255 / 18%),
-    0 15px 38px rgb(18 15 42 / 18%);
+    inset 0 0 0 1px color-mix(in srgb, var(--v2-accent) 22%, transparent),
+    0 15px 38px color-mix(in srgb, var(--v2-page) 70%, transparent);
 }
 .mode-adventure .welcome-adventure .eyebrow {
-  color: #d7ceff;
+  color: var(--v2-accent);
 }
 .mode-adventure .welcome-adventure .primary {
   border-radius: 999px;
 }
 .mode-adventure .welcome-optional-checkin {
-  border-color: #484761;
-  background: rgb(31 34 54 / 86%);
-  color: #f3f0ff;
+  border-color: var(--v2-line);
+  background: color-mix(in srgb, var(--v2-paper) 86%, transparent);
+  color: var(--v2-ink);
 }
 .mode-adventure .welcome-optional-checkin summary,
 .mode-adventure .welcome-optional-checkin .welcome-check-in-prompt {
-  color: #e1dcf8;
+  color: var(--v2-muted);
 }
 .mode-adventure .welcome-optional-checkin textarea {
-  border-color: #555570;
-  background: #191c2c;
-  color: #f4f0ff;
+  border-color: var(--v2-line);
+  background: var(--v2-paper);
+  color: var(--v2-ink);
 }
 .mode-adventure .engagement-hero,
 .mode-adventure .engagement-hero-adventure {
-  border-color: #8074bf;
-  box-shadow: inset 0 0 0 1px rgb(169 156 255 / 14%);
+  border-color: var(--v2-accent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--v2-accent) 18%, transparent);
 }
 
 :where(
@@ -6510,29 +6507,6 @@ footer span {
   --v2-on-accent: #000;
   color-scheme: dark;
 }
-
-/* Preserve readable, theme-aware surfaces for the adventure discovery callout. */
-.shell.mode-adventure .deep-dive {
-  border-color: var(--v2-line);
-  background: var(--v2-paper);
-  color: var(--v2-ink);
-}
-.shell.mode-adventure .deep-dive h3 {
-  color: var(--v2-ink);
-}
-.shell.mode-adventure .deep-dive p,
-.shell.mode-adventure .deep-dive .eyebrow {
-  color: var(--v2-muted);
-}
-.shell.mode-adventure .deep-dive .outline-btn {
-  border-color: var(--v2-line);
-  background: var(--v2-soft);
-  color: var(--v2-ink);
-}
-.shell.mode-adventure .deep-dive .outline-btn:hover {
-  border-color: var(--v2-accent);
-  background: var(--v2-paper);
-}
 .shell.mode-adventure.palette-contrast
   :where(
     .developer-process-hero,
@@ -6580,6 +6554,355 @@ footer span {
   :where(button, a, input, textarea, select, summary):focus-visible {
   outline: 3px solid #ffe066;
   outline-offset: 3px;
+}
+
+/* Artigo e chamadas usam os mesmos tokens do modo escolhido. */
+.shell.mode-adventure .confidence {
+  border-color: var(--v2-line);
+  background: var(--v2-paper);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .confidence-top,
+.shell.mode-adventure .confidence-method summary {
+  color: var(--v2-highlight);
+}
+.shell.mode-adventure .confidence-top b,
+.shell.mode-adventure .confidence > p,
+.shell.mode-adventure .confidence-method,
+.shell.mode-adventure .confidence-method p,
+.shell.mode-adventure .confidence-method li {
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .signals span {
+  border: 1px solid var(--v2-line);
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .deep-dive {
+  border-color: var(--v2-line);
+  background: var(--v2-paper);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .deep-icon {
+  background: var(--v2-soft);
+  color: var(--v2-accent);
+}
+.shell.mode-adventure .deep-dive h3,
+.shell.mode-adventure .deep-dive p {
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .deep-dive .eyebrow {
+  color: var(--v2-muted);
+}
+.shell.mode-adventure .deep-dive .outline-btn {
+  border-color: var(--v2-line);
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .topic-illustration {
+  background: linear-gradient(145deg, var(--v2-soft), var(--v2-warm));
+}
+.shell.mode-adventure .topic-illustration svg > circle:first-child,
+.shell.mode-adventure .topic-illustration svg > circle:nth-child(2),
+.shell.mode-adventure .topic-illustration svg > circle:nth-child(3),
+.shell.mode-adventure .topic-illustration svg > circle:nth-child(4) {
+  fill: var(--v2-ink);
+  opacity: 0.55;
+}
+.shell.mode-adventure .topic-illustration :where(.art-orbit, .art-ring, .art-axis, .art-wave) {
+  stroke: var(--v2-accent);
+}
+.shell.mode-adventure .topic-illustration :where(.art-planet, .art-tablet, .art-dot, .art-sun) {
+  fill: var(--v2-highlight);
+}
+.shell.mode-adventure .topic-illustration :where(.art-moon, .art-core) {
+  fill: var(--v2-accent);
+}
+.shell.mode-adventure .topic-illustration :where(.art-mark, .art-mountain) {
+  stroke: var(--v2-ink);
+  fill: color-mix(in srgb, var(--v2-accent), transparent 55%);
+}
+.shell.mode-adventure .topic-illustration > span {
+  color: var(--v2-ink);
+}
+.shell.mode-adventure.palette-contrast :where(.confidence, .deep-dive) {
+  border-color: #fff;
+  background: #080808;
+  color: #fff;
+}
+.shell.mode-adventure.palette-contrast :where(.confidence *, .deep-dive *) {
+  color: #fff;
+}
+.shell.mode-adventure.palette-contrast :where(.confidence-top b, .confidence-method summary) {
+  color: #ffe066;
+}
+.shell.mode-adventure.palette-contrast .signals span {
+  border-color: #fff;
+  background: #111;
+}
+.shell.mode-adventure.palette-contrast .deep-dive .outline-btn {
+  border-color: #ffe066;
+  background: #ffe066;
+  color: #000;
+}
+.shell.mode-adventure.palette-contrast .topic-illustration {
+  background: linear-gradient(145deg, #080808, #181818);
+}
+.shell.mode-adventure.palette-contrast
+  .topic-illustration
+  :where(.art-orbit, .art-ring, .art-axis, .art-wave, .art-mark) {
+  stroke: #fff;
+}
+.shell.mode-adventure.palette-contrast
+  .topic-illustration
+  :where(.art-planet, .art-tablet, .art-dot, .art-sun) {
+  fill: #ffe066;
+}
+
+/* Conteúdos de trilha acompanham a paleta ativa no modo aventura. */
+.shell.mode-adventure .path-steps button,
+.shell.mode-adventure .forward-topic {
+  border-color: var(--v2-line);
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .path-steps button:hover,
+.shell.mode-adventure .forward-topic:hover {
+  border-color: var(--v2-accent);
+  background: color-mix(in srgb, var(--v2-accent) 14%, var(--v2-soft));
+}
+.shell.mode-adventure .path-steps button > span,
+.shell.mode-adventure .forward-topic > .tiny-icon {
+  background: color-mix(in srgb, var(--v2-accent) 20%, var(--v2-paper));
+  color: var(--v2-accent);
+}
+.shell.mode-adventure .path-steps button svg,
+.shell.mode-adventure .forward-topic > svg {
+  color: var(--v2-accent);
+}
+.shell.mode-adventure .path-note {
+  border-color: var(--v2-line);
+  color: var(--v2-muted);
+}
+.shell.mode-adventure .forward-topic small,
+.shell.mode-adventure .forward-topic em {
+  color: var(--v2-muted);
+}
+.shell.mode-adventure .forward-topic b {
+  color: var(--v2-ink);
+}
+
+/* O destaque roxo só aparece quando a paleta lavanda está selecionada. */
+.shell.mode-adventure .developer-process .developer-process-hero {
+  border-color: var(--v2-line);
+  background: linear-gradient(
+    125deg,
+    var(--v2-hero),
+    color-mix(in srgb, var(--v2-hero) 68%, var(--v2-page))
+  );
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .developer-process .developer-process-hero :where(h1, p, .eyebrow) {
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .developer-process .developer-process-tabs {
+  border-color: var(--v2-line);
+  background: var(--v2-soft);
+}
+.shell.mode-adventure .developer-process .developer-process-tabs button[aria-pressed='true'] {
+  border-color: var(--v2-accent);
+  background: color-mix(in srgb, var(--v2-accent) 18%, var(--v2-paper));
+  color: var(--v2-accent);
+}
+
+/* Mantém os títulos dos tutoriais legíveis sobre os cards escuros. */
+.shell.mode-adventure .tutorial-card > h3,
+.shell.mode-adventure .tutorial-card-body > h3 {
+  color: var(--v2-ink);
+}
+
+/* Termos técnicos explicáveis em artigos: identificáveis sem competir com a leitura. */
+.glossary-term-wrap {
+  position: relative;
+  display: inline;
+}
+.glossary-term {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px dotted var(--v2-accent, #47735d);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  cursor: help;
+}
+.glossary-term:hover,
+.glossary-term[aria-expanded='true'] {
+  color: var(--v2-accent, #47735d);
+}
+.glossary-term:focus-visible {
+  border-radius: 3px;
+  outline: 2px solid var(--v2-highlight, #d7b85c);
+  outline-offset: 3px;
+}
+.glossary-tooltip {
+  position: absolute;
+  z-index: 40;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  width: max-content;
+  max-width: min(360px, 42ch, calc(100vw - 40px));
+  padding: 10px 12px;
+  border: 1px solid var(--v2-line, #d9d7cc);
+  border-radius: 10px;
+  background: var(--v2-paper, #fffdf7);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--v2-ink, #24332b), transparent 82%);
+  color: var(--v2-ink, #24332b);
+  font: 500 0.88rem/1.5 var(--font-sans, system-ui, sans-serif);
+  text-align: left;
+  white-space: normal;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease,
+    visibility 120ms ease;
+  pointer-events: none;
+}
+.glossary-term-wrap:hover .glossary-tooltip,
+.glossary-term:focus-visible + .glossary-tooltip,
+.glossary-term[aria-expanded='true'] + .glossary-tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.glossary-hint {
+  margin: -6px 0 14px !important;
+  color: var(--v2-muted) !important;
+  font-size: 0.78rem !important;
+}
+
+/* Todos os elementos do modo Aventura acompanham a paleta escolhida. */
+.shell.mode-adventure
+  :where(
+    .adventure-mode-switch,
+    .adventure-sidebar .nav-item:hover,
+    .adventure-sidebar .nav-item.active,
+    .adventure-sidebar .daily-card,
+    .adventure-topbar,
+    .demo-badge,
+    .top-actions > button,
+    .learning-mode-picker > summary,
+    .learning-mode-options,
+    .learning-mode-options button,
+    .adventure-hero
+  ) {
+  border-color: var(--v2-line);
+}
+.shell.mode-adventure .adventure-sidebar .nav-item:hover,
+.shell.mode-adventure .adventure-sidebar .nav-item.active,
+.shell.mode-adventure .adventure-sidebar .daily-card,
+.shell.mode-adventure .adventure-mode-switch,
+.shell.mode-adventure .learning-mode-options button:hover {
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .adventure-sidebar .nav-item.active {
+  box-shadow: inset 3px 0 var(--v2-accent);
+}
+.shell.mode-adventure .adventure-mode-switch,
+.shell.mode-adventure .demo-badge,
+.shell.mode-adventure .top-actions > button,
+.shell.mode-adventure .learning-mode-picker > summary,
+.shell.mode-adventure .learning-mode-options,
+.shell.mode-adventure .learning-mode-options button {
+  background: var(--v2-paper);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure
+  :where(
+    .adventure-sidebar .side-label,
+    .adventure-sidebar .nav-item,
+    .adventure-sidebar .daily-card p,
+    .adventure-sidebar .streak,
+    .breadcrumb,
+    .breadcrumb b,
+    .breadcrumb span,
+    .learning-mode-options small
+  ) {
+  color: var(--v2-muted);
+}
+.shell.mode-adventure .adventure-mode-switch:hover,
+.shell.mode-adventure
+  :where(
+    .top-actions > button:hover,
+    .learning-mode-picker > summary:hover,
+    .learning-mode-options button:hover
+  ) {
+  border-color: var(--v2-accent);
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .adventure-hero {
+  border-color: var(--v2-line);
+  background:
+    radial-gradient(
+      ellipse at 80% 48%,
+      color-mix(in srgb, var(--v2-accent), transparent 78%),
+      transparent 23rem
+    ),
+    linear-gradient(120deg, var(--v2-hero), var(--v2-page) 78%);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .adventure-hero :where(h1, p:not(.adventure-promise), .adventure-kicker) {
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .adventure-hero h1 em {
+  color: var(--v2-highlight);
+}
+.shell.mode-adventure.palette-contrast
+  :where(
+    .adventure-sidebar .nav-item:hover,
+    .adventure-sidebar .nav-item.active,
+    .adventure-sidebar .daily-card,
+    .adventure-mode-switch,
+    .demo-badge,
+    .top-actions > button,
+    .learning-mode-picker > summary,
+    .learning-mode-options,
+    .learning-mode-options button,
+    .adventure-hero
+  ) {
+  border-color: #fff;
+  background: #080808;
+  color: #fff;
+}
+.shell.mode-adventure.palette-contrast .adventure-sidebar .nav-item.active {
+  box-shadow: inset 3px 0 #ffe066;
+}
+.shell.mode-adventure.palette-contrast
+  .adventure-hero
+  :where(h1, p:not(.adventure-promise), .adventure-kicker) {
+  color: #fff;
+}
+.shell.mode-adventure.palette-contrast .adventure-hero h1 em {
+  color: #ffe066;
+}
+@media (prefers-reduced-motion: reduce) {
+  .glossary-tooltip {
+    transition: none;
+  }
+}
+@media (max-width: 600px) {
+  .glossary-tooltip {
+    max-width: min(300px, calc(100vw - 32px));
+    font-size: 0.84rem;
+  }
 }
 .shell.mode-adventure
   :where(
@@ -7101,21 +7424,34 @@ footer span {
 
 /* Identidade própria para aventura e origem brasileira em destaque na descoberta. */
 .mode-adventure .discovery-welcome {
-  border-color: #6658a3;
+  border-color: var(--v2-line);
   background:
-    radial-gradient(circle at 78% 52%, rgb(166 145 255 / 19%) 0 2px, transparent 3px),
-    radial-gradient(circle at 85% 36%, rgb(255 211 121 / 58%) 0 4px, transparent 5px),
-    linear-gradient(120deg, #171a31 0%, #292547 58%, #3a315a 100%);
+    radial-gradient(
+      circle at 78% 52%,
+      color-mix(in srgb, var(--v2-accent) 30%, transparent) 0 2px,
+      transparent 3px
+    ),
+    radial-gradient(
+      circle at 85% 36%,
+      color-mix(in srgb, var(--v2-highlight) 72%, transparent) 0 4px,
+      transparent 5px
+    ),
+    linear-gradient(
+      120deg,
+      var(--v2-hero) 0%,
+      color-mix(in srgb, var(--v2-hero) 72%, var(--v2-page)) 58%,
+      var(--v2-page) 100%
+    );
 }
 .mode-adventure .discovery-welcome::before {
-  border-color: rgb(196 184 255 / 43%);
+  border-color: color-mix(in srgb, var(--v2-accent) 52%, transparent);
   box-shadow:
-    0 0 0 26px rgb(173 155 255 / 8%),
-    0 0 0 72px rgb(173 155 255 / 6%);
+    0 0 0 26px color-mix(in srgb, var(--v2-accent) 10%, transparent),
+    0 0 0 72px color-mix(in srgb, var(--v2-accent) 7%, transparent);
 }
 .mode-adventure .discovery-welcome::after {
-  border-color: rgb(211 198 255 / 48%);
-  box-shadow: 0 0 58px rgb(163 145 255 / 24%);
+  border-color: color-mix(in srgb, var(--v2-accent) 58%, transparent);
+  box-shadow: 0 0 58px color-mix(in srgb, var(--v2-accent) 28%, transparent);
 }
 .brazil-origin {
   position: relative;
@@ -7134,21 +7470,20 @@ footer span {
 }
 .brazil-origin-mark {
   display: grid;
-  flex: 0 0 42px;
-  width: 42px;
-  height: 42px;
+  flex: 0 0 54px;
+  width: 54px;
+  height: 38px;
   place-items: center;
-  border: 1px solid rgb(255 222 126 / 55%);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at center, #2453a4 0 17%, transparent 18%),
-    linear-gradient(45deg, transparent 35%, #f2c94c 36% 64%, transparent 65%), #168454;
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: 0.04em;
-  text-shadow: 0 1px 3px rgb(0 0 0 / 60%);
-  box-shadow: 0 0 0 4px rgb(255 255 255 / 7%);
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 55%);
+  border-radius: 5px;
+  background: #009739;
+  box-shadow: 0 0 0 3px rgb(255 255 255 / 7%);
+}
+.brazil-origin-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 .brazil-origin > span:last-child {
   display: grid;
@@ -7488,6 +7823,108 @@ footer span {
   .research-source-list > li a {
     grid-column: 2;
     justify-self: start;
+  }
+}
+
+/* Ajustes finais de reflow para telas pequenas e zoom elevado. */
+@media (max-width: 700px) {
+  .site-footer {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-left: max(16px, env(safe-area-inset-left));
+  }
+
+  .site-footer > :where(.footer-motto, .creator-credit, .footer-links, .footer-demo) {
+    box-sizing: border-box;
+    grid-column: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .site-footer .creator-credit {
+    max-width: 600px;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .site-footer .footer-links {
+    justify-content: center;
+  }
+
+  .brazil-origin {
+    box-sizing: border-box;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .knowledge-assessment,
+  .game-panel,
+  .game-question,
+  .assessment-question {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .assessment-question legend {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr);
+    align-items: start;
+    gap: 8px;
+  }
+
+  .assessment-question-number {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .assessment-question-prompt {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%;
+  }
+
+  .assessment-choice,
+  .game-choice {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .knowledge-assessment-heading {
+    align-items: flex-start;
+  }
+
+  .assessment-best {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 380px) {
+  .site-footer {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .site-footer .footer-motto {
+    flex-wrap: wrap;
+    gap: 6px 9px;
+  }
+
+  .brazil-origin {
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .brazil-origin-mark {
+    flex-basis: 46px;
+    width: 46px;
+    height: 32px;
   }
 }
 

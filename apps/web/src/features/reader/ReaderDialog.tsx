@@ -4,11 +4,9 @@ import {
   ArrowRight,
   Bookmark,
   BookOpen,
-  Clock3,
   History,
   Lightbulb,
   Share2,
-  ShieldCheck,
   Shuffle,
   Volume2,
   VolumeX,
@@ -17,8 +15,6 @@ import {
 import { expandedReading } from '@calmandstudy/content/expanded';
 import {
   buildTopicAssessment,
-  confidenceMethod,
-  editorialPublishingPolicy,
   suggestedNextTopicIds,
   topics,
   type Topic,
@@ -26,11 +22,12 @@ import {
 import { CheckedSourceLinks, RecommendedBefore, type VerifiableSource } from './ReaderSupport';
 import { TopicArtwork } from '../topics/TopicArtwork';
 import { ArticleExercises } from './ArticleExercises';
-import { ContentLikeButton } from '../engagement/ContentLikeButton';
 import type { EngagementItem } from '../engagement/types';
-import { ReadStatusButton } from './ReadStatusButton';
 import { KnowledgeAssessment } from '../assessment/KnowledgeAssessment';
 import { areaToneStyle } from '../shared/areaTone';
+import { GlossaryText } from './GlossaryText';
+import { EditorialConfidencePanel } from './EditorialConfidencePanel';
+import { ReaderArticleMeta } from './ReaderArticleMeta';
 type ReaderDialogProps = {
   topic: Topic;
   saved: boolean;
@@ -243,7 +240,12 @@ function ReaderDialogView({
             {current.period}
           </div>
           <h1>{current.title}</h1>
-          <p className="reader-dek">{current.summary}</p>
+          <p className="reader-dek">
+            <GlossaryText>{current.summary}</GlossaryText>
+          </p>
+          <p className="glossary-hint">
+            Termos sublinhados têm explicações rápidas: passe o cursor ou toque neles.
+          </p>
           <div className="reader-audio">
             <button
               className="outline-btn"
@@ -262,127 +264,28 @@ function ReaderDialogView({
           </div>
           <RecommendedBefore topic={current} onOpen={onOpenTopic} />
           <TopicArtwork topic={current} mode="reader" />
-          <div className="reader-stats">
-            <span>
-              <Clock3 size={15} />
-              {current.readingTime} min de leitura
-            </span>
-            <span>
-              <ShieldCheck size={15} />
-              {current.editorial?.status === 'published' && current.editorial.assessment
-                ? `Índice editorial: ${current.editorial.assessment.score}%`
-                : 'Verificação editorial pendente'}
-            </span>
-          </div>
-          <div className="reader-engagement-actions">
-            <ReadStatusButton read={read} onToggle={onToggleRead} />
-            <ContentLikeButton
-              item={engagement}
-              disabled={!engagementAvailable}
-              onClick={onToggleLike}
-            />
-          </div>
-          <div className="confidence">
-            <div className="confidence-top">
-              <span>
-                <ShieldCheck size={17} />{' '}
-                {current.editorial?.status === 'published'
-                  ? 'Revisão editorial publicada'
-                  : 'Verificação editorial pendente'}
-              </span>
-              <b>
-                {current.editorial?.status === 'published' && current.editorial.assessment
-                  ? `${current.editorial.assessment.score}%`
-                  : 'Ainda sem nota'}
-              </b>
-            </div>
-            {current.editorial?.status === 'published' && current.editorial.assessment ? (
-              <progress
-                className="meter"
-                max={100}
-                value={current.editorial.assessment.score}
-                aria-label="Pontuação da revisão editorial"
-              />
-            ) : null}
-            <p>
-              {current.editorial?.status === 'published' && current.editorial.assessment
-                ? current.editorial.assessment.rationale
-                : 'Este artigo ainda não passou pelo padrão editorial de publicação da Sala de Calma e Estudo. As fontes listadas no catálogo antigo não foram auditadas uma a uma; por isso, não mostramos uma porcentagem como se fosse verificada.'}
-            </p>
-            <div className="signals">
-              <span>
-                • Para publicação, cada afirmação precisa de pelo menos três fontes confirmatórias
-                de grupos editoriais independentes
-              </span>
-              <span>
-                {current.editorial?.status === 'published'
-                  ? '• As afirmações e os trechos de evidência estão apresentados abaixo'
-                  : '• Também conferimos texto integral aberto, ausência de paywall e acesso recente'}
-              </span>
-              <span>
-                • Confira as fontes originais e considere o contexto e as ressalvas do texto
-              </span>
-              <span>• Situação editorial: {current.confidenceLabel}</span>
-            </div>
-            {current.editorial?.status === 'published' && current.editorial.assessment ? (
-              <details className="confidence-method">
-                <summary>Metodologia e limitações</summary>
-                <p>
-                  {current.editorial.assessment.method}: cobertura{' '}
-                  {current.editorial.assessment.dimensions.claimCoverage}/100; qualidade da
-                  evidência {current.editorial.assessment.dimensions.evidenceQuality}/100;
-                  independência {current.editorial.assessment.dimensions.sourceIndependence}/100;
-                  concordância {current.editorial.assessment.dimensions.sourceAgreement}/100;
-                  atualidade {current.editorial.assessment.dimensions.timeliness}/100; transparência
-                  das incertezas {current.editorial.assessment.dimensions.uncertaintyDisclosure}
-                  /100.
-                </p>
-                <p>{current.editorial.assessment.limitations.join(' ')}</p>
-                <p>
-                  Revisado por {current.editorial.reviewedBy} em {current.editorial.reviewedAt}.
-                </p>
-              </details>
-            ) : (
-              <details className="confidence-method">
-                <summary>Regra de publicação e cálculo</summary>
-                <p>
-                  {editorialPublishingPolicy.explanation} A nota é um indicador da qualidade da
-                  documentação, não a probabilidade matemática de o artigo estar correto. Só
-                  exibimos o índice após a revisão humana registrada.
-                </p>
-                <ul>
-                  {Object.entries(confidenceMethod.weights).map(([dimension, weight]) => (
-                    <li key={dimension}>
-                      {dimension === 'claimCoverage'
-                        ? 'Cobertura das afirmações'
-                        : dimension === 'evidenceQuality'
-                          ? 'Qualidade da evidência'
-                          : dimension === 'sourceIndependence'
-                            ? 'Independência das fontes'
-                            : dimension === 'sourceAgreement'
-                              ? 'Concordância entre fontes'
-                              : dimension === 'timeliness'
-                                ? 'Atualidade'
-                                : 'Transparência das incertezas'}{' '}
-                      · {weight}%
-                    </li>
-                  ))}
-                </ul>
-                <p>
-                  Cada dimensão recebe nota de 0 a 100. Somamos cada nota multiplicada pelo peso e
-                  dividimos por 100; o resultado é arredondado para o inteiro mais próximo. A
-                  publicação exige pelo menos 80/100, as três fontes por afirmação e revisão humana.
-                </p>
-              </details>
-            )}
-          </div>
+          <ReaderArticleMeta
+            topic={current}
+            read={read}
+            onToggleRead={onToggleRead}
+            engagement={engagement}
+            engagementAvailable={engagementAvailable}
+            onToggleLike={onToggleLike}
+          />
+          <EditorialConfidencePanel topic={current} />
           <h2>A descoberta</h2>
-          <p className="fact">{current.fact}</p>
-          <p>{current.detail}</p>
+          <p className="fact">
+            <GlossaryText>{current.fact}</GlossaryText>
+          </p>
+          <p>
+            <GlossaryText>{current.detail}</GlossaryText>
+          </p>
           {expandedReading[current.id]?.map(section => (
             <section className="expanded-section" key={section.title}>
               <h2>{section.title}</h2>
-              <p>{section.body}</p>
+              <p>
+                <GlossaryText>{section.body}</GlossaryText>
+              </p>
             </section>
           ))}
           {current.editorial?.status === 'published' && (
