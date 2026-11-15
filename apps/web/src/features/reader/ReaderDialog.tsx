@@ -307,7 +307,7 @@ function ReaderDialogView({
             <p>
               {current.editorial?.status === 'published' && current.editorial.assessment
                 ? current.editorial.assessment.rationale
-                : 'Este artigo ainda não passou pelo padrão editorial de publicação da Calm & Study. As fontes listadas no catálogo antigo não foram auditadas uma a uma; por isso, não mostramos uma porcentagem como se fosse verificada.'}
+                : 'Este artigo ainda não passou pelo padrão editorial de publicação da Sala de Calma e Estudo. As fontes listadas no catálogo antigo não foram auditadas uma a uma; por isso, não mostramos uma porcentagem como se fosse verificada.'}
             </p>
             <div className="signals">
               <span>

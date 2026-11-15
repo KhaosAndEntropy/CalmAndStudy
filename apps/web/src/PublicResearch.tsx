@@ -13,6 +13,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import type { ResearchResult, ResearchResponse } from '../../../packages/research/src/index';
+import { topics, type Topic } from '@calmandstudy/content';
 import { fields as catalogueFields } from '../../../packages/content/src/fields';
 import {
   postSubmission,
@@ -28,6 +29,40 @@ const MAX_SAVED_RESULTS = 100;
 const MAX_SAVED_BYTES = 500_000;
 const UUID = /^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}$/i;
 
+function getSourceHost(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return 'Endereço não identificado';
+  }
+}
+
+function estimateDocumentation(topic: Topic): {
+  score: number;
+  hosts: string[];
+  sourcePoints: number;
+  diversityPoints: number;
+  evidencePoints: number;
+  reviewPoints: number;
+} {
+  const hosts = [...new Set(topic.sources.map(source => getSourceHost(source.url)))];
+  const sourcePoints = Math.round(Math.min(topic.sources.length / 3, 1) * 40);
+  const diversityPoints = Math.round(Math.min(hosts.length / 3, 1) * 25);
+  const claimCount = topic.editorial?.claims.length ?? 0;
+  const mappedClaims =
+    topic.editorial?.claims.filter(claim => claim.evidence.length > 0).length ?? 0;
+  const evidencePoints = claimCount ? Math.round((mappedClaims / claimCount) * 25) : 0;
+  const reviewPoints = topic.editorial?.reviewedBy && topic.editorial.reviewedAt ? 10 : 0;
+  return {
+    score: Math.min(100, sourcePoints + diversityPoints + evidencePoints + reviewPoints),
+    hosts,
+    sourcePoints,
+    diversityPoints,
+    evidencePoints,
+    reviewPoints,
+  };
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
@@ -36,9 +71,14 @@ function isSavedResult(value: unknown): value is ResearchResult {
   if (!isRecord(value) || typeof value.id !== 'string' || value.id.length > 300) return false;
   const verification = value.verification;
   if (
-    !['OpenAlex', 'Crossref', 'Europe PMC', 'NASA STI', 'USGS Publications Warehouse'].includes(
-      String(value.provider),
-    ) ||
+    ![
+      'OpenAlex',
+      'OpenAIRE',
+      'Crossref',
+      'Europe PMC',
+      'NASA STI',
+      'USGS Publications Warehouse',
+    ].includes(String(value.provider)) ||
     typeof value.title !== 'string' ||
     value.title.length > 500 ||
     typeof value.url !== 'string' ||
@@ -113,8 +153,9 @@ function loadPending(): SubmissionRequest | null {
 }
 
 export default function PublicResearch() {
-  const [query, setQuery] = useState('');
-  const [field, setField] = useState('História');
+  const [selectedTopicId, setSelectedTopicId] = useState(topics[0]?.id ?? '');
+  const [query, setQuery] = useState(topics[0]?.title ?? '');
+  const [field, setField] = useState(topics[0]?.field ?? 'História');
   const [response, setResponse] = useState<ResearchResponse | null>(null);
   const [saved, setSaved] = useState<ResearchResult[]>(loadSaved);
   const [loading, setLoading] = useState(false);
@@ -139,6 +180,8 @@ export default function PublicResearch() {
     }
   }, [pending]);
   const results = useMemo(() => response?.results ?? [], [response]);
+  const selectedTopic = topics.find(topic => topic.id === selectedTopicId) ?? topics[0];
+  const documentation = selectedTopic ? estimateDocumentation(selectedTopic) : undefined;
 
   const search = async (event?: FormEvent) => {
     event?.preventDefault();
@@ -270,52 +313,215 @@ export default function PublicResearch() {
         </p>
         <div className="research-source-chips">
           <span>OpenAlex + Crossref · artigos OA e DOI</span>
+          <span>OpenAIRE · índice agregador para descoberta, não confirmação independente</span>
           <span>Europe PMC · biomédicas</span>
           <span>NASA STI · documentos com direitos públicos registrados</span>
           <span>USGS · publicações com autoria institucional</span>
         </div>
       </header>
 
-      <form className="research-search" onSubmit={search} aria-busy={loading}>
-        <label htmlFor="public-research-query">O que você quer investigar?</label>
-        <div className="research-search-row">
-          <Search size={17} />
-          <input
-            id="public-research-query"
-            value={query}
-            onChange={event => setQuery(event.target.value)}
-            placeholder="Opcional: ex. circulação da seda na Antiguidade"
-            maxLength={160}
-          />
-          <button className="primary" type="submit" disabled={loading}>
-            {loading ? <LoaderCircle className="spin" size={15} /> : <Search size={15} />}{' '}
-            {loading ? 'Pesquisando' : 'Buscar fontes'}
-          </button>
-        </div>
-        <div className="research-options">
-          <label>
-            Área científica <span className="research-field-count">{fields.length} áreas</span>
-            <select value={field} onChange={event => setField(event.target.value)}>
-              {fields.map(item => (
-                <option key={item}>{item}</option>
+      {selectedTopic && documentation && (
+        <section className="research-topic-explorer" aria-labelledby="research-topic-title">
+          <div className="research-topic-picker">
+            <label htmlFor="research-topic-select">Escolha um artigo do catálogo</label>
+            <select
+              id="research-topic-select"
+              value={selectedTopic.id}
+              onChange={event => {
+                const topic = topics.find(item => item.id === event.target.value);
+                setSelectedTopicId(event.target.value);
+                if (topic) {
+                  setQuery(topic.title);
+                  setField(fields.includes(topic.field) ? topic.field : (fields[0] ?? 'História'));
+                  setError('');
+                }
+              }}
+            >
+              {topics.map(topic => (
+                <option key={topic.id} value={topic.id}>
+                  {topic.title} · {topic.field}
+                </option>
               ))}
             </select>
-          </label>
-          <span className="strict-filter">
-            <Check size={14} /> Filtro obrigatório: catálogo e direitos claros + texto integral
-            testado
-          </span>
-        </div>
-        <p className="research-coverage-note">
-          Pesquise um tema específico ou deixe o campo vazio para buscar pela área selecionada.
-          Todas as áreas do catálogo estão disponíveis; só exibimos referências com procedência e
-          acesso livre confirmados automaticamente.
-        </p>
-        <small className="research-privacy">
-          O termo de busca é enviado aos provedores públicos selecionados para obter resultados. Não
-          inclua dados pessoais.
-        </small>
-      </form>
+            <span>{topics.length} artigos disponíveis</span>
+          </div>
+          <div className="research-topic-map">
+            <div className="research-topic-central">
+              <span className="eyebrow">
+                {selectedTopic.field} · {selectedTopic.period}
+              </span>
+              <h2 id="research-topic-title">{selectedTopic.title}</h2>
+              <p>{selectedTopic.fact}</p>
+            </div>
+            <div className="research-evidence-map" aria-label="Mapa de referências do artigo">
+              <div className="research-evidence-heading">
+                <h3>Referências associadas</h3>
+                <span>{selectedTopic.sources.length} links listados</span>
+              </div>
+              {selectedTopic.editorial?.claims.length ? (
+                <section
+                  className="research-claim-map"
+                  aria-label="Afirmações e evidências relacionadas"
+                >
+                  <h4>O que cada referência ajuda a examinar</h4>
+                  <ol>
+                    {selectedTopic.editorial.claims.map(claim => (
+                      <li key={claim.id}>
+                        <b>{claim.text}</b>
+                        <small>
+                          {claim.kind === 'established'
+                            ? 'Conhecimento estabelecido'
+                            : claim.kind === 'interpretation'
+                              ? 'Interpretação'
+                              : claim.kind === 'hypothesis'
+                                ? 'Hipótese'
+                                : 'Tema em debate'}
+                        </small>
+                        {claim.evidence.length ? (
+                          <ul>
+                            {claim.evidence.map((evidence, index) => {
+                              const source = selectedTopic.editorial?.sources.find(
+                                item => item.id === evidence.sourceId,
+                              );
+                              return (
+                                <li key={`${claim.id}-${evidence.sourceId}-${index}`}>
+                                  <span>{source?.title ?? 'Referência editorial'}</span>
+                                  <small>
+                                    {evidence.relation === 'supports'
+                                      ? 'apoia'
+                                      : evidence.relation === 'qualifies'
+                                        ? 'qualifica'
+                                        : 'contradiz'}
+                                    {evidence.locator ? ` · ${evidence.locator}` : ''}
+                                  </small>
+                                  {evidence.excerpt && <q>{evidence.excerpt}</q>}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        ) : (
+                          <span>Sem trecho de evidência associado.</span>
+                        )}
+                        {claim.uncertainty && <p>Limite: {claim.uncertainty}</p>}
+                      </li>
+                    ))}
+                  </ol>
+                </section>
+              ) : (
+                <p className="research-map-empty">
+                  Este artigo ainda não tem afirmações ligadas a trechos específicos das fontes.
+                </p>
+              )}
+              {selectedTopic.sources.length ? (
+                <ol className="research-source-list">
+                  {selectedTopic.sources.map((source, index) => (
+                    <li key={`${source.url}-${index}`}>
+                      <span className="research-evidence-index" aria-hidden="true">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="research-evidence-copy">
+                        <b>{source.name}</b>
+                        <small>
+                          {source.kind} · {getSourceHost(source.url)}
+                        </small>
+                      </span>
+                      <a href={source.url} target="_blank" rel="noopener noreferrer">
+                        Abrir fonte <ExternalLink size={13} aria-hidden="true" />
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p className="research-map-empty">
+                  Este artigo ainda não tem links de referência cadastrados.
+                </p>
+              )}
+              <p className="research-map-limit">
+                O catálogo ainda não liga trechos específicos das fontes a cada afirmação. Os links
+                ajudam a investigar o tema, mas precisam ser abertos e conferidos.
+              </p>
+            </div>
+            <aside className="research-documentation-score" aria-label="Estimativa de documentação">
+              <div>
+                <span className="eyebrow">INDICADOR DE DOCUMENTAÇÃO · ESTIMATIVA</span>
+                <b>
+                  {documentation.score}
+                  <small>/100</small>
+                </b>
+                <p>
+                  Este número mede a cobertura documental cadastrada, não a probabilidade de o
+                  conteúdo ser verdadeiro.
+                </p>
+              </div>
+              <ul>
+                <li>
+                  <span>Referências cadastradas</span>
+                  <b>{documentation.sourcePoints}/40</b>
+                </li>
+                <li>
+                  <span>Sites de origem listados</span>
+                  <b>{documentation.diversityPoints}/25</b>
+                </li>
+                <li>
+                  <span>Evidências ligadas a afirmações</span>
+                  <b>{documentation.evidencePoints}/25</b>
+                </li>
+                <li>
+                  <span>Revisão humana registrada</span>
+                  <b>{documentation.reviewPoints}/10</b>
+                </li>
+              </ul>
+              <small>
+                Sites diferentes não garantem fontes independentes. Este índice não substitui a
+                leitura, a checagem de links nem a revisão editorial.
+              </small>
+            </aside>
+          </div>
+        </section>
+      )}
+
+      <details className="research-search-extra">
+        <summary>Buscar fontes públicas além das referências deste artigo</summary>
+        <form className="research-search" onSubmit={search} aria-busy={loading}>
+          <label htmlFor="public-research-query">Tema para pesquisar nos catálogos</label>
+          <div className="research-search-row">
+            <Search size={17} />
+            <input
+              id="public-research-query"
+              value={query}
+              onChange={event => setQuery(event.target.value)}
+              placeholder="O título do artigo selecionado aparece aqui"
+              maxLength={160}
+            />
+            <button className="primary" type="submit" disabled={loading}>
+              {loading ? <LoaderCircle className="spin" size={15} /> : <Search size={15} />}{' '}
+              {loading ? 'Pesquisando' : 'Buscar fontes'}
+            </button>
+          </div>
+          <div className="research-options">
+            <label>
+              Área científica <span className="research-field-count">{fields.length} áreas</span>
+              <select value={field} onChange={event => setField(event.target.value)}>
+                {fields.map(item => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+            </label>
+            <span className="strict-filter">
+              <Check size={14} /> Filtro obrigatório: catálogo e direitos claros + texto integral
+              testado
+            </span>
+          </div>
+          <p className="research-coverage-note">
+            A busca consulta catálogos públicos. Só exibimos referências que passam pelas
+            verificações automáticas de procedência, direitos e acesso livre.
+          </p>
+          <small className="research-privacy">
+            O termo de busca é enviado aos provedores públicos selecionados para obter resultados.
+            Não inclua dados pessoais.
+          </small>
+        </form>
+      </details>
 
       {notice && (
         <div className="research-notice" role="status" aria-live="polite">
@@ -357,7 +563,9 @@ export default function PublicResearch() {
                 {provider.status === 'ok'
                   ? provider.provider === 'Crossref'
                     ? `${provider.count} metadados bibliográficos`
-                    : `${provider.count} referências validadas`
+                    : provider.provider === 'OpenAIRE'
+                      ? `${provider.count} registros encontrados no índice`
+                      : `${provider.count} referências validadas`
                   : provider.status === 'not-applicable'
                     ? 'fora do escopo desta área'
                     : 'indisponível agora'}
@@ -369,7 +577,9 @@ export default function PublicResearch() {
               provider.reason ??
               (provider.provider === 'OpenAlex' && provider.status === 'ok' && provider.count === 0
                 ? 'OpenAlex respondeu, mas nenhum registro passou por todas as verificações de DOI, licença aberta, versão elegível e texto integral acessível.'
-                : undefined);
+                : provider.provider === 'OpenAIRE' && provider.status === 'ok'
+                  ? 'OpenAIRE agrega registros de várias bases, incluindo outras consultadas aqui. É usado somente para descoberta; seus registros não contam como confirmações independentes.'
+                  : undefined);
             return diagnostic ? (
               <p className="provider-diagnostic" key={`${provider.provider}-diagnostic`}>
                 <b>{provider.provider}:</b> {diagnostic}
@@ -511,9 +721,13 @@ export default function PublicResearch() {
           <ol>
             <li>
               Artigos de periódico: retirar retratações e preprints, exigir licença Creative Commons
-              reconhecida e confirmar o arquivo integral. Quando há DOI, cruzamos os catálogos
-              OpenAlex/Europe PMC e Crossref; registros Crossref sem uma segunda base só entram se a
-              licença declarada e o PDF de versão aceita/publicada forem confirmados diretamente.
+              reconhecida e confirmar o arquivo integral. Quando há DOI, cruzamos OpenAlex ou Europe
+              PMC com Crossref. OpenAIRE ajuda a descobrir artigos de acesso aberto, mas, por
+              agregar outros catálogos, não conta como confirmação independente. Nesta integração, a
+              confirmação do texto completo via Europe PMC exige PMCID, então o ganho de cobertura
+              tende a se concentrar em publicações biomédicas. Registros Crossref sem outra base só
+              entram se a licença declarada e o PDF de versão aceita/publicada forem confirmados
+              diretamente.
             </li>
             <li>
               NASA STI: aceitar somente distribuição pública, documento liberado, permissão

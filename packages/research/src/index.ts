@@ -1,5 +1,5 @@
 export type ResearchProvider =
-  'OpenAlex' | 'Crossref' | 'Europe PMC' | 'NASA STI' | 'USGS Publications Warehouse';
+  'OpenAlex' | 'OpenAIRE' | 'Crossref' | 'Europe PMC' | 'NASA STI' | 'USGS Publications Warehouse';
 export type ResearchAccess = 'open-access' | 'metadata-only' | 'unknown';
 
 export interface ResearchResult {
@@ -57,10 +57,11 @@ type ResearchCandidate = Omit<ResearchResult, 'verification'> & {
 
 const API_HEADERS = {
   Accept: 'application/json',
-  'User-Agent': 'Calm & StudyEducation/0.1 (public-source research)',
+  'User-Agent': 'Sala de Calma e Estudo/0.1 (public-source research)',
 };
 const MAX_RESULTS_PER_PROVIDER = 6;
 const OPENALEX_RESULTS_PER_PAGE = 40;
+const OPENAIRE_RESULTS_PER_PAGE = 20;
 const TIMEOUT_MS = 8000;
 const FULL_TEXT_TIMEOUT_MS = 4500;
 const MAX_PROVIDER_RESPONSE_BYTES = 2_000_000;
@@ -162,7 +163,7 @@ function abstractFromIndex(index?: Record<string, number[]> | null): string | un
 }
 
 function parseYear(value: unknown): number | undefined {
-  const year = Number(value);
+  const year = Number(typeof value === 'string' ? value.match(/^\d{4}/)?.[0] : value);
   return Number.isFinite(year) && year >= 1000 && year <= 3000 ? year : undefined;
 }
 
@@ -198,6 +199,7 @@ function normalizeDoi(value: unknown): string | undefined {
 async function getJson<T>(url: URL, headers: HeadersInit = {}): Promise<T> {
   const allowedHosts = new Set([
     'api.openalex.org',
+    'api.openaire.eu',
     'api.crossref.org',
     'www.ebi.ac.uk',
     'ntrs.nasa.gov',
@@ -485,6 +487,87 @@ async function searchEuropePmc(query: string): Promise<ResearchCandidate[]> {
         note: 'Texto completo open access de Europe PMC; o DOI foi cruzado com Crossref e o XML integral conferido pelo backend. Isso confirma metadados e acesso, não a verdade de cada afirmação.',
       };
     });
+}
+
+async function searchOpenAire(query: string): Promise<ResearchCandidate[]> {
+  const url = new URL('https://api.openaire.eu/graph/v4/research-products');
+  url.searchParams.set('search', query);
+  url.searchParams.set(
+    'filter',
+    'type:publication,is_peer_reviewed:true,best_oa.rights:Open Access,has_license:true,has_doi:true',
+  );
+  url.searchParams.set('page_size', String(OPENAIRE_RESULTS_PER_PAGE));
+  url.searchParams.set(
+    'select',
+    'mainTitle,authors,publicationDate,container,instances,pids,isPeerReviewed,impact',
+  );
+  const data = await getJson<{ results?: Array<Record<string, any>> }>(url);
+  return (data.results ?? []).flatMap(work => {
+    if (typeof work.mainTitle !== 'string' || work.isPeerReviewed !== true) return [];
+    const doi = normalizeDoi(
+      (work.pids ?? []).find((pid: any) => String(pid?.scheme).toLowerCase() === 'doi')?.value,
+    );
+    if (!doi) return [];
+
+    const openInstance = (work.instances ?? []).find((instance: any) => {
+      const access = String(instance?.accessRight?.label ?? '').toLowerCase();
+      const type = String(instance?.type ?? '').toLowerCase();
+      const refereed = String(instance?.refereed ?? '').toUpperCase();
+      return (
+        (access === 'open' || access === 'open access') &&
+        type === 'article' &&
+        refereed !== 'FALSE' &&
+        Boolean(normalizeOpenLicense(instance?.license))
+      );
+    });
+    if (!openInstance) return [];
+
+    const ids = [
+      ...(Array.isArray(work.pids) ? work.pids : []),
+      ...(Array.isArray(openInstance.pids) ? openInstance.pids : []),
+    ];
+    const pmcid = ids
+      .map((pid: any) => String(pid?.value ?? ''))
+      .concat((openInstance.urls ?? []).map((entry: any) => String(entry?.url ?? entry ?? '')))
+      .map(value => value.match(/PMC\d+/i)?.[0]?.toUpperCase())
+      .find(Boolean);
+    // Only retrieve full text through the known Europe PMC API endpoint; never
+    // fetch arbitrary repository URLs supplied by an aggregated index.
+    if (!pmcid) return [];
+
+    const license = normalizeOpenLicense(openInstance.license);
+    if (!license) return [];
+    const authors = Array.isArray(work.authors)
+      ? work.authors
+          .slice(0, 5)
+          .map((author: any) => String(author?.fullName ?? '').trim())
+          .filter(Boolean)
+      : [];
+    const venue = String(work.container?.name ?? '').trim() || undefined;
+    return [
+      {
+        id: `openaire:${doi}`,
+        provider: 'OpenAIRE',
+        title: work.mainTitle,
+        authors,
+        year: parseYear(work.publicationDate),
+        venue,
+        publicationType: 'journal-article',
+        publicationChannel: 'journal',
+        publicationVersion: 'published',
+        doi,
+        url: `https://europepmc.org/articles/${pmcid}`,
+        access: 'open-access',
+        license,
+        citations: Number.isFinite(work.impact?.citationCount)
+          ? work.impact.citationCount
+          : undefined,
+        verificationUrl: `https://www.ebi.ac.uk/europepmc/webservices/rest/${pmcid}/fullTextXML`,
+        verificationKind: 'xml',
+        note: 'Encontrado pelo índice OpenAIRE, que agrega registros de diferentes catálogos. A indicação de revisão por pares, o DOI no Crossref, a licença declarada e o XML integral foram conferidos; OpenAIRE não é contado como confirmação independente nem como prova de veracidade.',
+      },
+    ];
+  });
 }
 
 function ntrsFileUrl(value: unknown): string | undefined {
@@ -858,6 +941,7 @@ async function handleResearchRequestBody(
       run: () => searchOpenAlex(query, options.openAlexApiKey),
     },
     { provider: 'Crossref', applicable: true, run: () => searchCrossref(query) },
+    { provider: 'OpenAIRE', applicable: true, run: () => searchOpenAire(query) },
     { provider: 'Europe PMC', applicable: isBiomedical(field), run: () => searchEuropePmc(query) },
     { provider: 'NASA STI', applicable: isNasaRelevant(field), run: () => searchNasaSti(query) },
     {
@@ -897,6 +981,7 @@ async function handleResearchRequestBody(
   );
   const openAlex = settled.find(result => result.job.provider === 'OpenAlex')?.results ?? [];
   const crossref = settled.find(result => result.job.provider === 'Crossref')?.results ?? [];
+  const openAire = settled.find(result => result.job.provider === 'OpenAIRE')?.results ?? [];
   const europePmc = settled.find(result => result.job.provider === 'Europe PMC')?.results ?? [];
   const nasaSti = settled.find(result => result.job.provider === 'NASA STI')?.results ?? [];
   const usgs =
@@ -907,15 +992,17 @@ async function handleResearchRequestBody(
       .map(item => normalizeDoi(item.doi))
       .filter((doi): doi is string => Boolean(doi)),
   );
-  const openAlexDois = [
+  const discoveryDois = [
     ...new Set(
-      openAlex.map(item => normalizeDoi(item.doi)).filter((doi): doi is string => Boolean(doi)),
+      [...openAlex, ...openAire]
+        .map(item => normalizeDoi(item.doi))
+        .filter((doi): doi is string => Boolean(doi)),
     ),
   ]
     .filter(doi => !crossrefDois.has(doi))
     .slice(0, MAX_CANDIDATES_TO_VERIFY);
-  const exactCrossrefMatches = await Promise.all(openAlexDois.map(crossrefConfirmsDoi));
-  openAlexDois.forEach((doi, index) => {
+  const exactCrossrefMatches = await Promise.all(discoveryDois.map(crossrefConfirmsDoi));
+  discoveryDois.forEach((doi, index) => {
     if (exactCrossrefMatches[index]) crossrefDois.add(doi);
   });
   const candidates: ResearchCandidate[] = [
@@ -925,6 +1012,9 @@ async function handleResearchRequestBody(
     ...europePmc
       .filter(item => normalizeDoi(item.doi) && crossrefDois.has(normalizeDoi(item.doi)!))
       .slice(0, 3),
+    ...openAire
+      .filter(item => normalizeDoi(item.doi) && crossrefDois.has(normalizeDoi(item.doi)!))
+      .slice(0, 2),
     ...crossref
       .filter(item => item.access === 'open-access' && item.license && item.verificationUrl)
       .slice(0, 3),
@@ -939,13 +1029,19 @@ async function handleResearchRequestBody(
       );
       if (!check.ok || check.status === undefined || !check.mediaType) return undefined;
       const needsHumanPage =
-        candidate.provider === 'Europe PMC' || candidate.provider === 'NASA STI';
+        candidate.provider === 'Europe PMC' ||
+        candidate.provider === 'OpenAIRE' ||
+        candidate.provider === 'NASA STI';
       const humanPageCheck = needsHumanPage ? await checkHumanPage(candidate.url) : undefined;
       if (needsHumanPage && !humanPageCheck?.ok) return undefined;
       const bibliographicProvider =
         candidate.provider === 'OpenAlex' || candidate.provider === 'Europe PMC';
       const corroboratedBy = new Set<string>(
-        bibliographicProvider ? [candidate.provider, 'Crossref'] : [candidate.provider],
+        candidate.provider === 'OpenAIRE'
+          ? ['Crossref']
+          : bibliographicProvider
+            ? [candidate.provider, 'Crossref']
+            : [candidate.provider],
       );
       const checks = [
         ...(bibliographicProvider
@@ -957,11 +1053,13 @@ async function handleResearchRequestBody(
             : `OpenAlex identifica versão ${candidate.publicationVersion === 'accepted' ? 'aceita' : 'publicada'} em periódico e licença ${candidate.license}. O DOI foi confirmado no Crossref.`
           : candidate.provider === 'Europe PMC'
             ? `Europe PMC classifica o registro como open access, com PMCID e licença ${candidate.license}.`
-            : candidate.provider === 'NASA STI'
-              ? `NASA STI registra distribuição pública, documento integral e direitos de uso; a página do registro respondeu HTTP ${humanPageCheck?.status}.`
-              : candidate.provider === 'USGS Publications Warehouse'
-                ? 'O catálogo oficial do USGS registra autoria da instituição e disponibiliza o documento.'
-                : `Crossref registra licença ${candidate.license} e versão aceita/publicada; o link do texto integral foi aberto pelo backend.`,
+            : candidate.provider === 'OpenAIRE'
+              ? `OpenAIRE encontrou o registro e indica revisão por pares e acesso aberto. Por ser um índice agregador, não conta como fonte independente. O DOI foi confirmado no Crossref e a licença ${candidate.license} e o XML integral foram conferidos.`
+              : candidate.provider === 'NASA STI'
+                ? `NASA STI registra distribuição pública, documento integral e direitos de uso; a página do registro respondeu HTTP ${humanPageCheck?.status}.`
+                : candidate.provider === 'USGS Publications Warehouse'
+                  ? 'O catálogo oficial do USGS registra autoria da instituição e disponibiliza o documento.'
+                  : `Crossref registra licença ${candidate.license} e versão aceita/publicada; o link do texto integral foi aberto pelo backend.`,
         candidate.verificationKind === 'xml'
           ? `Texto integral XML respondeu HTTP ${check.status} (${check.mediaType}) e a página de leitura HTTP ${humanPageCheck?.status}.`
           : `PDF respondeu HTTP ${check.status}, tipo ${check.mediaType}, com assinatura %PDF- confirmada.`,
@@ -1022,7 +1120,9 @@ async function handleResearchRequestBody(
       count:
         result.job.provider === 'Crossref'
           ? crossrefDois.size
-          : ranked.filter(item => item.provider === result.job.provider).length,
+          : result.job.provider === 'OpenAIRE'
+            ? result.status.count
+            : ranked.filter(item => item.provider === result.job.provider).length,
     })),
     notice:
       'Artigos de periódico só aparecem se não estiverem retratados, tiverem DOI cruzado em bases bibliográficas, licença aberta identificada e texto integral acessível. Relatórios institucionais NASA/USGS ficam identificados separadamente e exigem registro público oficial, direitos adequados conforme os metadados/política institucional e PDF integral aberto. Estas verificações confirmam catálogo, procedência declarada e acesso, não a veracidade de cada afirmação nem fontes independentes. Leia o documento, confira método, dados, exceções de copyright, correções e outras evidências antes de concluir.',
@@ -1065,7 +1165,7 @@ async function handleLinkCheck(request: Request): Promise<Response> {
           method: 'HEAD',
           redirect: 'manual',
           signal: AbortSignal.timeout(3500),
-          headers: { 'User-Agent': 'Calm & StudyEducation/0.1 (+https://calmandstudy.pages.dev)' },
+          headers: { 'User-Agent': 'Sala de Calma e Estudo/0.1 (+https://calmandstudy.pages.dev)' },
         });
         if (response.status === 405 || response.status === 501) {
           await response.body?.cancel();
@@ -1075,7 +1175,7 @@ async function handleLinkCheck(request: Request): Promise<Response> {
             signal: AbortSignal.timeout(3500),
             headers: {
               Range: 'bytes=0-0',
-              'User-Agent': 'Calm & StudyEducation/0.1 (+https://calmandstudy.pages.dev)',
+              'User-Agent': 'Sala de Calma e Estudo/0.1 (+https://calmandstudy.pages.dev)',
             },
           });
         }
@@ -1098,7 +1198,7 @@ async function handleLinkCheck(request: Request): Promise<Response> {
             redirect: 'manual',
             signal: AbortSignal.timeout(3500),
             headers: {
-              'User-Agent': 'Calm & StudyEducation/0.1 (+https://calmandstudy.pages.dev)',
+              'User-Agent': 'Sala de Calma e Estudo/0.1 (+https://calmandstudy.pages.dev)',
             },
           });
           redirects++;

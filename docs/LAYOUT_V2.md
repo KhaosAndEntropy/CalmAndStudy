@@ -1,6 +1,6 @@
 # Direção visual v2
 
-A branch `v2` apresenta uma alternativa visual para a Calm & Study, mantendo o catálogo, a pesquisa de fontes e os fluxos existentes.
+A branch `v2` apresenta uma alternativa visual para a Sala de Calma e Estudo, mantendo o catálogo, a pesquisa de fontes e os fluxos existentes.
 
 ## Ideia de design
 

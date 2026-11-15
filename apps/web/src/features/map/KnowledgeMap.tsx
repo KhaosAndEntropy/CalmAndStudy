@@ -14,6 +14,7 @@ import { studyPaths, suggestedNextTopicIds, type Topic } from '@calmandstudy/con
 type KnowledgeMapProps = {
   topics: Topic[];
   onOpenTopic: (topic: Topic) => void;
+  mode?: 'calm' | 'adventure';
 };
 
 type MapEdge = { from: string; to: string; kind: 'trilha' | 'tema relacionado' };
@@ -40,7 +41,8 @@ function buildEdges(topics: Topic[]): MapEdge[] {
   return [...edges.values()];
 }
 
-export function KnowledgeMap({ topics, onOpenTopic }: KnowledgeMapProps) {
+export function KnowledgeMap({ topics, onOpenTopic, mode = 'calm' }: KnowledgeMapProps) {
+  const adventure = mode === 'adventure';
   const [query, setQuery] = useState('');
   const [area, setArea] = useState('Todas');
   const [selectedId, setSelectedId] = useState('');
@@ -112,12 +114,18 @@ export function KnowledgeMap({ topics, onOpenTopic }: KnowledgeMapProps) {
     <section className="knowledge-map-page" aria-labelledby="knowledge-map-title">
       <header className="knowledge-map-heading">
         <div className="eyebrow">
-          <Network size={15} aria-hidden="true" /> MAPA DE ASSUNTOS
+          <Network size={15} aria-hidden="true" />{' '}
+          {adventure ? 'MAPA DA EXPEDIÇÃO' : 'MAPA DE ASSUNTOS'}
         </div>
-        <h1 id="knowledge-map-title">Veja como as ideias se encontram.</h1>
+        <h1 id="knowledge-map-title">
+          {adventure
+            ? 'Trace seu próximo caminho de descoberta.'
+            : 'Veja como as ideias se encontram.'}
+        </h1>
         <p>
-          Escolha um assunto para descobrir o que pode ajudar antes, qual é o próximo passo e quais
-          temas conversam com ele.
+          {adventure
+            ? 'Escolha um ponto de partida e siga a rota. A árvore e o grafo mostram outros caminhos para explorar, sem perder seu lugar.'
+            : 'Escolha um assunto para descobrir o que pode ajudar antes, qual é o próximo passo e quais temas conversam com ele.'}
         </p>
       </header>
 
@@ -164,8 +172,14 @@ export function KnowledgeMap({ topics, onOpenTopic }: KnowledgeMapProps) {
 
       <div className="knowledge-map-view-control">
         <div>
-          <b>Escolha como explorar as conexões</b>
-          <span>Veja uma sequência de leitura, uma árvore de relações ou o grafo completo.</span>
+          <b>
+            {adventure ? 'Escolha como explorar a expedição' : 'Escolha como explorar as conexões'}
+          </b>
+          <span>
+            {adventure
+              ? 'Siga uma rota, abra ramificações ou veja a constelação completa de assuntos.'
+              : 'Veja uma sequência de leitura, uma árvore de relações ou o grafo completo.'}
+          </span>
         </div>
         <div className="knowledge-map-view-options" role="group" aria-label="Formato das conexões">
           <button

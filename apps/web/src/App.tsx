@@ -7,12 +7,14 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type FormEvent,
 } from 'react';
 import {
   AppearancePanel,
   type AppearancePreferenceKey,
 } from './features/preferences/AppearancePanel';
+import { useAmbientSoundscape } from './features/preferences/useAmbientSoundscape';
 import { type VerifiableSource } from './features/reader/ReaderSupport';
 import { DiscoveryScreen } from './features/discovery/DiscoveryScreen';
 import type { TopicSuggestion, TopicSuggestionDraft } from './features/suggestions/types';
@@ -40,6 +42,7 @@ import {
   Settings2,
   Shuffle,
   Sparkles,
+  Workflow,
   X,
 } from 'lucide-react';
 import {
@@ -71,6 +74,11 @@ import './features/map/knowledge-map.css';
 import { useEngagement } from './features/engagement/useEngagement';
 
 const PublicResearch = lazy(() => import('./PublicResearch'));
+const DeveloperProcessPage = lazy(() =>
+  import('./features/developers/DeveloperProcessPage').then(module => ({
+    default: module.DeveloperProcessPage,
+  })),
+);
 const ReaderDialog = lazy(() =>
   import('./features/reader/ReaderDialog').then(module => ({ default: module.ReaderDialog })),
 );
@@ -102,6 +110,9 @@ const EngagementDashboard = lazy(() =>
     default: module.EngagementDashboard,
   })),
 );
+const SupportPage = lazy(() =>
+  import('./features/support/SupportPage').then(module => ({ default: module.SupportPage })),
+);
 const KnowledgeMap = lazy(() =>
   import('./features/map/KnowledgeMap').then(module => ({ default: module.KnowledgeMap })),
 );
@@ -116,11 +127,23 @@ function PageLoading() {
 
 const releaseNotes = [
   [
+    'Uma forma opcional de apoiar o projeto',
+    'Se a Sala de Calma e Estudo foi útil, agora é possível contribuir por Pix. O apoio é voluntário; todo o conteúdo continua gratuito e aberto, sem vantagens ou cobranças.',
+  ],
+  [
+    'Um lugar de estudo com identidade brasileira',
+    'Os banners agora apresentam caminhos próprios para estudar com calma ou explorar em modo aventura. A página inicial também celebra a origem brasileira do projeto e quem o criou.',
+  ],
+  [
+    'O Modo aventura ganhou uma expedição própria',
+    'Uma nova navegação reúne descobertas, trilhas, tutoriais e conquistas em uma jornada mais interativa. Os artigos e o cuidado com as fontes continuam iguais; você pode trocar de ritmo quando quiser.',
+  ],
+  [
     'Dois jeitos de aprender e uma pausa com carinho',
     'Escolha entre Estudo calmo e Modo aventura. O check-in é opcional, e um lembrete discreto pode sugerir uma pausa depois de um tempo de navegação ativa. As escolhas pessoais não são enviadas.',
   ],
   [
-    'Agora é mais fácil participar da Calm & Study',
+    'Agora é mais fácil participar da Sala de Calma e Estudo',
     'O projeto está aberto a contribuições educativas, correções e melhorias. Toda proposta é revisada antes de entrar no catálogo.',
   ],
   [
@@ -129,7 +152,7 @@ const releaseNotes = [
   ],
   [
     'Um banner mais realista para dar boas-vindas',
-    'A página inicial agora recebe uma imagem fotográfica criada para a Calm & Study, com objetos de leitura e descoberta e uma área escura que preserva a leitura do texto.',
+    'A página inicial agora recebe uma imagem fotográfica criada para a Sala de Calma e Estudo, com objetos de leitura e descoberta e uma área escura que preserva a leitura do texto.',
   ],
   [
     'As questões das trilhas voltaram a ficar alinhadas',
@@ -149,19 +172,19 @@ const releaseNotes = [
   ],
   [
     'Tutoriais e trilhas mais fáceis de acompanhar',
-    'Agora você pode buscar por assunto e filtrar por área nas duas seções. Os tutoriais têm capas fotográficas ilustrativas, permitem rever a etapa final e guardam um check no card quando você conclui cada atividade. A apresentação e o rodapé também identificam quem criou e desenvolveu a Calm & Study.',
+    'Agora você pode buscar por assunto e filtrar por área nas duas seções. Os tutoriais têm capas fotográficas ilustrativas, permitem rever a etapa final e guardam um check no card quando você conclui cada atividade. A apresentação e o rodapé também identificam quem criou e desenvolveu a Sala de Calma e Estudo.',
   ],
   [
     'Mais fácil instalar e explorar o catálogo',
-    'A opção para instalar a Calm & Study como app ficou mais clara, os artigos passaram a carregar em pequenos lotes e o atalho de sugestão sai da frente do link “Sobre a Calm & Study” quando você chega ao rodapé no celular.',
+    'A opção para instalar a Sala de Calma e Estudo como app ficou mais clara, os artigos passaram a carregar em pequenos lotes e o atalho de sugestão sai da frente do link “Sobre a Sala de Calma e Estudo” quando você chega ao rodapé no celular.',
   ],
   [
-    'A Calm & Study fica mais acessível',
+    'A Sala de Calma e Estudo fica mais acessível',
     'Ficou mais confortável navegar pelo teclado, ampliar o conteúdo e usar os controles com tecnologias assistivas.',
   ],
   [
     'Uma apresentação para quem chega',
-    'Na primeira visita, uma mensagem explica a proposta da Calm & Study, as formas de explorar os assuntos e como consultar as referências. Ela pode ser aberta novamente pelo link “Sobre a Calm & Study”, no rodapé.',
+    'Na primeira visita, uma mensagem explica a proposta da Sala de Calma e Estudo, as formas de explorar os assuntos e como consultar as referências. Ela pode ser aberta novamente pelo link “Sobre a Sala de Calma e Estudo”, no rodapé.',
   ],
   [
     'Ilustrações para todos os artigos',
@@ -189,11 +212,11 @@ const releaseNotes = [
   ],
   [
     'Fontes públicas, com transparência',
-    'A Calm & Study explicita o compromisso de priorizar informações sustentadas por fontes públicas e rastreáveis. A checagem automática informa se um link respondeu; não comprova, sozinha, a qualidade da evidência nem a ausência de paywall.',
+    'A Sala de Calma e Estudo explicita o compromisso de priorizar informações sustentadas por fontes públicas e rastreáveis. A checagem automática informa se um link respondeu; não comprova, sozinha, a qualidade da evidência nem a ausência de paywall.',
   ],
   [
     'Ícones para navegador e celular',
-    'O site agora usa o símbolo da Calm & Study na aba do navegador e oferece ícones adequados para adicionar um atalho à tela inicial do celular.',
+    'O site agora usa o símbolo da Sala de Calma e Estudo na aba do navegador e oferece ícones adequados para adicionar um atalho à tela inicial do celular.',
   ],
   [
     'O leitor mantém os controles sempre visíveis',
@@ -205,7 +228,7 @@ const releaseNotes = [
   ],
   [
     'Uma saída simples da biblioteca',
-    'A tela de Salvos ganhou um botão para voltar às descobertas, e o botão voltar do celular agora navega entre as seções da Calm & Study.',
+    'A tela de Salvos ganhou um botão para voltar às descobertas, e o botão voltar do celular agora navega entre as seções da Sala de Calma e Estudo.',
   ],
   [
     'Leitura mais suave e no seu ritmo',
@@ -221,7 +244,7 @@ const ReleaseNotes = () => {
     <section className="updates-page" aria-labelledby="updates-title">
       <header className="updates-intro">
         <div className="eyebrow">
-          <Newspaper size={14} aria-hidden="true" /> NOVIDADES DA CALM & STUDY
+          <Newspaper size={14} aria-hidden="true" /> NOVIDADES DA SALA DE CALMA E ESTUDO
         </div>
         <h1 id="updates-title">Novidades por aqui.</h1>
         <p>
@@ -296,7 +319,7 @@ const AcknowledgementsPage = () => (
       <div className="eyebrow">
         <HeartHandshake size={14} aria-hidden="true" /> COM A AJUDA DE QUEM USA
       </div>
-      <h1 id="acknowledgements-title">A Calm & Study cresce em comunidade.</h1>
+      <h1 id="acknowledgements-title">A Sala de Calma e Estudo cresce em comunidade.</h1>
       <p>
         Um espaço para reconhecer as pessoas que ajudam a melhorar o produto com ideias, observações
         e feedbacks.
@@ -320,7 +343,9 @@ const AcknowledgementsPage = () => (
           <HeartHandshake size={22} aria-hidden="true" />
         </span>
         <h2>Obrigado a quem compartilha feedback.</h2>
-        <p>Suas observações ajudam a deixar a Calm & Study mais clara, útil e acolhedora.</p>
+        <p>
+          Suas observações ajudam a deixar a Sala de Calma e Estudo mais clara, útil e acolhedora.
+        </p>
         <small>
           Os nomes aparecerão aqui somente com autorização. Ainda não há pessoas listadas.
         </small>
@@ -389,7 +414,7 @@ function oneOf(...allowed: string[]) {
   return (value: unknown): value is string => typeof value === 'string' && allowed.includes(value);
 }
 
-const isPalette = oneOf('sage', 'lavender', 'ocean', 'peach', 'night');
+const isPalette = oneOf('sage', 'lavender', 'ocean', 'peach', 'paper', 'night', 'contrast');
 const isLayout = oneOf('comfortable', 'compact', 'visual');
 const isFont = oneOf('sans', 'serif', 'rounded');
 const isFontSize = oneOf('small', 'normal', 'large');
@@ -398,7 +423,7 @@ const welcomeStorageKey = 'calmandstudy-welcome-seen-v2';
 const welcomeTourStops: WelcomeTourStop[] = [
   {
     section: 'Navegação',
-    title: 'Este é o mapa da Calm & Study',
+    title: 'Este é o mapa da Sala de Calma e Estudo',
     description:
       'Use o menu para alternar entre descobertas, pesquisa, trilhas, tutoriais e outras áreas. O passeio vai visitar cada uma delas.',
     target: '.sidebar nav',
@@ -514,7 +539,7 @@ const welcomeTourStops: WelcomeTourStop[] = [
   {
     section: 'Novidades',
     title: 'Acompanhe as melhorias',
-    description: 'Esta seção reúne as mudanças e atualizações feitas na Calm & Study.',
+    description: 'Esta seção reúne as mudanças e atualizações feitas na Sala de Calma e Estudo.',
     target: '.updates-list',
   },
   {
@@ -528,20 +553,20 @@ const welcomeTourStops: WelcomeTourStop[] = [
     section: 'Direitos e transparência',
     title: 'Entenda fontes, imagens e licenças',
     description:
-      'Veja como a Calm & Study diferencia referências, conteúdo editorial, ilustrações de IA e direitos de reutilização.',
+      'Veja como a Sala de Calma e Estudo diferencia referências, conteúdo editorial, ilustrações de IA e direitos de reutilização.',
     target: '.content-policy-page',
   },
   {
-    section: 'Aparência',
+    section: 'Acessibilidade',
     title: 'Ajuste o espaço ao seu gosto',
     description:
-      'Escolha paleta, layout, família e tamanho da fonte. Você também pode ligar o indicador de progresso de leitura.',
+      'Escolha temas de cor, organização e tamanho do texto. Se quiser, ative um ambiente sonoro suave; tudo começa opcional e pode ser desligado.',
     target: '#appearance-panel .pref-group',
     action: 'appearance',
   },
   {
     section: 'Instalação',
-    title: 'Leve a Calm & Study para a tela inicial',
+    title: 'Leve a Sala de Calma e Estudo para a tela inicial',
     description:
       'A versão web pode ser instalada como PWA pelo navegador. As instruções variam um pouco entre celular e computador.',
     target: '.install-dialog',
@@ -652,6 +677,7 @@ export default function App() {
     false,
     isBoolean,
   );
+  const ambientSound = useAmbientSoundscape();
   useEffect(() => {
     const timer = window.setInterval(() => {
       if (document.visibilityState !== 'visible') return;
@@ -1024,6 +1050,67 @@ export default function App() {
     setActive(destination);
     window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   };
+  const navigationGroups =
+    learningMode === 'adventure'
+      ? [
+          {
+            title: 'SUA EXPEDIÇÃO',
+            items: [
+              ['Jornada', Gamepad2],
+              ['Descobrir', Compass],
+              ['Trilhas de estudo', History],
+              ['Tutoriais', GraduationCap],
+            ],
+          },
+          {
+            title: 'MAPA E CONQUISTAS',
+            items: [
+              ['Mapa de assuntos', Network],
+              ['Salvos', Bookmark],
+              ['Estatísticas', BarChart3],
+            ],
+          },
+          {
+            title: 'BASTIDORES DA EXPEDIÇÃO',
+            items: [
+              ['Pesquisar fontes', BookOpen],
+              ['Novidades', Newspaper],
+              ['Direitos e transparência', Scale],
+              ['Agradecimentos', HeartHandshake],
+              ['Apoiar o projeto', HeartHandshake],
+              ['Processo do projeto', Workflow],
+            ],
+          },
+        ]
+      : [
+          {
+            title: 'APRENDER',
+            items: [
+              ['Descobrir', Compass],
+              ['Trilhas de estudo', History],
+              ['Tutoriais', GraduationCap],
+            ],
+          },
+          {
+            title: 'EXPLORAR',
+            items: [
+              ['Mapa de assuntos', Network],
+              ['Pesquisar fontes', BookOpen],
+              ['Estatísticas', BarChart3],
+            ],
+          },
+          { title: 'MINHA BIBLIOTECA', items: [['Salvos', Bookmark]] },
+          {
+            title: 'SOBRE O PROJETO',
+            items: [
+              ['Novidades', Newspaper],
+              ['Agradecimentos', HeartHandshake],
+              ['Apoiar o projeto', HeartHandshake],
+              ['Direitos e transparência', Scale],
+              ['Processo do projeto', Workflow],
+            ],
+          },
+        ];
   const setTourSection = (label: string) => {
     setActive(label);
     setMobileMenuOpen(false);
@@ -1142,11 +1229,11 @@ export default function App() {
     };
   }, [mobileMenuOpen]);
   const activeDialogTitle = welcomeOpen
-    ? 'Conheça a proposta da Calm & Study'
+    ? 'Conheça a proposta da Sala de Calma e Estudo'
     : welcomeTourIndex !== null
-      ? 'Tour interativo da Calm & Study'
+      ? 'Tour interativo da Sala de Calma e Estudo'
       : installDialogOpen
-        ? 'Instale a Calm & Study no seu dispositivo'
+        ? 'Instale a Sala de Calma e Estudo no seu dispositivo'
         : suggestionOpen
           ? suggestionDraft.kind === 'review'
             ? 'Sugerir revisão do artigo'
@@ -1165,11 +1252,27 @@ export default function App() {
     <div
       className={`shell palette-${palette} layout-${layout} type-${font} size-${fontSize} mode-${learningMode}${welcomeTourIndex !== null ? ' tour-mode' : ''}`}
     >
+      {ambientSound.mode === 'rain' && (
+        <div className="ambient-rain-visual" aria-hidden="true">
+          {Array.from({ length: 9 }, (_, index) => (
+            <i
+              key={index}
+              style={
+                {
+                  left: `${index * 11}%`,
+                  top: `${index * 12}%`,
+                  animationDelay: `${index * -0.37}s`,
+                } as CSSProperties
+              }
+            />
+          ))}
+        </div>
+      )}
       <a className="skip-link" href="#conteudo">
         Pular para o conteúdo principal
       </a>
       <aside
-        className={`sidebar ${mobileMenuOpen ? 'sidebar-open' : ''}`}
+        className={`sidebar ${learningMode === 'adventure' ? 'adventure-sidebar' : ''} ${mobileMenuOpen ? 'sidebar-open' : ''}`}
         aria-label="Menu principal"
       >
         <button
@@ -1182,7 +1285,7 @@ export default function App() {
         <a
           className="brand"
           href="#conteudo"
-          aria-label="Calm & Study, ir para a página inicial"
+          aria-label="Sala de Calma e Estudo, ir para a página inicial"
           onClick={() => {
             setActive('Descobrir');
             setSelected(null);
@@ -1192,64 +1295,66 @@ export default function App() {
           <span className="brand-mark">
             <Sparkles size={19} aria-hidden="true" />
           </span>
-          <span aria-hidden="true">
-            calmandstudy<span className="brand-dot">.</span>
+          <span className="brand-copy">
+            <span className="brand-wordmark" aria-hidden="true">
+              Sala de
+              <strong>
+                Calma e Estudo<span className="brand-dot">.</span>
+              </strong>
+            </span>
+            {learningMode === 'adventure' && <small>Modo aventura</small>}
           </span>
         </a>
         <nav id="main-navigation" aria-label="Navegação principal">
-          {[
-            {
-              title: 'APRENDER',
-              items: [
-                ['Descobrir', Compass],
-                ['Trilhas de estudo', History],
-                ['Tutoriais', GraduationCap],
-                ['Jornada', Gamepad2],
-              ],
-            },
-            {
-              title: 'EXPLORAR',
-              items: [
-                ['Mapa de assuntos', Network],
-                ['Pesquisar fontes', BookOpen],
-                ['Estatísticas', BarChart3],
-              ],
-            },
-            { title: 'MINHA BIBLIOTECA', items: [['Salvos', Bookmark]] },
-            {
-              title: 'SOBRE O PROJETO',
-              items: [
-                ['Novidades', Newspaper],
-                ['Agradecimentos', HeartHandshake],
-                ['Direitos e transparência', Scale],
-              ],
-            },
-          ].map(group => (
+          {navigationGroups.map(group => (
             <section className="nav-group" key={group.title} aria-label={group.title}>
               <div className="side-label">{group.title}</div>
-              {group.items.map(([label, Icon]: any) => (
-                <button
-                  key={label}
-                  className={`nav-item ${active === label ? 'active' : ''}`}
-                  aria-current={active === label ? 'page' : undefined}
-                  onClick={() => selectSection(label)}
-                >
-                  <Icon size={18} aria-hidden="true" />
-                  {label}
-                  {label === 'Salvos' && saved.length > 0 && (
-                    <span className="count" aria-label={`${saved.length} itens salvos`}>
-                      {saved.length}
-                    </span>
-                  )}
-                </button>
-              ))}
+              {group.items.map(([label, Icon]: any) => {
+                const adventureLabels: Record<string, string> = {
+                  Jornada: 'Jornada',
+                  Descobrir: 'Descobertas',
+                  'Trilhas de estudo': 'Rotas de estudo',
+                  Tutoriais: 'Missões práticas',
+                  'Mapa de assuntos': 'Mapa da expedição',
+                  Salvos: 'Coleção',
+                  Estatísticas: 'Conquistas',
+                  'Pesquisar fontes': 'Fontes para conferir',
+                  Novidades: 'Diário de bordo',
+                  'Direitos e transparência': 'Regras e transparência',
+                  Agradecimentos: 'Comunidade da expedição',
+                  'Apoiar o projeto': 'Apoiar a expedição',
+                  'Processo do projeto': 'Como a expedição nasceu',
+                };
+                const visibleLabel =
+                  learningMode === 'adventure' ? (adventureLabels[label] ?? label) : label;
+                return (
+                  <button
+                    key={label}
+                    className={`nav-item ${active === label ? 'active' : ''}`}
+                    aria-current={active === label ? 'page' : undefined}
+                    onClick={() => selectSection(label)}
+                  >
+                    <Icon size={18} aria-hidden="true" />
+                    {visibleLabel}
+                    {label === 'Salvos' && saved.length > 0 && (
+                      <span className="count" aria-label={`${saved.length} itens salvos`}>
+                        {saved.length}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
             </section>
           ))}
           <section className="nav-group nav-tools" aria-label="Acesso rápido">
-            <div className="side-label">ACESSO RÁPIDO</div>
+            <div className="side-label">
+              {learningMode === 'adventure' ? 'ATALHOS DA EXPEDIÇÃO' : 'ACESSO RÁPIDO'}
+            </div>
             <button className="nav-item install-nav-item" onClick={openInstallDialog}>
               <Download size={18} aria-hidden="true" />
-              Instalar a Calm & Study
+              {learningMode === 'adventure'
+                ? 'Levar a expedição comigo'
+                : 'Instalar a Sala de Calma e Estudo'}
             </button>
           </section>
         </nav>
@@ -1261,8 +1366,14 @@ export default function App() {
               setMobileMenuOpen(false);
             }}
           >
-            <Lightbulb size={15} aria-hidden="true" /> Sugerir um tema
+            <Lightbulb size={15} aria-hidden="true" />
+            {learningMode === 'adventure' ? 'Sugerir uma nova missão' : 'Sugerir um tema'}
           </button>
+          {learningMode === 'adventure' && (
+            <button className="adventure-mode-switch" onClick={() => changeLearningMode('calm')}>
+              <BookOpen size={16} aria-hidden="true" /> Trocar para estudo calmo
+            </button>
+          )}
           <div className="daily-card">
             <span className="tiny-icon">
               <Lightbulb size={16} aria-hidden="true" />
@@ -1290,7 +1401,7 @@ export default function App() {
         />
       )}
       <main className="main" id="conteudo" tabIndex={-1} aria-label="Conteúdo principal">
-        <header className="topbar">
+        <header className={`topbar ${learningMode === 'adventure' ? 'adventure-topbar' : ''}`}>
           <button
             id="mobile-menu-toggle"
             className="mobile-menu icon-btn"
@@ -1306,7 +1417,7 @@ export default function App() {
             )}
           </button>
           <nav className="breadcrumb" aria-label="Você está em">
-            <span>Calm & Study</span>
+            <span>{learningMode === 'adventure' ? 'Expedição' : 'Sala'}</span>
             <span aria-hidden="true">/</span>
             <b aria-current="page">{active}</b>
           </nav>
@@ -1315,7 +1426,7 @@ export default function App() {
             <LearningModePicker mode={learningMode} onChange={changeLearningMode} />
             <button
               className="install-trigger"
-              aria-label="Instalar a Calm & Study como aplicativo"
+              aria-label="Instalar a Sala de Calma e Estudo como aplicativo"
               onClick={openInstallDialog}
             >
               <Download size={16} aria-hidden="true" />
@@ -1327,13 +1438,13 @@ export default function App() {
             </button>
             <button
               className={`appearance-trigger ${showAppearance ? 'opened' : ''}`}
-              aria-label="Personalizar aparência"
+              aria-label="Acessibilidade e conforto de leitura"
               aria-controls="appearance-panel"
               aria-expanded={showAppearance}
               onClick={() => setShowAppearance(!showAppearance)}
             >
               <Settings2 size={16} aria-hidden="true" />
-              <span>Aparência</span>
+              <span>Acessibilidade</span>
             </button>
           </div>
           {showAppearance && (
@@ -1343,7 +1454,12 @@ export default function App() {
               font={font}
               fontSize={fontSize}
               readingProgress={readingProgress}
+              ambientMode={ambientSound.mode}
+              ambientVolume={ambientSound.volume}
+              ambientAvailable={ambientSound.available}
               onChange={applyPreference}
+              onAmbientModeChange={ambientSound.setMode}
+              onAmbientVolumeChange={ambientSound.setVolume}
               onClose={() => setShowAppearance(false)}
             />
           )}
@@ -1351,14 +1467,19 @@ export default function App() {
         <Suspense fallback={<PageLoading />}>
           {active === 'Novidades' ? (
             <ReleaseNotes />
+          ) : active === 'Apoiar o projeto' ? (
+            <SupportPage />
           ) : active === 'Agradecimentos' ? (
             <AcknowledgementsPage />
           ) : active === 'Direitos e transparência' ? (
             <ContentPolicyPage />
+          ) : active === 'Processo do projeto' ? (
+            <DeveloperProcessPage mode={learningMode} />
           ) : active === 'Pesquisar fontes' ? (
             <PublicResearch />
           ) : active === 'Estatísticas' ? (
             <EngagementDashboard
+              mode={learningMode}
               topics={topics}
               paths={studyPaths}
               tutorials={tutorials}
@@ -1371,6 +1492,7 @@ export default function App() {
           ) : active === 'Mapa de assuntos' ? (
             <KnowledgeMap
               topics={topics}
+              mode={learningMode}
               onOpenTopic={topic => {
                 setSelected(topic);
                 engagement.trackRead('article', topic.id);
@@ -1378,6 +1500,7 @@ export default function App() {
             />
           ) : active === 'Tutoriais' ? (
             <TutorialsScreen
+              mode={learningMode}
               tutorials={tutorials}
               completedIds={completedTutorials}
               engagementAvailable={engagement.available}
@@ -1394,14 +1517,29 @@ export default function App() {
             <>
               <section className="welcome compact saved-welcome">
                 <div className="eyebrow">
-                  <Bookmark size={14} /> SUA BIBLIOTECA
+                  <Bookmark size={14} />{' '}
+                  {learningMode === 'adventure' ? 'COLEÇÃO DA EXPEDIÇÃO' : 'SUA BIBLIOTECA'}
                 </div>
                 <h1>
-                  Suas descobertas,
-                  <br />
-                  <em>guardadas por aqui.</em>
+                  {learningMode === 'adventure' ? (
+                    <>
+                      Pistas reunidas,
+                      <br />
+                      <em>prontas para a próxima fase.</em>
+                    </>
+                  ) : (
+                    <>
+                      Suas descobertas,
+                      <br />
+                      <em>guardadas por aqui.</em>
+                    </>
+                  )}
                 </h1>
-                <p>Revisite os assuntos que despertaram sua curiosidade.</p>
+                <p>
+                  {learningMode === 'adventure'
+                    ? 'Retome os assuntos que você marcou durante a expedição.'
+                    : 'Revisite os assuntos que despertaram sua curiosidade.'}
+                </p>
                 <button className="outline-btn saved-back" onClick={returnToDiscover}>
                   <ArrowLeft size={15} aria-hidden="true" /> Voltar para descobrir
                 </button>
@@ -1435,6 +1573,7 @@ export default function App() {
             </>
           ) : active === 'Trilhas de estudo' ? (
             <StudyPathsScreen
+              mode={learningMode}
               paths={studyPaths}
               topics={topics}
               onSelectTopic={setSelected}
@@ -1445,6 +1584,7 @@ export default function App() {
             />
           ) : (
             <DiscoveryScreen
+              mode={learningMode}
               topics={topics}
               matchingTopics={matching}
               fields={fields}
@@ -1477,22 +1617,32 @@ export default function App() {
         </Suspense>
         <footer ref={footerRef} className="site-footer">
           <p className="footer-motto">
-            Aprender com calma, no seu ritmo <span aria-hidden="true">✳</span> Conhecimento com
-            contexto
+            Feito para quem quer descobrir <span aria-hidden="true">✳</span> Conhecimento com contexto
           </p>
           <p className="creator-credit">
-            Calm & Study · © {new Date().getFullYear()}. Código sob MIT; textos originais sob CC BY
-            4.0; materiais de terceiros seguem suas próprias licenças e atribuições.
+            Criada e desenvolvida no Brasil por{' '}
+            <a href="https://edststechhub.pages.dev/" target="_blank" rel="noopener noreferrer">
+              <strong>Ednaldo Nicolau dos Santos</strong>
+            </a>
+            . Sala de Calma e Estudo · © {new Date().getFullYear()}. Código sob MIT; textos
+            originais sob CC BY 4.0; materiais de terceiros seguem suas próprias licenças e
+            atribuições.
           </p>
           <nav className="footer-links" aria-label="Informações do projeto">
             <button className="about-link" onClick={() => setWelcomeOpen(true)}>
-              Sobre a Calm & Study
+              Sobre a Sala de Calma e Estudo
             </button>
             <button className="about-link" onClick={() => setActive('Agradecimentos')}>
               Agradecimentos
             </button>
             <button className="about-link" onClick={() => setActive('Direitos e transparência')}>
               Direitos e transparência
+            </button>
+            <button className="about-link" onClick={() => selectSection('Processo do projeto')}>
+              Processo do projeto
+            </button>
+            <button className="about-link" onClick={() => selectSection('Apoiar o projeto')}>
+              Apoiar opcionalmente
             </button>
           </nav>
           <p className="footer-demo">
@@ -1516,7 +1666,8 @@ export default function App() {
             <strong>Uma pausa também faz parte de aprender.</strong>
             <p>
               Esta aba está ativa há um tempinho. Se puder, respire, beba uma água, faça carinho no
-              pet ou mande uma mensagem a alguém querido. Seu bem-estar vem antes da Calm & Study.
+              pet ou mande uma mensagem a alguém querido. Seu bem-estar vem antes da Sala de Calma e
+              Estudo.
             </p>
           </div>
           <div className="screen-break-actions">

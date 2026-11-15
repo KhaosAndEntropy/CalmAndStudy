@@ -19,8 +19,10 @@ import { ContentLikeButton } from '../engagement/ContentLikeButton';
 import { areaToneStyle } from '../shared/areaTone';
 import type { EngagementItem } from '../engagement/types';
 import { ReadStatusButton } from '../reader/ReadStatusButton';
+import type { LearningMode } from '../preferences/learning-mode';
 
 type DiscoveryScreenProps = {
+  mode?: LearningMode;
   topics: Topic[];
   matchingTopics: Topic[];
   fields: string[];
@@ -54,6 +56,7 @@ const fieldIcons = [History, FlaskConical, Sparkles, Lightbulb];
 const topicsPerPage = 6;
 
 export function DiscoveryScreen({
+  mode = 'calm',
   topics,
   matchingTopics,
   fields,
@@ -82,6 +85,7 @@ export function DiscoveryScreen({
   latestUpdate,
   onViewUpdates = () => {},
 }: DiscoveryScreenProps) {
+  const adventure = mode === 'adventure';
   const [visibleCount, setVisibleCount] = useState(topicsPerPage);
   useEffect(() => setVisibleCount(topicsPerPage), [field, query]);
   const hasSearchQuery = query.trim().length > 0;
@@ -93,37 +97,67 @@ export function DiscoveryScreen({
 
   return (
     <>
-      <section className="welcome">
+      <section className={`welcome discovery-welcome ${adventure ? 'welcome-adventure' : ''}`}>
         <div className="welcome-visuals" aria-hidden="true">
           <div className="welcome-photo welcome-photo-sage" />
           <div className="welcome-photo welcome-photo-lavender" />
           <div className="welcome-photo welcome-photo-ocean" />
           <div className="welcome-photo welcome-photo-peach" />
+          <div className="welcome-photo welcome-photo-paper" />
           <div className="welcome-photo welcome-photo-night" />
+          <div className="welcome-photo welcome-photo-contrast" />
         </div>
         <div className="eyebrow">
-          <span className="pulse" /> UMA PERGUNTA PRA HOJE
+          <span className="pulse" />
+          {adventure ? 'EXPEDIÇÃO EM ANDAMENTO' : 'UM ESPAÇO PARA PAUSAR E APRENDER'}
         </div>
         <h1>
-          O mundo é maior
-          <br />
-          que a nossa <em>rotina.</em>
+          {adventure ? (
+            <>
+              Curiosidade em
+              <br />
+              <em>modo missão!</em>
+            </>
+          ) : (
+            <>
+              Um lugar calmo
+              <br />
+              para <em>aprender.</em>
+            </>
+          )}
         </h1>
         <p>
-          Escolha um assunto que ficou na sua cabeça —<br className="desktop-break" /> ou deixe a
-          curiosidade escolher por você.
+          {adventure
+            ? 'Prepare-se para descobrir, cumprir missões e conectar ideias. Qual será sua próxima fase?'
+            : 'Encontre um ritmo tranquilo, escolha uma leitura e dê espaço para uma ideia de cada vez.'}
         </p>
         <div className="welcome-actions">
           <button className="primary" onClick={onRandom}>
-            <Shuffle size={16} aria-hidden="true" /> Sortear um assunto{' '}
+            <Shuffle size={16} aria-hidden="true" />
+            {adventure ? 'Sortear uma missão' : 'Sortear um assunto'}{' '}
             <ArrowRight size={16} aria-hidden="true" />
           </button>
           <span className="soft-note">
             <Sparkles size={14} /> Sem ordem obrigatória. Só curiosidade.
           </span>
         </div>
+        <aside className="brazil-origin" aria-label="Origem brasileira do projeto">
+          <span className="brazil-origin-mark" aria-hidden="true">
+            BR
+          </span>
+          <span>
+            <b>Projeto brasileiro, fontes do mundo todo</b>
+            <small>
+              Criada e desenvolvida por{' '}
+              <a href="https://edststechhub.pages.dev/" target="_blank" rel="noopener noreferrer">
+                Ednaldo Nicolau dos Santos
+              </a>{' '}
+              com referências pesquisadas em fontes públicas de diferentes países.
+            </small>
+          </span>
+        </aside>
         {latestUpdate && (
-          <aside className="welcome-update" aria-label="Novidade recente da Calm & Study">
+          <aside className="welcome-update" aria-label="Novidade recente da Sala de Calma e Estudo">
             <span className="welcome-update-icon">
               <Sparkles size={17} aria-hidden="true" />
             </span>

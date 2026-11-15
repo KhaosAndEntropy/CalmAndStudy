@@ -9,9 +9,9 @@ I record the product decisions I made separately from technical implementation r
 | 11–12 Nov 2026 | I consolidated the responsive PWA, accessibility, visual preferences, reading tools, progress, engagement, and navigation improvements.                                                            |
 | 12–13 Nov 2026 | I strengthened the API, validation, D1, privacy, request limits, CI, static analysis, and passive scanning. I chose GitHub–Cloudflare integration for deployment after checks.                     |
 | 13–14 Nov 2026 | I chose MIT for code and CC BY 4.0 for original text, kept the project free, opened contribution paths, and defined two learning modes with shared editorial standards and attention to wellbeing. |
-| 15 Nov 2026    | I began the Calm & Study rebrand and repository migration, with documentation organised in Portuguese, English, and Spanish.                                                                       |
+| 15 Nov 2026    | I began the Sala de Calma e Estudo rebrand and repository migration, with documentation organised in Portuguese, English, and Spanish.                                                                       |
 
-The name **Calm & Study** was suggested by the AI assistant while we explored names; I chose to keep it, partly for its feminine representation in a context where women are often undervalued. The platform welcomes people of every gender.
+The name **Sala de Calma e Estudo** was suggested by the AI assistant while we explored names; I chose to keep it, partly for its feminine representation in a context where women are often undervalued. The platform welcomes people of every gender.
 
 ## Decisions I own
 

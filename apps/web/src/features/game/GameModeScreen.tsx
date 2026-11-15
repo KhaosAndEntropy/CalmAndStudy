@@ -186,19 +186,55 @@ export function GameModeScreen({
 
   return (
     <div className="game-page">
-      <section className="welcome compact game-welcome">
-        <div className="eyebrow">
-          <Gamepad2 size={15} aria-hidden="true" /> APRENDER JOGANDO
+      <section className="adventure-hero" aria-labelledby="adventure-title">
+        <div className="adventure-hero-copy">
+          <span className="adventure-kicker">
+            <Gamepad2 size={15} aria-hidden="true" /> MODO AVENTURA · CONHECIMENTO EM MOVIMENTO
+          </span>
+          <h1 id="adventure-title">
+            Sua curiosidade
+            <br />
+            <em>abre caminhos.</em>
+          </h1>
+          <p>
+            Explore os mesmos artigos, trilhas e tutoriais em uma jornada de missões, descobertas e
+            pequenas conquistas. Sem pressa: você escolhe o ritmo.
+          </p>
+          <button
+            type="button"
+            className="adventure-start-button"
+            onClick={() =>
+              document
+                .getElementById('game-phase')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            }
+          >
+            Continuar minha expedição <ArrowRight size={17} aria-hidden="true" />
+          </button>
+          <p className="adventure-promise">
+            Mesmo conteúdo e referências. A aventura muda a forma de explorar, não o padrão de
+            verificação.
+          </p>
         </div>
-        <h1>
-          Uma fase de cada vez.
-          <br />
-          <em>Conhecimento que fica.</em>
-        </h1>
-        <p>
-          Responda às provas de artigos, trilhas e tutoriais. Acerte pelo menos 4 de 5 para liberar
-          a próxima fase da jornada escolhida.
-        </p>
+        <div className="adventure-cosmos" aria-hidden="true">
+          <div className="adventure-orbit adventure-orbit-one" />
+          <div className="adventure-orbit adventure-orbit-two" />
+          <div className="adventure-planet">
+            <span className="adventure-planet-glow" />
+            <span className="adventure-planet-crater crater-one" />
+            <span className="adventure-planet-crater crater-two" />
+          </div>
+          <span className="adventure-satellite satellite-one" />
+          <span className="adventure-satellite satellite-two" />
+          <span className="adventure-star star-one">✦</span>
+          <span className="adventure-star star-two">✧</span>
+          <span className="adventure-float adventure-float-top">
+            <Sparkles size={14} /> Aprender pode ser uma aventura
+          </span>
+          <span className="adventure-float adventure-float-bottom">
+            <BookOpen size={14} /> Artigos · trilhas · prática
+          </span>
+        </div>
       </section>
 
       <section className="game-scoreboard" aria-label="Seu progresso geral">
@@ -247,7 +283,7 @@ export function GameModeScreen({
         })}
       </section>
 
-      <section className="game-phase" aria-labelledby="game-phase-title">
+      <section className="game-phase" id="game-phase" aria-labelledby="game-phase-title">
         {result?.passed ? (
           <div className="game-outcome game-outcome-passed" role="status" aria-live="polite">
             <span className="game-outcome-icon">
@@ -307,7 +343,7 @@ export function GameModeScreen({
                 }}
               />
             </div>
-            <form className="game-quiz" onSubmit={submit}>
+            <form className="game-quiz" aria-label="Questionário da fase atual" onSubmit={submit}>
               <p className="game-quiz-instruction">
                 <Sparkles size={15} aria-hidden="true" /> Responda às cinco questões. Você precisa
                 acertar pelo menos quatro para passar.
