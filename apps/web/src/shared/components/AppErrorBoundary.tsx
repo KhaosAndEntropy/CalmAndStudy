@@ -24,7 +24,8 @@ export class AppErrorBoundary extends Component<Props, State> {
           <span className="eyebrow">UM PEQUENO IMPREVISTO</span>
           <h1 id="app-error-title">Não conseguimos abrir esta parte agora.</h1>
           <p>
-            Seu progresso salvo continua neste dispositivo. Tente carregar a Sala de Calma e Estudo novamente.
+            Seu progresso salvo continua neste dispositivo. Tente carregar a Sala de Calma e Estudo
+            novamente.
           </p>
           <button className="primary" type="button" onClick={() => window.location.reload()}>
             Tentar novamente
