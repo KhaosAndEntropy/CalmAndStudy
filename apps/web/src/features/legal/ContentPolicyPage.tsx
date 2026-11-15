@@ -24,9 +24,9 @@ export function ContentPolicyPage() {
         </span>
         <h1 id="content-policy-title">Conhecimento aberto. Direitos respeitados.</h1>
         <p>
-          A Sala de Calma e Estudo resume ideias para facilitar o aprendizado e aponta caminhos para consultar
-          as fontes originais. Uma fonte aberta para leitura não significa que todo texto, foto ou
-          ilustração possa ser copiado ou republicado.
+          A Sala de Calma e Estudo resume ideias para facilitar o aprendizado e aponta caminhos para
+          consultar as fontes originais. Uma fonte aberta para leitura não significa que todo texto,
+          foto ou ilustração possa ser copiado ou republicado.
         </p>
       </header>
 
@@ -35,9 +35,10 @@ export function ContentPolicyPage() {
           <BookOpen size={20} aria-hidden="true" />
           <h2>Artigos e fontes</h2>
           <p>
-            Os artigos são sínteses editoriais da Sala de Calma e Estudo, escritos para explicar conceitos com
-            palavras próprias. As referências servem para consulta e conferência; elas não
-            transferem à Sala de Calma e Estudo direitos sobre os textos, dados, marcas ou imagens das fontes.
+            Os artigos são sínteses editoriais da Sala de Calma e Estudo, escritos para explicar
+            conceitos com palavras próprias. As referências servem para consulta e conferência; elas
+            não transferem à Sala de Calma e Estudo direitos sobre os textos, dados, marcas ou
+            imagens das fontes.
           </p>
           <p>
             Antes de reutilizar um material externo, confira a licença indicada pelo titular. A Calm
@@ -65,12 +66,13 @@ export function ContentPolicyPage() {
           <h2>Licenças e correções</h2>
           <p>
             Quando um recurso de terceiro for usado, a publicação deve registrar a origem, a licença
-            e a atribuição exigida. As regras da Sala de Calma e Estudo não substituem os termos do titular.
+            e a atribuição exigida. As regras da Sala de Calma e Estudo não substituem os termos do
+            titular.
           </p>
           <p>
             Se você identificar crédito incorreto, licença incompatível ou possível violação, envie
-            uma sugestão de revisão pelo formulário disponível na Sala de Calma e Estudo. O material será
-            analisado antes de qualquer alteração.
+            uma sugestão de revisão pelo formulário disponível na Sala de Calma e Estudo. O material
+            será analisado antes de qualquer alteração.
           </p>
         </article>
 
@@ -78,9 +80,9 @@ export function ContentPolicyPage() {
           <ShieldCheck size={20} aria-hidden="true" />
           <h2>Um projeto aberto</h2>
           <p>
-            A Sala de Calma e Estudo é gratuita e aberta à colaboração. O código está sob MIT e os textos
-            originais de aprendizagem sob CC BY 4.0. Veja as condições completas nos arquivos de
-            licença.
+            A Sala de Calma e Estudo é gratuita e aberta à colaboração. O código está sob MIT e os
+            textos originais de aprendizagem sob CC BY 4.0. Veja as condições completas nos arquivos
+            de licença.
           </p>
           <a
             href="https://github.com/KhaosAndEntropy/CalmAndStudy"

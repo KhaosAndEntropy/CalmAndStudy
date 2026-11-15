@@ -1617,7 +1617,8 @@ export default function App() {
         </Suspense>
         <footer ref={footerRef} className="site-footer">
           <p className="footer-motto">
-            Feito para quem quer descobrir <span aria-hidden="true">✳</span> Conhecimento com contexto
+            Feito para quem quer descobrir <span aria-hidden="true">✳</span> Conhecimento com
+            contexto
           </p>
           <p className="creator-credit">
             Criada e desenvolvida no Brasil por{' '}

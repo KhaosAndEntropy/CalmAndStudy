@@ -2,6 +2,10 @@
 
 Este arquivo registra mudanças percebidas por quem usa a Sala de Calma e Estudo. A seção **Novidades** no site apresenta um resumo em linguagem simples.
 
+## 2026-11-15 — Cartão de trilhas mais legível
+
+- O convite para explorar trilhas no Modo aventura agora acompanha as cores do tema selecionado e mantém texto e botão fáceis de ler.
+
 ## 2026-11-15 — Alto contraste mais consistente
 
 - No Modo aventura, o tema de alto contraste agora mantém fundos escuros uniformes, contornos claros e texto legível; o amarelo fica reservado a destaques e seleções.

@@ -6486,16 +6486,40 @@ footer span {
   --v2-on-accent: #000;
   color-scheme: dark;
 }
-.shell.mode-adventure.palette-contrast :where(
-  .developer-process-hero,
-  .developer-process-tabs,
-  .developer-section,
-  .developer-origin-grid article,
-  .developer-system-map li,
-  .developer-editorial-flow li,
-  .developer-note,
-  .developer-ai-section
-) {
+
+/* Preserve readable, theme-aware surfaces for the adventure discovery callout. */
+.shell.mode-adventure .deep-dive {
+  border-color: var(--v2-line);
+  background: var(--v2-paper);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .deep-dive h3 {
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .deep-dive p,
+.shell.mode-adventure .deep-dive .eyebrow {
+  color: var(--v2-muted);
+}
+.shell.mode-adventure .deep-dive .outline-btn {
+  border-color: var(--v2-line);
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .deep-dive .outline-btn:hover {
+  border-color: var(--v2-accent);
+  background: var(--v2-paper);
+}
+.shell.mode-adventure.palette-contrast
+  :where(
+    .developer-process-hero,
+    .developer-process-tabs,
+    .developer-section,
+    .developer-origin-grid article,
+    .developer-system-map li,
+    .developer-editorial-flow li,
+    .developer-note,
+    .developer-ai-section
+  ) {
   border-color: #fff;
   background: #080808;
   color: #fff;
@@ -6509,27 +6533,27 @@ footer span {
   background: #000;
   color: #ffe066;
 }
-.shell.mode-adventure.palette-contrast :where(
-  .top-actions > button,
-  .learning-mode-picker > summary,
-  .learning-mode-options,
-  .learning-mode-options button,
-  .developer-process-tabs button,
-  .developer-language select
-) {
+.shell.mode-adventure.palette-contrast
+  :where(
+    .top-actions > button,
+    .learning-mode-picker > summary,
+    .learning-mode-options,
+    .learning-mode-options button,
+    .developer-process-tabs button,
+    .developer-language select
+  ) {
   border-color: #fff;
   background: #000;
   color: #fff;
 }
-.shell.mode-adventure.palette-contrast :where(
-  .learning-mode-options button:hover,
-  .developer-process-tabs button[aria-pressed='true']
-) {
+.shell.mode-adventure.palette-contrast
+  :where(.learning-mode-options button:hover, .developer-process-tabs button[aria-pressed='true']) {
   border-color: #ffe066;
   background: #ffe066;
   color: #000;
 }
-.shell.mode-adventure.palette-contrast :where(button, a, input, textarea, select, summary):focus-visible {
+.shell.mode-adventure.palette-contrast
+  :where(button, a, input, textarea, select, summary):focus-visible {
   outline: 3px solid #ffe066;
   outline-offset: 3px;
 }
@@ -7444,16 +7468,18 @@ footer span {
 }
 
 /* Keep fixed adventure surfaces inside the high-contrast palette. */
-.shell.mode-adventure.palette-contrast .developer-process :where(
-  .developer-process-hero,
-  .developer-process-tabs,
-  .developer-section,
-  .developer-origin-grid article,
-  .developer-system-map li,
-  .developer-editorial-flow li,
-  .developer-note,
-  .developer-ai-section
-) {
+.shell.mode-adventure.palette-contrast
+  .developer-process
+  :where(
+    .developer-process-hero,
+    .developer-process-tabs,
+    .developer-section,
+    .developer-origin-grid article,
+    .developer-system-map li,
+    .developer-editorial-flow li,
+    .developer-note,
+    .developer-ai-section
+  ) {
   border-color: #fff;
   background: #080808;
   color: #fff;
@@ -7461,7 +7487,9 @@ footer span {
 .shell.mode-adventure.palette-contrast .developer-process-hero {
   background: #000;
 }
-.shell.mode-adventure.palette-contrast .developer-process :where(h1, h2, h3, p, strong, span, .eyebrow) {
+.shell.mode-adventure.palette-contrast
+  .developer-process
+  :where(h1, h2, h3, p, strong, span, .eyebrow) {
   color: #fff;
 }
 .shell.mode-adventure.palette-contrast .developer-mode-note {
@@ -7469,27 +7497,27 @@ footer span {
   background: #000;
   color: #ffe066;
 }
-.shell.mode-adventure.palette-contrast :where(
-  .top-actions > button,
-  .learning-mode-picker > summary,
-  .learning-mode-options,
-  .learning-mode-options button,
-  .developer-process-tabs button,
-  .developer-language select
-) {
+.shell.mode-adventure.palette-contrast
+  :where(
+    .top-actions > button,
+    .learning-mode-picker > summary,
+    .learning-mode-options,
+    .learning-mode-options button,
+    .developer-process-tabs button,
+    .developer-language select
+  ) {
   border-color: #fff;
   background: #000;
   color: #fff;
 }
-.shell.mode-adventure.palette-contrast :where(
-  .learning-mode-options button:hover,
-  .developer-process-tabs button[aria-pressed='true']
-) {
+.shell.mode-adventure.palette-contrast
+  :where(.learning-mode-options button:hover, .developer-process-tabs button[aria-pressed='true']) {
   border-color: #ffe066;
   background: #ffe066;
   color: #000;
 }
-.shell.mode-adventure.palette-contrast :where(button, a, input, textarea, select, summary):focus-visible {
+.shell.mode-adventure.palette-contrast
+  :where(button, a, input, textarea, select, summary):focus-visible {
   outline: 3px solid #ffe066;
   outline-offset: 3px;
 }
