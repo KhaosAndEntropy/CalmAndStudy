@@ -18,6 +18,7 @@ export function WelcomeDialog({
 }) {
   const [step, setStep] = useState<WelcomeStep>('paths');
   const [optionalContext, setOptionalContext] = useState('');
+  const [hasLeftContextField, setHasLeftContextField] = useState(false);
   const contextRecommendation = recommendModeFromContext(optionalContext);
 
   const chooseMode = (mode: LearningMode) => {
@@ -70,7 +71,11 @@ export function WelcomeDialog({
                 <textarea
                   id="welcome-optional-context"
                   value={optionalContext}
-                  onChange={event => setOptionalContext(event.target.value.slice(0, 500))}
+                  onChange={event => {
+                    setOptionalContext(event.target.value.slice(0, 500));
+                    setHasLeftContextField(false);
+                  }}
+                  onBlur={() => setHasLeftContextField(true)}
                   maxLength={500}
                   rows={3}
                   placeholder="Se quiser, escreva algumas palavras. Não inclua dados pessoais."
@@ -106,12 +111,22 @@ export function WelcomeDialog({
               )}
             </details>
             <div className="welcome-choices">
-              <button className="welcome-choice" onClick={() => chooseMode('calm')}>
+              <button
+                className={`welcome-choice${
+                  hasLeftContextField && contextRecommendation.mode === 'calm'
+                    ? ' welcome-choice-suggested'
+                    : ''
+                }`}
+                onClick={() => chooseMode('calm')}
+              >
                 <span className="welcome-choice-icon">
                   <BookOpen size={19} aria-hidden="true" />
                 </span>
                 <span className="welcome-choice-copy">
                   <b>Estudo calmo</b>
+                  {hasLeftContextField && contextRecommendation.mode === 'calm' && (
+                    <span className="welcome-choice-recommendation">Sugestão para você</span>
+                  )}
                   <small>
                     Leituras, fontes e trilhas com uma apresentação discreta. Você escolhe por onde
                     seguir.
@@ -122,7 +137,11 @@ export function WelcomeDialog({
                 </span>
               </button>
               <button
-                className="welcome-choice welcome-choice-adventure"
+                className={`welcome-choice welcome-choice-adventure${
+                  hasLeftContextField && contextRecommendation.mode === 'adventure'
+                    ? ' welcome-choice-suggested'
+                    : ''
+                }`}
                 onClick={() => chooseMode('adventure')}
               >
                 <span className="welcome-choice-icon">
@@ -130,6 +149,9 @@ export function WelcomeDialog({
                 </span>
                 <span className="welcome-choice-copy">
                   <b>Modo aventura</b>
+                  {hasLeftContextField && contextRecommendation.mode === 'adventure' && (
+                    <span className="welcome-choice-recommendation">Sugestão para você</span>
+                  )}
                   <small>
                     Os mesmos temas viram missões, fases e desafios. A diversão não muda o padrão
                     das fontes.
