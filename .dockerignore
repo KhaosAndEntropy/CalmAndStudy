@@ -1,0 +1,17 @@
+.git
+.github
+.expo
+.turbo
+.wrangler
+node_modules
+**/node_modules
+**/dist
+**/.vite
+**/.env
+**/.env.*
+!.env.example
+coverage
+artifacts
+output
+.security-*
+*.log

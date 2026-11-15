@@ -1,0 +1,29 @@
+{
+  "name": "calmandstudy",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "dev": "pnpm --filter @calmandstudy/web dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"apps/**/*.{ts,tsx,js,jsx,css,json}\" \"packages/**/*.{ts,tsx,js,jsx,json}\" \"functions/**/*.{ts,tsx,js,jsx,json}\" \".github/workflows/*.{yml,yaml}\" \"*.{json,js,cjs,mjs,ts}\" \"*.md\" \"docs/**/*.md\"",
+    "format:check": "prettier --check \"apps/**/*.{ts,tsx,js,jsx,css,json}\" \"packages/**/*.{ts,tsx,js,jsx,json}\" \"functions/**/*.{ts,tsx,js,jsx,json}\" \".github/workflows/*.{yml,yaml}\" \"*.{json,js,cjs,mjs,ts}\" \"*.md\" \"docs/**/*.md\"",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "prettier": "^3.10.0",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.3",
+    "wrangler": "4.162.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "workerd"
+    ],
+    "overrides": {
+      "decode-uri-component": "^0.5.1"
+    }
+  }
+}
