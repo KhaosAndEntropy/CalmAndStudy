@@ -5,8 +5,10 @@ import { TutorialArtwork } from './TutorialArtwork';
 import { ContentLikeButton } from '../engagement/ContentLikeButton';
 import { areaToneStyle } from '../shared/areaTone';
 import type { EngagementItem } from '../engagement/types';
+import type { LearningMode } from '../preferences/learning-mode';
 
 type TutorialsScreenProps = {
+  mode: LearningMode;
   tutorials: Tutorial[];
   completedIds: string[];
   onRandom: () => void;
@@ -17,6 +19,7 @@ type TutorialsScreenProps = {
 };
 
 export function TutorialsScreen({
+  mode,
   tutorials,
   completedIds,
   onRandom,
@@ -25,6 +28,7 @@ export function TutorialsScreen({
   getEngagement,
   onToggleLike,
 }: TutorialsScreenProps) {
+  const adventure = mode === 'adventure';
   const searchId = useId();
   const areaId = useId();
   const [query, setQuery] = useState('');
@@ -56,22 +60,35 @@ export function TutorialsScreen({
 
   return (
     <>
-      <section className="welcome compact">
+      <section className={`welcome compact ${adventure ? 'welcome-adventure' : ''}`}>
         <div className="eyebrow">
-          <GraduationCap size={14} aria-hidden="true" /> APRENDA FAZENDO
+          <GraduationCap size={14} aria-hidden="true" />
+          {adventure ? 'DESAFIOS PRÁTICOS' : 'APRENDA FAZENDO'}
         </div>
         <h1>
-          Um passo a passo,
-          <br />
-          <em>uma nova ideia.</em>
+          {adventure ? (
+            <>
+              Missões curtas,
+              <br />
+              <em>ideias em ação.</em>
+            </>
+          ) : (
+            <>
+              Um passo a passo,
+              <br />
+              <em>uma nova ideia.</em>
+            </>
+          )}
         </h1>
         <p>
-          Você concluiu {finishedCount} de {tutorials.length} tutoriais. Pratique em etapas,
-          consulte as fontes e retome qualquer atividade quando quiser.
+          {adventure
+            ? `Você concluiu ${finishedCount} de ${tutorials.length} missões. Pratique por etapas, consulte as fontes e retome quando quiser.`
+            : `Você concluiu ${finishedCount} de ${tutorials.length} tutoriais. Pratique em etapas, consulte as fontes e retome qualquer atividade quando quiser.`}
         </p>
         <div className="welcome-actions">
           <button className="primary" onClick={onRandom}>
-            <Shuffle size={15} aria-hidden="true" /> Tutorial aleatório{' '}
+            <Shuffle size={15} aria-hidden="true" />
+            {adventure ? 'Sortear uma missão' : 'Tutorial aleatório'}{' '}
             <ArrowRight size={15} aria-hidden="true" />
           </button>
         </div>

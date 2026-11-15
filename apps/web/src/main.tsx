@@ -14,6 +14,14 @@ import './research.css';
 import './v2.css';
 import './features/assessment/assessment.css';
 
+if (MAINTENANCE_MODE) {
+  document.title = 'Sala de Calma e Estudo — voltamos em breve';
+  const robots = document.createElement('meta');
+  robots.name = 'robots';
+  robots.content = 'noindex, nofollow';
+  document.head.append(robots);
+}
+
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <AppErrorBoundary>{MAINTENANCE_MODE ? <MaintenancePage /> : <App />}</AppErrorBoundary>

@@ -1,4 +1,4 @@
-# Executar e publicar a Calm & Study
+# Executar e publicar a Sala de Calma e Estudo
 
 ## Rodar localmente
 
@@ -13,7 +13,7 @@ Abra `http://localhost:4173`. O Vite serve o site e encaminha `/api/research` e 
 
 ## Usar no celular
 
-A versão mobile é o site responsivo instalável como PWA. Abra o endereço `.pages.dev` no navegador e escolha **Instalar a Calm & Study** ou **Adicionar à tela inicial**. Não precisa de Expo Go nem de um pacote nativo separado.
+A versão mobile é o site responsivo instalável como PWA. Abra o endereço `.pages.dev` no navegador e escolha **Instalar a Sala de Calma e Estudo** ou **Adicionar à tela inicial**. Não precisa de Expo Go nem de um pacote nativo separado.
 
 ## Publicar no Cloudflare Pages
 

@@ -1,4 +1,4 @@
-# Calm & Study — English guide
+# Sala de Calma e Estudo — English guide
 
 I created this index so people can understand the project without knowing its full history.
 
@@ -7,6 +7,7 @@ I created this index so people can understand the project without knowing its fu
 - [Run it locally](RUN.md)
 - [Architecture overview](ARCHITECTURE.md)
 - [Contribute](CONTRIBUTE.md)
+- [Voluntary support](VOLUNTARY_SUPPORT.md)
 - [Decisions and timeline](DECISIONS.md)
 - [Deploy to Cloudflare](DEPLOY.md)
 

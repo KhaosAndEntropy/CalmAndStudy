@@ -1,6 +1,6 @@
-# Rodar a Calm & Study no computador
+# Rodar a Sala de Calma e Estudo no computador
 
-Este guia inicia a versão web responsiva da Calm & Study. Ela também pode ser instalada como PWA pelo navegador; não é necessário instalar Expo.
+Este guia inicia a versão web responsiva da Sala de Calma e Estudo. Ela também pode ser instalada como PWA pelo navegador; não é necessário instalar Expo.
 
 ## O que instalar
 
