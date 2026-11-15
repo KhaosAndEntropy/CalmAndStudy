@@ -14,7 +14,7 @@ export class AppErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, info: ErrorInfo) {
     // Keep diagnostics local to the browser; do not send reader data to a third party.
     if (import.meta.env.DEV)
-      console.error('Calm & Study render error:', error, info.componentStack);
+      console.error('Sala de Calma e Estudo render error:', error, info.componentStack);
   }
 
   render() {
@@ -24,7 +24,7 @@ export class AppErrorBoundary extends Component<Props, State> {
           <span className="eyebrow">UM PEQUENO IMPREVISTO</span>
           <h1 id="app-error-title">Não conseguimos abrir esta parte agora.</h1>
           <p>
-            Seu progresso salvo continua neste dispositivo. Tente carregar a Calm & Study novamente.
+            Seu progresso salvo continua neste dispositivo. Tente carregar a Sala de Calma e Estudo novamente.
           </p>
           <button className="primary" type="button" onClick={() => window.location.reload()}>
             Tentar novamente

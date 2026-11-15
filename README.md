@@ -1,6 +1,6 @@
-# Calm & Study
+# Sala de Calma e Estudo
 
-Calm & Study é um projeto gratuito de aprendizagem. Reúne artigos curtos, trilhas, tutoriais e fontes abertas para ajudar qualquer pessoa a explorar diferentes assuntos no próprio ritmo.
+Sala de Calma e Estudo é um projeto gratuito de aprendizagem. Reúne artigos curtos, trilhas, tutoriais e fontes abertas para ajudar qualquer pessoa a explorar diferentes assuntos no próprio ritmo.
 
 Há dois modos de estudo — **Estudo calmo** e **Modo aventura** — com o mesmo conteúdo e os mesmos critérios editoriais. O projeto valoriza fontes verificáveis, transparência sobre incertezas, privacidade e bem-estar.
 
@@ -35,6 +35,8 @@ O código usa licença [MIT](LICENSE). Os textos originais de aprendizagem usam 
 
 Contribuições são bem-vindas quando têm propósito educativo, linguagem respeitosa e fontes verificáveis. Consulte [como contribuir](CONTRIBUTING.md) antes de abrir uma proposta.
 
+Quem desejar também pode conhecer a opção de [apoio voluntário](docs/APOIO_VOLUNTARIO.md). Ela não é necessária para usar o projeto e não altera o acesso ao conteúdo.
+
 ## Guias
 
 O [índice da documentação](docs/README.md) aponta para o guia certo conforme o que você quer fazer: conhecer o projeto, executar, contribuir, entender a arquitetura ou publicar.
@@ -47,4 +49,4 @@ O [índice da documentação](docs/README.md) aponta para o guia certo conforme 
 
 ## Usar no celular
 
-Abra o site no navegador do celular e escolha **Instalar a Calm & Study** ou **Adicionar à tela inicial**. É a versão web responsiva instalada como PWA; não é necessário instalar um aplicativo separado.
+Abra o site no navegador do celular e escolha **Instalar a Sala de Calma e Estudo** ou **Adicionar à tela inicial**. É a versão web responsiva instalada como PWA; não é necessário instalar um aplicativo separado.

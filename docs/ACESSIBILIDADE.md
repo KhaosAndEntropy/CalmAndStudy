@@ -1,4 +1,4 @@
-# Acessibilidade da Calm & Study Web
+# Acessibilidade da Sala de Calma e Estudo Web
 
 A interface web foi ajustada para reduzir barreiras de uso por teclado, leitores de tela, ampliação e preferências do sistema. A meta de implementação é se aproximar do nível AA das WCAG 2.2; isso não equivale a uma certificação nem substitui avaliação com pessoas com deficiência.
 
@@ -11,6 +11,9 @@ A interface web foi ajustada para reduzir barreiras de uso por teclado, leitores
 - Ilustrações com descrição acessível, ícones decorativos ocultos de leitores de tela e cartões com títulos interativos semanticamente válidos.
 - Suporte a redução de movimento, alto contraste do sistema, cores forçadas e zoom/refluxo em telas estreitas.
 - Texto secundário com contraste reforçado nas paletas disponíveis.
+- Paletas organizadas por finalidade, incluindo opção de alto contraste, baixa luz e tema de papel; a escolha não é obrigatória e pode ser alterada a qualquer momento.
+- Áudio ambiente começa desligado, pode ser desligado ou ter o volume ajustado, é gerado localmente e não exige baixar arquivos. O efeito visual de chuva é decorativo, discreto, não bloqueia cliques e respeita movimento reduzido.
+- Check-in emocional é opcional e temporário. Não é diagnóstico, não é enviado nem cria perfil. Quando alguém relata um momento difícil, a interface responde com acolhimento e mostra escolhas, incluindo pausa e serviços de apoio humano.
 
 ## Conferência manual recomendada
 

@@ -4,18 +4,30 @@ import { describe, expect, it, vi } from 'vitest';
 import { WelcomeDialog } from './WelcomeDialog';
 
 describe('WelcomeDialog', () => {
-  it('oferece um check-in opcional sem guardar a resposta', () => {
+  it('apresenta logo os dois caminhos sem exigir questionário', () => {
     render(
       <WelcomeDialog onClose={vi.fn()} onQuick={vi.fn()} onTour={vi.fn()} onModeSelect={vi.fn()} />,
     );
 
-    expect(screen.getByText(/como você está chegando hoje/i)).toBeTruthy();
-    expect(screen.getByText(/não será salva nem enviada/i)).toBeTruthy();
-    expect(screen.getByText(/referências são públicas e gratuitas/i)).toBeTruthy();
-    expect(screen.queryByText(/você merece apoio de verdade/i)).toBeNull();
+    expect(screen.getByRole('heading', { name: /como você quer aprender hoje/i })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /estudar com calma/i })).toBeTruthy();
+    expect(screen.getByRole('button', { name: /explorar jogando/i })).toBeTruthy();
+    expect(screen.queryByText(/rodada 1 de 3/i)).toBeNull();
   });
 
-  it('mostra apoio escolhido pela pessoa e permite escolher o modo de estudo', () => {
+  it('deixa o check-in opcional, temporário e sem bloquear a escolha', () => {
+    render(
+      <WelcomeDialog onClose={vi.fn()} onQuick={vi.fn()} onTour={vi.fn()} onModeSelect={vi.fn()} />,
+    );
+
+    fireEvent.click(screen.getByText(/quer contar como está se sentindo/i));
+    const context = screen.getByRole('textbox', { name: /não é uma avaliação/i });
+    fireEvent.change(context, { target: { value: 'Quero algo divertido, com jogo e desafios.' } });
+    expect(screen.getByText(/talvez o modo aventura combine/i)).toBeTruthy();
+    expect(screen.getByRole('button', { name: /explorar jogando/i })).toBeTruthy();
+  });
+
+  it('aplica o modo somente após a escolha da pessoa', () => {
     const onClose = vi.fn();
     const onModeSelect = vi.fn();
     render(
@@ -27,21 +39,24 @@ describe('WelcomeDialog', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /estou passando por um momento difícil/i }));
-    expect(screen.getByText(/você merece apoio de verdade/i)).toBeTruthy();
-    expect(screen.getByRole('link', { name: /ligar para o cvv/i })).toBeTruthy();
-    fireEvent.click(screen.getByRole('button', { name: /continuar para escolher meu ritmo/i }));
-    fireEvent.click(screen.getByRole('button', { name: /estudar com calma/i }));
+    fireEvent.click(screen.getByRole('button', { name: /explorar jogando/i }));
+    expect(onModeSelect).toHaveBeenCalledWith('adventure');
     expect(onClose).toHaveBeenCalledOnce();
-    expect(onModeSelect).toHaveBeenCalledWith('calm');
   });
 
-  it('inicia a rodada de aventura somente após a escolha da pessoa', () => {
+  it('oferece apoio somente quando a pessoa opta por compartilhar contexto que indica sofrimento', () => {
     render(
       <WelcomeDialog onClose={vi.fn()} onQuick={vi.fn()} onTour={vi.fn()} onModeSelect={vi.fn()} />,
     );
-    fireEvent.click(screen.getByRole('button', { name: /prefiro não responder/i }));
-    fireEvent.click(screen.getByRole('button', { name: /conhecer jogando/i }));
-    expect(screen.getByText(/Rodada 1 de 3/)).toBeTruthy();
+
+    fireEvent.click(screen.getByText(/quer contar como está se sentindo/i));
+    fireEvent.change(screen.getByRole('textbox', { name: /não é uma avaliação/i }), {
+      target: { value: 'Estou triste e ansiosa.' },
+    });
+    fireEvent.click(screen.getByRole('button', { name: /ver acolhimento e opções de apoio/i }));
+
+    expect(screen.getByText(/você não está só/i)).toBeTruthy();
+    expect(screen.getByRole('link', { name: /ligar para o cvv/i })).toBeTruthy();
+    expect(screen.getByRole('link', { name: /informações oficiais sobre o samu/i })).toBeTruthy();
   });
 });

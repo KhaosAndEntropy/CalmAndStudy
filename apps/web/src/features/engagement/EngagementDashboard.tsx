@@ -2,8 +2,10 @@ import { BarChart3, Eye, Heart, Info, Sparkles, TrendingUp } from 'lucide-react'
 import type { StudyPath, Topic, Tutorial } from '@calmandstudy/content';
 import { ContentLikeButton } from './ContentLikeButton';
 import type { EngagementContentType, EngagementItem } from './types';
+import type { LearningMode } from '../preferences/learning-mode';
 
 type Props = {
+  mode: LearningMode;
   topics: Topic[];
   paths: StudyPath[];
   tutorials: Tutorial[];
@@ -13,6 +15,7 @@ type Props = {
 };
 
 export function EngagementDashboard({
+  mode,
   topics,
   paths,
   tutorials,
@@ -20,6 +23,7 @@ export function EngagementDashboard({
   get,
   onToggleLike,
 }: Props) {
+  const adventure = mode === 'adventure';
   const entries = [
     ...topics.map(item => ({
       type: 'article' as const,
@@ -92,14 +96,22 @@ export function EngagementDashboard({
   };
   return (
     <section className="engagement-page" aria-labelledby="engagement-title">
-      <header className="engagement-hero">
+      <header className={`engagement-hero ${adventure ? 'engagement-hero-adventure' : ''}`}>
         <div className="eyebrow">
-          <Sparkles size={15} aria-hidden="true" /> CURIOSIDADE EM MOVIMENTO
+          <Sparkles size={15} aria-hidden="true" />
+          {adventure ? 'PLACAR DA EXPEDIÇÃO' : 'CURIOSIDADE EM MOVIMENTO'}
         </div>
-        <h1 id="engagement-title">O que anda despertando curiosidade?</h1>
-        <p>Veja os assuntos que estão sendo lidos e curtidos por quem explora a Calm & Study.</p>
+        <h1 id="engagement-title">
+          {adventure ? 'Quais descobertas estão em alta?' : 'O que anda despertando curiosidade?'}
+        </h1>
+        <p>
+          {adventure
+            ? 'Acompanhe as leituras e recomendações da comunidade nesta expedição.'
+            : 'Veja os assuntos que estão sendo lidos e curtidos por quem explora a Sala de Calma e Estudo.'}
+        </p>
         <span className="engagement-hero-note">
-          <TrendingUp size={15} aria-hidden="true" /> Leituras e curtidas da comunidade
+          <TrendingUp size={15} aria-hidden="true" />
+          {adventure ? 'Leituras e escolhas da comunidade' : 'Leituras e curtidas da comunidade'}
         </span>
       </header>
       <div className="engagement-summary">

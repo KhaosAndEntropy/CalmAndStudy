@@ -1,4 +1,4 @@
-"""Read-only smoke checks for Calm & Study Cloudflare Pages deployments."""
+"""Read-only smoke checks for Sala de Calma e Estudo Cloudflare Pages deployments."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 def fetch(url: str) -> tuple[int, bytes]:
     request = urllib.request.Request(
         url,
-        headers={"User-Agent": "Calm & Study-deployment-smoke/1.0", "Accept": "application/json,text/html"},
+        headers={"User-Agent": "Sala de Calma e Estudo-deployment-smoke/1.0", "Accept": "application/json,text/html"},
     )
     with urllib.request.urlopen(request, timeout=20) as response:
         return response.status, response.read(1_000_000)
@@ -34,7 +34,7 @@ def main() -> int:
         or parsed.query
         or parsed.fragment
     ):
-        print("Destino recusado: use somente a URL Pages aprovada da Calm & Study.")
+        print("Destino recusado: use somente a URL Pages aprovada da Sala de Calma e Estudo.")
         return 2
 
     root_url = base_url + "/"

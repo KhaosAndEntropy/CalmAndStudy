@@ -1,4 +1,4 @@
-# Arquitetura atual da Calm & Study
+# Arquitetura atual da Sala de Calma e Estudo
 
 ## Resumo
 
@@ -46,9 +46,11 @@ flowchart LR
 
 ## De onde vêm os dados
 
-Os artigos do feed são registros editoriais escritos no pacote compartilhado. Além deles, a tela “Pesquisar fontes” pesquisa ao vivo em OpenAlex e Crossref para todas as áreas, Europe PMC em áreas biomédicas, NASA STI em áreas relacionadas a espaço/engenharia e ciências físicas, e o Publications Warehouse do USGS em geociências e áreas relacionadas. Índices, catálogos e registros institucionais ajudam a localizar documentos; não atestam que um resultado esteja correto, revisado por pares ou independente de outro resultado.
+Os artigos do feed são registros editoriais escritos no pacote compartilhado. Além deles, a tela “Pesquisar fontes” pesquisa ao vivo em OpenAlex, OpenAIRE Graph e Crossref para localizar publicações de várias áreas; Europe PMC em áreas biomédicas; NASA STI em áreas relacionadas a espaço/engenharia e ciências físicas; e o Publications Warehouse do USGS em geociências e áreas relacionadas. OpenAIRE é um índice agregador, não uma fonte independente: seu resultado só ajuda a descobrir candidatos e não aumenta a contagem de confirmações. O DOI é conferido no Crossref; licença e texto integral são verificados separadamente pelo backend. Índices, catálogos e registros institucionais ajudam a localizar documentos; não atestam que um resultado esteja correto, revisado por pares ou independente de outro resultado.
 
 OpenAlex aceita consultas básicas sem chave, mas recomenda a chave gratuita para uso contínuo e oferece uma cota diária maior. Ela pode ser configurada como segredo do Cloudflare, nunca no frontend ([documentação de acesso](https://help.openalex.org/api/authentication/)). Crossref permite consulta pública de metadados DOI sem cadastro; os metadados vêm de membros e fontes parceiras ([REST API](https://www.crossref.org/documentation/retrieve-metadata/rest-api/)). Europe PMC publica uma API REST com publicações e subconjunto open access; foi condicionado a busca biomédica e o leitor ainda deve conferir a licença do texto ([API e conteúdo](https://dev.europepmc.org/RestfulWebService)).
+
+OpenAIRE Graph oferece uma API de consulta gratuita sobre publicações agregadas, com filtros para publicações revisadas por pares, DOI, licença e melhor acesso aberto ([início rápido](https://graph.openaire.eu/docs/apis/graph-api-v4/quickstart/), [sintaxe dos filtros](https://graph.openaire.eu/docs/apis/graph-api-v4/research-products/filter-syntax/)). O adaptador usa esses campos somente para descoberta, exige DOI confirmado no Crossref e revalida licença e texto integral pelo Europe PMC. Como OpenAIRE agrega metadados de vários provedores e pode repetir registros encontrados em outros catálogos, não é contabilizado como confirmação independente. A reutilização dos metadados segue os [termos oficiais de atribuição CC BY](https://graph.openaire.eu/docs/apis/terms/). A integração também exige identificador PMCID para obter o XML pelo endpoint conhecido da Europe PMC; por isso, a cobertura atual é mais útil em publicações biomédicas e não cresce igualmente em todas as áreas.
 
 NASA STI permite pesquisar publicações científicas e técnicas da agência por API ([documentação para desenvolvedores](https://sti.nasa.gov/for-developers/), [guia da API](https://www.sti.nasa.gov/docs/20221122_OpenAPI_Documentation.pdf)). O adaptador exige distribuição pública, registro de documento integral, direito/licença pública identificável, ausência de material de terceiros sem permissão e PDF do domínio oficial acessível. O resultado é rotulado como publicação técnica institucional, não necessariamente revisada por pares.
 
