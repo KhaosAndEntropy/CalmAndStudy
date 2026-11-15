@@ -3351,11 +3351,15 @@ footer span {
   overflow: hidden;
   margin: 28px 0 22px;
   padding: clamp(25px, 5vw, 56px);
-  border: 1px solid #44425e;
+  border: 1px solid var(--v2-line);
   border-radius: 28px;
   background:
-    radial-gradient(ellipse at 80% 48%, rgb(117 99 197 / 23%), transparent 23rem),
-    linear-gradient(120deg, #20243a, #1b1d2d 70%);
+    radial-gradient(
+      ellipse at 80% 48%,
+      color-mix(in srgb, var(--v2-accent) 23%, transparent),
+      transparent 23rem
+    ),
+    linear-gradient(120deg, var(--v2-hero), var(--v2-page) 70%);
   box-shadow: 0 24px 70px rgb(0 0 0 / 18%);
 }
 .adventure-hero-copy {
@@ -3367,14 +3371,14 @@ footer span {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #c4baff;
+  color: var(--v2-accent);
   font-size: 10px;
   font-weight: 750;
   letter-spacing: 0.11em;
 }
 .adventure-hero h1 {
   margin: 18px 0 14px;
-  color: #fbf8ff;
+  color: var(--v2-ink);
   font:
     600 clamp(37px, 5.2vw, 62px)/1.02 Georgia,
     'Times New Roman',
@@ -3382,13 +3386,13 @@ footer span {
   letter-spacing: -0.04em;
 }
 .adventure-hero h1 em {
-  color: #f6cc75;
+  color: var(--v2-highlight);
   font-weight: 500;
 }
 .adventure-hero-copy > p:not(.adventure-promise) {
   max-width: 54ch;
   margin: 0 0 22px;
-  color: #d1d0de;
+  color: var(--v2-muted);
   font-size: 15px;
   line-height: 1.7;
 }
@@ -3401,8 +3405,8 @@ footer span {
   padding: 11px 17px;
   border: 0;
   border-radius: 14px;
-  background: #f6cc75;
-  color: #29243a;
+  background: var(--v2-highlight);
+  color: var(--v2-highlight-ink);
   font-weight: 750;
   cursor: pointer;
   transition:
@@ -3411,17 +3415,17 @@ footer span {
 }
 .adventure-start-button:hover {
   transform: translateY(-2px);
-  background: #ffdc91;
+  background: var(--v2-highlight-hover);
 }
 .adventure-start-button:focus-visible,
 .adventure-sidebar :focus-visible {
-  outline: 3px solid #f6cc75;
+  outline: 3px solid var(--v2-highlight);
   outline-offset: 3px;
 }
 .adventure-promise {
   max-width: 58ch;
   margin: 14px 0 0;
-  color: #b9b9cb;
+  color: var(--v2-muted);
   font-size: 11px;
   line-height: 1.6;
 }
@@ -3441,7 +3445,11 @@ footer span {
   width: 76%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgb(150 131 255 / 20%), transparent 70%);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--v2-accent) 20%, transparent),
+    transparent 70%
+  );
   content: '';
 }
 .adventure-planet {
@@ -3450,17 +3458,29 @@ footer span {
   aspect-ratio: 1;
   overflow: hidden;
   transform: rotateX(14deg) rotateY(-18deg);
-  border: 1px solid rgb(244 224 255 / 30%);
+  border: 1px solid color-mix(in srgb, var(--v2-ink) 30%, transparent);
   border-radius: 50%;
   background:
-    radial-gradient(ellipse at 27% 30%, rgb(248 209 145 / 66%), transparent 9%),
-    radial-gradient(ellipse at 74% 64%, rgb(111 80 155 / 80%), transparent 24%),
-    radial-gradient(ellipse at 36% 68%, rgb(87 72 139 / 90%), transparent 44%),
-    radial-gradient(circle at 35% 28%, #d5b7f2, #7564b5 58%, #34314f 83%);
+    radial-gradient(
+      ellipse at 27% 30%,
+      color-mix(in srgb, var(--v2-highlight) 66%, transparent),
+      transparent 9%
+    ),
+    radial-gradient(
+      ellipse at 74% 64%,
+      color-mix(in srgb, var(--v2-accent) 80%, var(--v2-page)),
+      transparent 24%
+    ),
+    radial-gradient(
+      ellipse at 36% 68%,
+      color-mix(in srgb, var(--v2-accent) 90%, var(--v2-page)),
+      transparent 44%
+    ),
+    radial-gradient(circle at 35% 28%, var(--v2-accent), var(--v2-hero) 58%, var(--v2-page) 83%);
   box-shadow:
     inset -22px -13px 35px rgb(10 10 22 / 68%),
     inset 10px 6px 18px rgb(255 244 218 / 34%),
-    0 0 56px rgb(166 140 255 / 25%);
+    0 0 56px color-mix(in srgb, var(--v2-accent) 25%, transparent);
 }
 .adventure-planet-glow {
   position: absolute;
@@ -3492,14 +3512,14 @@ footer span {
   position: absolute;
   width: 89%;
   height: 36%;
-  border: 1px solid rgb(202 191 255 / 46%);
+  border: 1px solid color-mix(in srgb, var(--v2-accent) 46%, transparent);
   border-radius: 50%;
   transform: rotate(-29deg) rotateX(54deg);
 }
 .adventure-orbit-two {
   width: 70%;
   height: 63%;
-  border-color: rgb(245 204 117 / 38%);
+  border-color: color-mix(in srgb, var(--v2-highlight) 38%, transparent);
   transform: rotate(46deg) rotateX(62deg);
 }
 .adventure-satellite {
@@ -3507,10 +3527,10 @@ footer span {
   z-index: 2;
   width: 12px;
   aspect-ratio: 1;
-  border: 2px solid #242138;
+  border: 2px solid var(--v2-page);
   border-radius: 50%;
-  background: #f6cc75;
-  box-shadow: 0 0 17px rgb(246 204 117 / 55%);
+  background: var(--v2-highlight);
+  box-shadow: 0 0 17px color-mix(in srgb, var(--v2-highlight) 55%, transparent);
 }
 .satellite-one {
   top: 23%;
@@ -3520,11 +3540,11 @@ footer span {
   right: 16%;
   bottom: 28%;
   width: 9px;
-  background: #bcb1ff;
+  background: var(--v2-accent);
 }
 .adventure-star {
   position: absolute;
-  color: #f6cc75;
+  color: var(--v2-highlight);
   font-size: 21px;
 }
 .star-one {
@@ -3534,7 +3554,7 @@ footer span {
 .star-two {
   bottom: 18%;
   left: 16%;
-  color: #c4baff;
+  color: var(--v2-accent);
   font-size: 17px;
 }
 .adventure-float {
@@ -3543,10 +3563,10 @@ footer span {
   align-items: center;
   gap: 7px;
   padding: 9px 11px;
-  border: 1px solid rgb(219 213 255 / 24%);
+  border: 1px solid color-mix(in srgb, var(--v2-line) 72%, transparent);
   border-radius: 12px;
-  background: rgb(33 34 53 / 88%);
-  color: #f1efff;
+  background: color-mix(in srgb, var(--v2-paper) 88%, transparent);
+  color: var(--v2-ink);
   font-size: 10px;
   font-weight: 650;
   box-shadow: 0 12px 25px rgb(0 0 0 / 18%);
@@ -3572,31 +3592,31 @@ footer span {
   color: var(--v2-ink);
 }
 .mode-adventure .game-scoreboard {
-  background: linear-gradient(110deg, #292b43, #202335);
+  background: var(--v2-soft);
 }
 .mode-adventure .game-track-card:hover,
 .mode-adventure .game-track-card.is-selected {
-  border-color: #a99cff;
-  background: #292a42;
-  box-shadow: 0 8px 28px rgb(140 123 227 / 16%);
+  border-color: var(--v2-accent);
+  background: var(--v2-soft);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--v2-accent) 16%, transparent);
 }
 .mode-adventure .game-track-card:focus-visible,
 .mode-adventure .game-choice:focus-within {
-  outline: 3px solid #f6cc75;
+  outline: 3px solid var(--v2-highlight);
   outline-offset: 3px;
 }
 .mode-adventure .game-phase {
   box-shadow: 0 12px 32px rgb(0 0 0 / 16%);
 }
 .mode-adventure .game-choice {
-  background: #202334;
-  border-color: #43465e;
-  color: #eeecfa;
+  background: color-mix(in srgb, var(--v2-paper), var(--v2-soft) 35%);
+  border-color: var(--v2-line);
+  color: var(--v2-ink);
 }
 .mode-adventure .game-choice:hover,
 .mode-adventure .game-choice.is-selected {
-  border-color: #a99cff;
-  background: #2b2c45;
+  border-color: var(--v2-accent);
+  background: var(--v2-soft);
 }
 .mode-adventure .game-explanation,
 .mode-adventure .game-storage-note {
@@ -3605,6 +3625,10 @@ footer span {
 .mode-adventure .site-footer {
   border-top-color: var(--v2-line);
   color: var(--v2-muted);
+}
+
+.mode-adventure .adventure-start-button:hover {
+  background: var(--v2-highlight-hover);
 }
 
 @media (max-width: 900px) {
