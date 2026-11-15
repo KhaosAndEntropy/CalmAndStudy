@@ -1,0 +1,187 @@
+name: Calm & Study · qualidade e segurança
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    # Semgrep semanal, checagem pública semanal e revisão passiva semanal.
+    - cron: '23 8 * * 1'
+    - cron: '17 10 * * 1'
+    - cron: '32 10 * * 3'
+  workflow_dispatch:
+
+concurrency:
+  group: calmandstudy-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Qualidade, testes e dependências
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Preparar pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.0.0
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
+      - name: Conferir formatação
+        run: pnpm format:check
+      - name: Conferir tipos
+        run: pnpm typecheck
+      - name: Executar testes automatizados
+        run: pnpm test
+      - name: Gerar build web
+        run: pnpm build
+      - name: Auditar dependências
+        run: pnpm audit --audit-level moderate
+      - name: Iniciar a versão compilada para análise dinâmica
+        run: |
+          pnpm --filter @calmandstudy/web exec vite preview --host 0.0.0.0 --port 4173 > /tmp/calmandstudy-preview.log 2>&1 &
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4173/ > /dev/null; then
+              echo "Preview web disponível para o scanner OWASP ZAP."
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/calmandstudy-preview.log
+          echo "O preview não ficou disponível para a varredura OWASP ZAP."
+          exit 1
+      - name: Preparar pasta do relatório OWASP ZAP
+        run: |
+          mkdir -p artifacts
+          rm -f artifacts/zap-report.html
+          # O container do ZAP usa um usuário diferente do runner; permita que
+          # ele grave o relatório no volume compartilhado do workspace.
+          chmod 777 artifacts
+      - name: Varredura passiva OWASP ZAP no build local
+        id: zap_scan
+        run: >-
+          docker run --rm --network host
+          --volume "$GITHUB_WORKSPACE/artifacts:/zap/wrk:rw"
+          --volume "$GITHUB_WORKSPACE/.zap/rules.tsv:/zap/rules.tsv:ro"
+          --workdir /zap/wrk
+          ghcr.io/zaproxy/zaproxy:stable
+          zap-baseline.py -t http://127.0.0.1:4173 -m 1 -T 3
+          -c /zap/rules.tsv -I -r zap-report.html
+      - name: Conferir relatório OWASP ZAP
+        id: zap_report_check
+        if: always() && steps.zap_scan.outcome != 'skipped'
+        run: |
+          if [ ! -s artifacts/zap-report.html ]; then
+            echo "::error::O ZAP não gerou artifacts/zap-report.html. Confira a etapa de varredura."
+            exit 1
+          fi
+      - name: Guardar relatório OWASP ZAP
+        if: always() && steps.zap_scan.outcome != 'skipped' && steps.zap_report_check.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: owasp-zap-baseline-report
+          path: artifacts/zap-report.html
+          if-no-files-found: warn
+          retention-days: 14
+
+  semgrep:
+    name: Segurança estática (Semgrep)
+    if: github.event_name != 'schedule' || github.event.schedule == '23 8 * * 1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Procurar riscos de segurança e secrets
+        run: >-
+          docker run --rm
+          --user "$(id -u):$(id -g)"
+          --env HOME=/tmp
+          --volume "$GITHUB_WORKSPACE:/src:ro"
+          --workdir /src
+          semgrep/semgrep:1.185.0-nonroot
+          semgrep scan --config p/security-audit --config p/secrets --severity ERROR --error .
+
+  docker-image-security:
+    name: Imagem Docker (atualização + Trivy)
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Construir a imagem com bases atualizadas
+        run: docker build --pull --tag calmandstudy:ci .
+      - name: Preparar imagem para análise
+        run: docker image save calmandstudy:ci --output "$RUNNER_TEMP/calmandstudy-image.tar"
+      - name: Bloquear vulnerabilidades conhecidas na imagem
+        run: >-
+          docker run --rm
+          --volume "$RUNNER_TEMP/calmandstudy-image.tar:/tmp/calmandstudy-image.tar:ro"
+          aquasec/trivy:0.76.2 image
+          --input /tmp/calmandstudy-image.tar
+          --scanners vuln
+          --exit-code 1
+          --format table
+
+  production-smoke:
+    name: Disponibilidade da produção
+    if: ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && github.event.schedule == '17 10 * * 1')) && vars.CALMANDSTUDY_PUBLIC_URL != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Aguardar e verificar deploy público
+        env:
+          CALMANDSTUDY_PUBLIC_URL: ${{ vars.CALMANDSTUDY_PUBLIC_URL }}
+        run: python scripts/smoke-pages.py "$CALMANDSTUDY_PUBLIC_URL"
+
+  production-zap:
+    name: Revisão passiva da produção (OWASP ZAP)
+    if: (github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && github.event.schedule == '32 10 * * 3')) && vars.CALMANDSTUDY_PUBLIC_URL != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Validar destino fixo de produção
+        env:
+          CALMANDSTUDY_PUBLIC_URL: ${{ vars.CALMANDSTUDY_PUBLIC_URL }}
+        run: |
+          python - <<'PY'
+          import os
+          from urllib.parse import urlparse
+
+          target = os.environ["CALMANDSTUDY_PUBLIC_URL"].rstrip("/")
+          parsed = urlparse(target)
+          if parsed.scheme != "https" or not parsed.hostname or not parsed.hostname.endswith(".pages.dev") or parsed.path or parsed.query or parsed.fragment:
+              raise SystemExit("Destino de produção inválido.")
+          print(f"Destino validado: {target}/")
+          PY
+      - name: Executar OWASP ZAP Baseline
+        uses: zaproxy/action-baseline@v0.15.0
+        with:
+          target: ${{ vars.CALMANDSTUDY_PUBLIC_URL }}
+          cmd_options: '-m 2 -T 10'
+          fail_action: false
+          allow_issue_writing: false
+          artifact_name: zap-calmandstudy-production-passive
