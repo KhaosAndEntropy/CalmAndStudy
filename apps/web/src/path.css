@@ -1,0 +1,98 @@
+.path-steps {
+  display: grid;
+  gap: 6px;
+  margin: 13px 15px 0;
+}
+.path-steps button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #e9ebe3;
+  background: #f8f9f5;
+  border-radius: 6px;
+  text-align: left;
+  font-size: 9px;
+  color: #586250;
+}
+.path-steps button > span {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: #e5ecdf;
+  border-radius: 50%;
+  font-size: 8px;
+  color: #526c4d;
+}
+.path-steps button svg {
+  margin-left: auto;
+  flex: none;
+  color: #73866a;
+}
+.path-note {
+  margin: 10px 15px 0;
+  padding-top: 8px;
+  border-top: 1px solid #efeee7;
+  color: #898d83;
+  font-size: 8px;
+  line-height: 1.5;
+}
+.palette-night .path-steps button {
+  background: #303830;
+  border-color: #485348;
+  color: #e0e7db;
+}
+.palette-night .path-note {
+  border-color: #3b443c;
+  color: #afb6aa;
+}
+.forward-topic {
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  border: 1px solid #e3e9dd;
+  background: #eef1e9;
+  border-radius: 9px;
+  color: #536d4d;
+}
+.forward-topic > span:nth-child(2) {
+  display: grid;
+  gap: 4px;
+  flex: 1;
+}
+.forward-topic small {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.55px;
+  color: #7b896f;
+}
+.forward-topic b {
+  font:
+    500 15px Georgia,
+    serif;
+  color: #3c4838;
+}
+.forward-topic em {
+  font-size: 9px;
+  font-style: normal;
+  color: #82877d;
+}
+.forward-topic > svg {
+  flex: none;
+}
+.palette-night .forward-topic {
+  background: #303830;
+  border-color: #485348;
+}
+.palette-night .forward-topic b {
+  color: #e1e9dc;
+}
+.palette-night .forward-topic em {
+  color: #afb6aa;
+}

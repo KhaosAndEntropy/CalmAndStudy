@@ -1,0 +1,16 @@
+# Configuração apenas para desenvolvimento local com Pages + D1.
+# Sem pages_build_output_dir, este arquivo não substitui a configuração do Pages no deploy.
+name = "calmandstudy-local"
+compatibility_date = "2026-11-14"
+compatibility_flags = ["nodejs_compat"]
+send_metrics = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "calmandstudy-local"
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "functions/migrations"
+
+[vars]
+# Valor fictício, restrito ao ambiente local. Nunca reutilizar em produção.
+SUBMISSION_HASH_SECRET = "local-development-only-calmandstudy-hmac-key-2026"

@@ -1,0 +1,39 @@
+services:
+  calmandstudy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      pull: true
+      target: pages-local
+    image: calmandstudy:local
+    container_name: calmandstudy-local
+    init: true
+    ports:
+      - '127.0.0.1:${CALMANDSTUDY_DOCKER_PORT:-4173}:4173'
+    environment:
+      OPENALEX_API_KEY: ${OPENALEX_API_KEY:-}
+      WRANGLER_SEND_METRICS: 'false'
+      CI: '1'
+    volumes:
+      - calmandstudy_data:/data
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    restart: unless-stopped
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:4173/').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+volumes:
+  calmandstudy_data:
