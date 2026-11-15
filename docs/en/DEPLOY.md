@@ -12,3 +12,9 @@ GitHub Actions verifies changes and Cloudflare Pages deploys them. Actions shoul
 Require successful checks before merging. Exact check names are visible in **Settings → Rules → Rulesets**. Configure the new Pages project with this repository, `main`, the build output for `apps/web`, and required D1 bindings. Confirm the final Pages project name and domain in Cloudflare; the old URL is not assumed to carry over.
 
 See the [CI deployment gate](../GITHUB_DEPLOY_GATE.md) and [Cloudflare publishing guide](../GUIA_EXECUCAO_PUBLICACAO.md) for configuration details.
+
+## Dependabot automation
+
+The **Dependabot · atualização segura** workflow requests squash auto-merge only for official `dependabot[bot]` pull requests targeting `main` when the update is a SemVer patch or minor. Major updates remain manual. The workflow uses `dependabot/fetch-metadata` pinned to a commit and never checks out or runs pull-request code.
+
+GitHub completes the merge only after the repository's required checks pass. Enable **Allow auto-merge** in **Settings → General → Pull Requests**, and make the quality/tests/dependencies and Semgrep checks required in the active `main` ruleset. Do not add a Dependabot bypass. Repository settings require admin access.

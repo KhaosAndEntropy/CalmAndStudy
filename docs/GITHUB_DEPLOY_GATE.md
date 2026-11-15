@@ -41,6 +41,18 @@ Se os nomes não aparecerem no seletor, abra um PR para `main`, aguarde os dois 
 4. Faça merge apenas com ambos verdes. A integração Git do Cloudflare Pages então recebe o commit de `main` e executa o deploy.
 5. Confira o deploy e o smoke check em **Cloudflare Pages → Deployments** e **GitHub → Actions**.
 
+## Atualizações automáticas do Dependabot
+
+O workflow **Dependabot · atualização segura** só habilita merge automático para PRs do usuário oficial `dependabot[bot]` destinados à `main`, quando a atualização é `patch` ou `minor`. Ele usa `dependabot/fetch-metadata` fixada em um commit específico e não baixa nem executa o código do PR. Atualizações `major` continuam aguardando revisão humana.
+
+O workflow apenas solicita o auto-merge com squash; o GitHub só conclui o merge quando todos os checks obrigatórios e as demais regras da branch forem satisfeitos. Para manter essa garantia:
+
+1. Em **Settings → General → Pull Requests**, habilite **Allow auto-merge**.
+2. No ruleset ativo da `main`, mantenha **Require a pull request** e **Require status checks to pass** para `Calm & Study · qualidade e segurança / Qualidade, testes e dependências` e `Calm & Study · qualidade e segurança / Segurança estática (Semgrep)`.
+3. Não crie bypass para o bot nem retire esses checks dos requisitos.
+
+Sem auto-merge habilitado ou sem os checks obrigatórios no ruleset, a automação não oferece a proteção pretendida. Essa configuração do repositório exige permissão de administração.
+
 Não é necessário criar `CLOUDFLARE_API_TOKEN`, credenciais de deploy ou secrets de Access no GitHub Actions: o GitHub não publica. A integração Git existente no Pages continua fazendo o CD.
 
 ## Versão mobile
