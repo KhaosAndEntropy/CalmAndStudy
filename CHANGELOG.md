@@ -5,6 +5,7 @@ Este arquivo registra mudanças percebidas por quem usa a Sala de Calma e Estudo
 ## 2026-11-15 — Cartão de trilhas mais legível
 
 - O convite para explorar trilhas no Modo aventura agora acompanha as cores do tema selecionado e mantém texto e botão fáceis de ler.
+- O banner da expedição, sua ilustração e os cartões de jornada também acompanham a mesma paleta, sem misturar cores de temas diferentes.
 
 ## 2026-11-15 — Alto contraste mais consistente
 
