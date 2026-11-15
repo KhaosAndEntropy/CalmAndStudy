@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://calmandstudy.local/schemas/editorial-record-v1.json",
+  "title": "Calm & Study Editorial Record v1",
+  "description": "Contrato de dados para pesquisa, evidências, revisão e publicação de artigos.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "status", "createdAt", "updatedAt", "claims", "sources"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "status": {
+      "enum": ["draft", "researching", "needs-review", "approved", "published", "needs-update"]
+    },
+    "createdAt": { "$ref": "#/$defs/date" },
+    "updatedAt": { "$ref": "#/$defs/date" },
+    "lastVerifiedAt": { "$ref": "#/$defs/date" },
+    "modelAssistance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model", "generatedAt"],
+      "properties": {
+        "provider": { "type": "string" },
+        "model": { "type": "string" },
+        "promptVersion": { "type": "string" },
+        "generatedAt": { "$ref": "#/$defs/date" }
+      }
+    },
+    "claims": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/claim" } },
+    "sources": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/source" } },
+    "assessment": { "$ref": "#/$defs/assessment" },
+    "reviewedBy": { "type": "string", "minLength": 1 },
+    "reviewedAt": { "$ref": "#/$defs/date" },
+    "reviewNotes": { "type": "string" }
+  },
+  "$defs": {
+    "date": { "type": "string", "format": "date-time" },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text", "kind", "evidence"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "text": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["established", "interpretation", "hypothesis", "debate"] },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidence" } },
+        "uncertainty": { "type": "string" }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceId", "relation", "excerpt", "accessedAt"],
+      "properties": {
+        "sourceId": { "type": "string", "minLength": 1 },
+        "relation": { "enum": ["supports", "qualifies", "contradicts"] },
+        "excerpt": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Trecho curto necessário para localizar a evidência."
+        },
+        "locator": { "type": "string" },
+        "accessedAt": { "$ref": "#/$defs/date" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "publisher", "url", "kind", "accessedAt"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "title": { "type": "string", "minLength": 1 },
+        "publisher": { "type": "string", "minLength": 1 },
+        "url": { "type": "string", "format": "uri" },
+        "kind": {
+          "enum": [
+            "primary",
+            "peer-reviewed",
+            "institutional",
+            "textbook",
+            "reference",
+            "journalism",
+            "other"
+          ]
+        },
+        "authors": { "type": "array", "items": { "type": "string" } },
+        "publishedAt": { "$ref": "#/$defs/date" },
+        "accessedAt": { "$ref": "#/$defs/date" },
+        "doi": { "type": "string" },
+        "license": { "type": "string" },
+        "dependsOn": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "IDs de fontes/datasets dos quais esta publicação depende."
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "score",
+        "assessedAt",
+        "assessedBy",
+        "dimensions",
+        "rationale",
+        "limitations"
+      ],
+      "properties": {
+        "method": { "const": "calmandstudy-confidence-v1" },
+        "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "assessedAt": { "$ref": "#/$defs/date" },
+        "assessedBy": { "type": "string", "minLength": 1 },
+        "dimensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "claimCoverage",
+            "evidenceQuality",
+            "sourceIndependence",
+            "sourceAgreement",
+            "timeliness",
+            "uncertaintyDisclosure"
+          ],
+          "properties": {
+            "claimCoverage": { "$ref": "#/$defs/score" },
+            "evidenceQuality": { "$ref": "#/$defs/score" },
+            "sourceIndependence": { "$ref": "#/$defs/score" },
+            "sourceAgreement": { "$ref": "#/$defs/score" },
+            "timeliness": { "$ref": "#/$defs/score" },
+            "uncertaintyDisclosure": { "$ref": "#/$defs/score" }
+          }
+        },
+        "rationale": { "type": "string", "minLength": 1 },
+        "limitations": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "score": { "type": "integer", "minimum": 0, "maximum": 100 }
+  }
+}
