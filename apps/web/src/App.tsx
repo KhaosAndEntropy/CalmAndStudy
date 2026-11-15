@@ -1477,7 +1477,8 @@ export default function App() {
         </Suspense>
         <footer ref={footerRef} className="site-footer">
           <p className="footer-motto">
-            Aprender com calma, no seu ritmo <span aria-hidden="true">✳</span> Conhecimento com contexto
+            Aprender com calma, no seu ritmo <span aria-hidden="true">✳</span> Conhecimento com
+            contexto
           </p>
           <p className="creator-credit">
             Calm & Study · © {new Date().getFullYear()}. Código sob MIT; textos originais sob CC BY
