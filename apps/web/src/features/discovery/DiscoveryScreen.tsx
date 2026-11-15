@@ -20,6 +20,7 @@ import { areaToneStyle } from '../shared/areaTone';
 import type { EngagementItem } from '../engagement/types';
 import { ReadStatusButton } from '../reader/ReadStatusButton';
 import type { LearningMode } from '../preferences/learning-mode';
+import { DeepDivePrompt } from './DeepDivePrompt';
 
 type DiscoveryScreenProps = {
   mode?: LearningMode;
@@ -143,7 +144,46 @@ export function DiscoveryScreen({
         </div>
         <aside className="brazil-origin" aria-label="Origem brasileira do projeto">
           <span className="brazil-origin-mark" aria-hidden="true">
-            BR
+            <svg viewBox="0 0 60 42" role="presentation" focusable="false">
+              <rect width="60" height="42" fill="#009739" />
+              <path d="M30 4 55 21 30 38 5 21Z" fill="#ffdf00" />
+              <circle cx="30" cy="21" r="10.2" fill="#002776" />
+              <path
+                d="M20 18.4c6.4-1.2 13.2-.6 19.7 1.8"
+                fill="none"
+                stroke="#fff"
+                strokeWidth="1.35"
+              />
+              <g fill="#fff">
+                <circle cx="22.2" cy="16.8" r=".48" />
+                <circle cx="24.6" cy="14.7" r=".42" />
+                <circle cx="26.7" cy="18" r=".46" />
+                <circle cx="27.9" cy="14.2" r=".42" />
+                <circle cx="29.1" cy="17.2" r=".46" />
+                <circle cx="31.3" cy="14.4" r=".42" />
+                <circle cx="32.6" cy="17.1" r=".46" />
+                <circle cx="35.5" cy="16.2" r=".4" />
+                <circle cx="37.2" cy="18.5" r=".4" />
+                <circle cx="24.1" cy="19.4" r=".42" />
+                <circle cx="25.8" cy="22" r=".42" />
+                <circle cx="28.1" cy="20.1" r=".46" />
+                <circle cx="30.2" cy="19.1" r=".42" />
+                <circle cx="32.3" cy="21.1" r=".46" />
+                <circle cx="34.8" cy="20.2" r=".4" />
+                <circle cx="36.2" cy="22.7" r=".4" />
+                <circle cx="23.3" cy="23.1" r=".4" />
+                <circle cx="26.2" cy="25.3" r=".42" />
+                <circle cx="28.6" cy="23.4" r=".46" />
+                <circle cx="30.4" cy="25.6" r=".42" />
+                <circle cx="33.1" cy="24.1" r=".46" />
+                <circle cx="35.4" cy="25.1" r=".4" />
+                <circle cx="25" cy="27.1" r=".38" />
+                <circle cx="27.4" cy="28.2" r=".38" />
+                <circle cx="31.9" cy="27.7" r=".4" />
+                <circle cx="34.3" cy="27.3" r=".38" />
+                <circle cx="29.4" cy="29.2" r=".34" />
+              </g>
+            </svg>
           </span>
           <span>
             <b>Projeto brasileiro, fontes do mundo todo</b>
@@ -400,19 +440,7 @@ export function DiscoveryScreen({
           </div>
         )}
 
-        <div className="deep-dive">
-          <div className="deep-icon">
-            <Sparkles size={20} />
-          </div>
-          <div>
-            <span className="eyebrow muted">APRENDA NO SEU RITMO</span>
-            <h3>Quer se aprofundar em um tema?</h3>
-            <p>Escolha uma área e monte uma trilha clara, do começo ao próximo nível.</p>
-          </div>
-          <button className="outline-btn" onClick={onExplorePaths}>
-            Explorar trilhas <ArrowRight size={15} />
-          </button>
-        </div>
+        <DeepDivePrompt onExplore={onExplorePaths} />
       </section>
     </>
   );

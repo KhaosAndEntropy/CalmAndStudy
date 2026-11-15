@@ -308,17 +308,21 @@
   text-underline-offset: 0.18em;
 }
 .developer-process.is-adventure .developer-process-hero {
-  background: linear-gradient(125deg, #20233d, #332b3d);
-  color: #fff8e8;
-  border-color: #4c4968;
+  background: linear-gradient(
+    125deg,
+    var(--v2-hero, #243f35),
+    color-mix(in srgb, var(--v2-hero, #243f35) 68%, var(--v2-page, #152019))
+  );
+  color: var(--v2-hero-text, var(--v2-ink, #f2f5eb));
+  border-color: var(--v2-line, #3b4b3e);
 }
 .developer-process.is-adventure .developer-process-hero p,
 .developer-process.is-adventure .developer-process .eyebrow {
-  color: #e3dfef;
+  color: var(--v2-hero-copy, var(--v2-muted, #c7d1c3));
 }
 .developer-process.is-adventure .developer-mode-note {
-  background: #3b3954;
-  color: #f7d784;
+  background: color-mix(in srgb, var(--v2-accent, #9bd5a7) 18%, var(--v2-hero, #243f35));
+  color: var(--v2-highlight, #f4d27a);
 }
 
 @media (max-width: 760px) {
