@@ -7,8 +7,10 @@ import { ContentLikeButton } from '../engagement/ContentLikeButton';
 import type { EngagementItem } from '../engagement/types';
 import { KnowledgeAssessment } from '../assessment/KnowledgeAssessment';
 import { areaToneStyle } from '../shared/areaTone';
+import type { LearningMode } from '../preferences/learning-mode';
 
 type StudyPathsScreenProps = {
+  mode?: LearningMode;
   paths: StudyPath[];
   topics: Topic[];
   onSelectTopic: (topic: Topic) => void;
@@ -19,6 +21,7 @@ type StudyPathsScreenProps = {
 };
 
 export function StudyPathsScreen({
+  mode = 'calm',
   paths,
   topics,
   onSelectTopic,
@@ -27,6 +30,7 @@ export function StudyPathsScreen({
   onToggleLike,
   onTrackRead,
 }: StudyPathsScreenProps) {
+  const adventure = mode === 'adventure';
   const searchId = useId();
   const areaId = useId();
   const [query, setQuery] = useState('');
@@ -63,18 +67,30 @@ export function StudyPathsScreen({
 
   return (
     <>
-      <section className="welcome compact">
+      <section className={`welcome compact ${adventure ? 'welcome-adventure' : ''}`}>
         <div className="eyebrow">
-          <History size={14} aria-hidden="true" /> APRENDER COM CONTEXTO
+          <History size={14} aria-hidden="true" />
+          {adventure ? 'ROTAS DA EXPEDIÇÃO' : 'APRENDER COM CONTEXTO'}
         </div>
         <h1>
-          Uma ideia leva
-          <br />
-          <em>a outra.</em>
+          {adventure ? (
+            <>
+              Cada rota abre
+              <br />
+              <em>um novo caminho.</em>
+            </>
+          ) : (
+            <>
+              Uma ideia leva
+              <br />
+              <em>a outra.</em>
+            </>
+          )}
         </h1>
         <p>
-          Sequências sugeridas para construir contexto. Você pode abrir qualquer assunto, em
-          qualquer ordem.
+          {adventure
+            ? 'Escolha uma rota e avance por etapas conectadas. Cada parada continua sendo um artigo que você pode abrir livremente.'
+            : 'Sequências sugeridas para construir contexto. Você pode abrir qualquer assunto, em qualquer ordem.'}
         </p>
       </section>
       <div className="trail-coverage" role="status">

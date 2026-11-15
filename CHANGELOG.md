@@ -1,12 +1,72 @@
 # Histórico de mudanças
 
-Este arquivo registra mudanças percebidas por quem usa a Calm & Study. A seção **Novidades** no site apresenta um resumo em linguagem simples.
+Este arquivo registra mudanças percebidas por quem usa a Sala de Calma e Estudo. A seção **Novidades** no site apresenta um resumo em linguagem simples.
+
+## 2026-11-15 — Dicas de leitura e busca pública mais útil
+
+- Termos técnicos reconhecidos nos textos dos artigos agora têm uma explicação curta ao passar o cursor, focar com o teclado ou tocar no termo. As dicas são opcionais e respeitam a preferência por movimento reduzido.
+- A busca pode indicar um texto integral que o backend conseguiu abrir para leitura, mesmo quando o catálogo não informa licença de reutilização. A tela diferencia claramente leitura pública de permissão para copiar ou republicar.
+- A seleção de paleta passou a colorir também controles e destaques do Modo aventura; o alto contraste continua usando uma combinação própria para leitura.
+- A leitura e a descoberta agora dividem explicações, referências e recomendações em blocos mais claros, facilitando a navegação e a manutenção do projeto.
+
+## 2026-11-15 — Catálogo e leitura em telas pequenas
+
+- Três artigos de Astronomia ampliam o catálogo: tempo de viagem da luz solar, unidade astronômica e origem das estações.
+- Cada artigo lista três referências públicas de organizações diferentes. Eles continuam identificados como aguardando revisão editorial humana; a lista de referências não equivale, por si só, à aprovação para publicação.
+- O total exibido no catálogo continua sendo calculado pelos artigos cadastrados, sem número fixo na interface.
+- Questionários, rodapé e identificação brasileira receberam ajustes para não comprimir texto nem provocar rolagem lateral em celulares estreitos.
+- A marca do Brasil agora usa uma bandeira desenhada em SVG, nítida em qualquer escala e sem depender de imagem remota.
+
+## 2026-11-15 — Alto contraste mais consistente
+
+- No Modo aventura, o tema de alto contraste agora mantém fundos escuros uniformes, contornos claros e texto legível; o amarelo fica reservado a destaques e seleções.
+
+## 2026-11-15 — Apoio opcional
+
+- A área **Apoiar o projeto** permite contribuir voluntariamente por Pix, caso a pessoa queira e possa.
+- A contribuição não é necessária para acessar artigos, trilhas, tutoriais ou referências; não há recompensa, assinatura ou conteúdo bloqueado.
+- O QR Pix é gerado no próprio navegador e pode ser conferido antes da confirmação no aplicativo bancário.
 
 ## 2026-11-15
 
+### Mais transparência sobre a origem do projeto
+
+- A nova área **Processo do projeto** explica, em português, inglês e espanhol, a história das ideias, as decisões do criador, a arquitetura e os limites do apoio de IA.
+- Ela esclarece que a Sala tem origem brasileira e pesquisa conhecimento em fontes públicas de diferentes países.
+- A pesquisa ganhou um caminho gratuito adicional para localizar publicações. Como ele agrega registros de outras bases, não aumenta a contagem de confirmações independentes; a integração atual é mais útil em áreas biomédicas.
+
+### Dois caminhos de estudo, uma origem brasileira
+
+- O banner agora usa uma chamada tranquila ligada à Sala de Calma e Estudo e outra mais animada para o Modo aventura.
+- A entrada apresenta os dois caminhos diretamente. O check-in de sentimentos fica recolhido, é opcional e não é necessário para navegar.
+- O banner da página inicial identifica a Sala como um projeto criado e desenvolvido no Brasil e explica que suas referências vêm de fontes públicas de diferentes países.
+- A pesquisa de fontes agora começa pela escolha de um artigo do catálogo, mostra referências e evidências associadas quando cadastradas e explica que seu indicador mede documentação registrada, não a verdade de uma afirmação.
+
+### Mais conforto, escolha e acolhimento
+
+- O menu de aparência agora se chama **Acessibilidade e conforto** e reúne temas acolhedores, papel, baixa luz e alto contraste, organizados por finalidade.
+- Os banners fotográficos acompanham a paleta com transição gradual; as imagens permanecem realistas, e o movimento é reduzido quando essa preferência está ativa no aparelho.
+- A pessoa pode ativar opcionalmente chuva suave ou ruído de foco. O som é sintetizado no navegador, começa desligado, tem volume limitado e não envia dados; uma animação discreta de gotas acompanha apenas a chuva.
+- O check-in agora acolhe explicitamente quem chega triste, ansioso ou passando por uma fase difícil. A mensagem de quem desenvolve a Sala diz que a pessoa não está só e oferece pausa, estudo tranquilo ou opções oficiais de apoio, sem diagnosticar nem armazenar a resposta.
+- Antes de escolher o ritmo, a pessoa pode escrever — se quiser — o que está sentindo ou o que a trouxe ao site. O campo é opcional, não aceita mais de 500 caracteres e é descartado ao avançar; nada é enviado nem usado para perfil ou recomendação.
+- As sete paletas agora alcançam também controles e painéis de aparência. O modo aventura conserva sua identidade escura sem deixar textos, opções selecionadas ou o alto contraste apagados.
+- O mapa mantém sequência, árvore e grafo com filtros e estados de seleção claros; no Modo aventura, os textos o apresentam como uma rota de descoberta, sem mudar as ligações editoriais nem os artigos.
+- Ampliados os testes das paletas, dos controles de áudio e do fluxo de acolhimento.
+- Revisado o contraste do Modo aventura em banners, estatísticas, cartões de revisão e controles do check-in; a imagem do banner agora fica mais discreta para não competir com o título.
+- O check-in pode sugerir Estudo calmo ou Modo aventura a partir do texto temporário da própria tela. A pessoa confirma a sugestão, pode escolher livremente outro caminho e encontra acolhimento quando menciona sofrimento; não há diagnóstico, perfil, armazenamento ou envio do texto.
+- A sugestão de ritmo tem testes para texto ambíguo, preferências de estudo e pedido de acolhimento.
+- A área de conforto explica que som e silêncio são escolhas pessoais, sugere comparar em volume baixo e oferece estudos públicos; a Sala não toca faixas protegidas por direitos autorais.
+
+### Modo aventura com navegação própria
+
+- O Modo aventura agora tem grupos de navegação e identidade visual próprios, com entrada para expedição, descobertas, trilhas, tutoriais, mapa, biblioteca e conquistas.
+- A Jornada ganhou um painel de entrada com ilustração orbital em profundidade feita em CSS, sem adicionar dependências. Artigos, referências e critérios editoriais continuam os mesmos do Estudo calmo.
+- O novo visual respeita teclado, foco visível e movimento reduzido; não impõe cronômetros nem bloqueia a leitura. A troca para o Estudo calmo segue disponível no próprio menu.
+- Atualizadas as explicações da experiência em português, inglês e espanhol.
+
 ### Uma nova identidade, o mesmo compromisso
 
-- A marca passou a se chamar Calm & Study e os nomes internos dos pacotes, configurações locais e recursos visuais acompanham a mudança.
+- O nome de trabalho em inglês deu lugar à marca Sala de Calma e Estudo, mais próxima do público brasileiro. Os identificadores técnicos e o endereço do repositório continuam estáveis para preservar integrações existentes.
 - As imagens dos temas do banner agora ficam na pasta pública correta para serem encontradas pelo site.
 - A documentação ganhou guias iniciais em português, inglês e espanhol, com instruções curtas para executar, contribuir, entender a arquitetura e publicar.
 - As decisões do criador foram separadas das recomendações técnicas, e a linha do tempo resume a evolução sem copiar dados pessoais do histórico antigo.
@@ -17,7 +77,7 @@ Este arquivo registra mudanças percebidas por quem usa a Calm & Study. A seçã
 ### Aprender no próprio ritmo
 
 - A apresentação inicial pergunta, sem obrigação, como a pessoa está chegando e permite pular o check-in. A resposta não é guardada nem enviada.
-- Quem pede apoio encontra contatos oficiais do CVV, SAMU e orientações para UBS/CAPS; a Calm & Study deixa claro que não substitui cuidado profissional.
+- Quem pede apoio encontra contatos oficiais do CVV, SAMU e orientações para UBS/CAPS; a Sala de Calma e Estudo deixa claro que não substitui cuidado profissional.
 - O seletor de Estudo calmo e Modo aventura fica disponível no topo. Os dois caminhos usam o mesmo catálogo e os mesmos critérios editoriais.
 - Depois de um período de navegação ativa, um lembrete gentil sugere uma pausa. Ele não bloqueia a leitura e não registra nem envia tempo de tela.
 
@@ -28,7 +88,7 @@ Este arquivo registra mudanças percebidas por quem usa a Calm & Study. A seçã
 - O envio de uma nova pauta passou a exigir confirmação dos limites editoriais também no backend, além de três links HTTPS de domínios diferentes. Isso registra uma confirmação e ajuda a evitar envios acidentais; não substitui a análise humana de independência ou evidência.
 - A página e as instruções antigas de apoio por Pix foram retiradas enquanto o projeto permanece gratuito e sem monetização.
 - O pipeline agora verifica pushes de `public/v1` sem executar testes de disponibilidade contra a produção. O deploy continua sendo feito pela integração do Cloudflare Pages.
-- Ajustados os créditos públicos para refletir as licenças MIT e CC BY 4.0 e explicar a origem do nome Calm & Study, a decisão do criador e o público amplo do projeto.
+- Ajustados os créditos públicos para refletir as licenças MIT e CC BY 4.0 e explicar a origem do nome Sala de Calma e Estudo, a decisão do criador e o público amplo do projeto.
 
 ## 2026-11-13
 
@@ -39,7 +99,7 @@ Este arquivo registra mudanças percebidas por quem usa a Calm & Study. A seçã
 - O catálogo legado permanece identificado como pendente de auditoria; referências incorretas ou antigas conhecidas foram removidas/substituídas, sem apresentar a contagem de links como selo de confiabilidade.
 - A documentação agora explica o cálculo do índice de confiabilidade e traz um guia objetivo para executar a versão web/PWA localmente.
 - A página **Direitos e transparência** explica licenças de terceiros, imagens de IA e como reportar correções.
-- Os pacotes e comandos internos do monorepo passaram a usar a marca `Calm & Study` (`@calmandstudy/*`); o código-fonte continua formatado e legível, enquanto a otimização/minificação é responsabilidade do build de produção.
+- Os pacotes e comandos internos do monorepo passaram a usar a marca `Sala de Calma e Estudo` (`@calmandstudy/*`); o código-fonte continua formatado e legível, enquanto a otimização/minificação é responsabilidade do build de produção.
 - A autoria no rodapé agora leva ao portfólio do criador. As imagens de destaque das páginas internas de apoio e estatísticas foram atualizadas sem alterar os banners da página inicial.
 - A versão pública pode ser colocada temporariamente em manutenção por uma chave simples de configuração, preservando o aplicativo para reabertura posterior.
 
@@ -54,7 +114,7 @@ Este arquivo registra mudanças percebidas por quem usa a Calm & Study. A seçã
 
 ### Aplicativo mobile
 
-- Removido o cliente nativo Expo e suas dependências. A Calm & Study mantém uma única experiência: o site responsivo, instalável como PWA em celulares e computadores.
+- Removido o cliente nativo Expo e suas dependências. A Sala de Calma e Estudo mantém uma única experiência: o site responsivo, instalável como PWA em celulares e computadores.
 - A CI deixou de instalar e verificar o aplicativo nativo; continuam ativos os checks de formatação, tipos, testes, build e segurança da versão web/API.
 
 ### Segurança automatizada
@@ -170,7 +230,7 @@ Este arquivo registra mudanças percebidas por quem usa a Calm & Study. A seçã
 
 - A instalação da versão web como app ficou mais fácil de encontrar, com instruções para celular e computador e botão de instalação quando o navegador oferece essa opção.
 - Os artigos agora aparecem em lotes de seis, com um botão para carregar mais. Assim, a página inicial fica mais leve sem limitar a busca no catálogo completo.
-- O atalho flutuante para sugerir temas desaparece ao chegar ao rodapé, deixando livre o acesso a “Sobre a Calm & Study” em telas pequenas.
+- O atalho flutuante para sugerir temas desaparece ao chegar ao rodapé, deixando livre o acesso a “Sobre a Sala de Calma e Estudo” em telas pequenas.
 - Na pesquisa de fontes, os resultados aparecem logo abaixo do formulário; o caderno de referências selecionadas foi movido para depois deles.
 
 ### Busca de assuntos
@@ -180,7 +240,7 @@ Este arquivo registra mudanças percebidas por quem usa a Calm & Study. A seçã
 
 ### Ícones do site
 
-- Adicionados favicons SVG, PNG e ICO, ícone para iOS e tamanhos Android no manifesto web, seguindo as cores da Calm & Study.
+- Adicionados favicons SVG, PNG e ICO, ícone para iOS e tamanhos Android no manifesto web, seguindo as cores da Sala de Calma e Estudo.
 
 ### Leituras mais acessíveis e imagens renovadas
 
@@ -196,8 +256,8 @@ Este arquivo registra mudanças percebidas por quem usa a Calm & Study. A seçã
 
 ### Apresentação para novos visitantes
 
-- Na primeira visita, uma janela explica o propósito da Calm & Study, as opções de exploração e o papel das fontes.
-- A apresentação pode ser aberta novamente pelo link “Sobre a Calm & Study” no rodapé.
+- Na primeira visita, uma janela explica o propósito da Sala de Calma e Estudo, as opções de exploração e o papel das fontes.
+- A apresentação pode ser aberta novamente pelo link “Sobre a Sala de Calma e Estudo” no rodapé.
 - Os 79 artigos do catálogo ganharam ilustrações próprias geradas por IA, com fallback local quando uma imagem não carrega.
 - A contagem do acervo no cabeçalho agora acompanha dinamicamente o número real de artigos.
 - A proposta editorial explica a preferência por fontes públicas e rastreáveis, e esclarece que uma resposta HTTP 2xx só verifica se o link respondeu naquele momento.

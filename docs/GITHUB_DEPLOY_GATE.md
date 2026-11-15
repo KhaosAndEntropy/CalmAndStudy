@@ -4,7 +4,7 @@ A publicação continua sob responsabilidade do Cloudflare Pages. O GitHub Actio
 
 ## Verificações automáticas
 
-Um único workflow, **Calm & Study · qualidade e segurança**, organiza as verificações em etapas nomeadas. Em pull requests para `main` e pushes em `main`, executa:
+Um único workflow, **Sala de Calma e Estudo · qualidade e segurança**, organiza as verificações em etapas nomeadas. Em pull requests para `main` e pushes em `main`, executa:
 
 - **Qualidade, testes e dependências:** instalação reproduzível, formatação, TypeScript, testes, build e auditoria de dependências (bloqueia severidade moderada ou maior).
 - **Segurança estática (Semgrep):** análise de código e procura de secrets; também roda semanalmente.
@@ -18,15 +18,15 @@ As verificações semanais aparecem como jobs no mesmo workflow: Semgrep na segu
 
 ## Ativar a trava que antecede o deploy
 
-No GitHub, abra o repositório **Calm & Study → Settings → Rules → Rulesets → New ruleset → New branch ruleset**. Configure:
+No GitHub, abra o repositório **Sala de Calma e Estudo → Settings → Rules → Rulesets → New ruleset → New branch ruleset**. Configure:
 
 1. Nome: **Produção protegida**; status **Active**.
 2. Target branches: **Include default branch** ou a branch `main`.
 3. Não adicione administradores ou aplicações à lista de bypass, se quiser que a regra também se aplique ao proprietário.
 4. Ative **Require a pull request before merging**. Uma aprovação pode ficar desativada para um projeto individual.
 5. Ative **Require status checks to pass** e selecione os dois checks obrigatórios depois que eles concluírem uma vez em um pull request:
-   - `Calm & Study · qualidade e segurança / Qualidade, testes e dependências`
-   - `Calm & Study · qualidade e segurança / Segurança estática (Semgrep)`
+   - `Sala de Calma e Estudo · qualidade e segurança / Qualidade, testes e dependências`
+   - `Sala de Calma e Estudo · qualidade e segurança / Segurança estática (Semgrep)`
      O ZAP passivo local e a guarda de seu relatório são etapas do job de Qualidade.
 6. Ative **Require branches to be up to date before merging**, se essa opção aparecer.
 7. Ative **Block force pushes** e **Restrict deletions**. Salve o ruleset.
@@ -57,7 +57,7 @@ Não é necessário criar `CLOUDFLARE_API_TOKEN`, credenciais de deploy ou secre
 
 ## Versão mobile
 
-A Calm & Study é publicada como web responsiva e pode ser instalada como PWA pelo navegador do celular. Não existe cliente nativo separado, então não há build, credenciais ou publicação de app store para manter.
+A Sala de Calma e Estudo é publicada como web responsiva e pode ser instalada como PWA pelo navegador do celular. Não existe cliente nativo separado, então não há build, credenciais ou publicação de app store para manter.
 
 ## Limites
 

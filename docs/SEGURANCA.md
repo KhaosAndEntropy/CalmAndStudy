@@ -1,4 +1,4 @@
-# Segurança da Calm & Study
+# Segurança da Sala de Calma e Estudo
 
 Este documento descreve as proteções implementadas e o que ainda depende da configuração de hospedagem. Nenhuma aplicação pública fica imune a abuso, falhas de fornecedores ou vulnerabilidades futuras; revise esta lista antes de abrir novos endpoints.
 

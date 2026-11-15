@@ -114,7 +114,7 @@ describe('API de pesquisa', () => {
     expect(JSON.stringify(body)).not.toContain('segredo-de-teste-nao-publicar');
   });
 
-  it('exibe somente artigo OpenAlex que passa licença, DOI cruzado e PDF aberto', async () => {
+  it('exibe artigo OpenAlex com DOI cruzado e PDF aberto mesmo sem licença de reutilização informada', async () => {
     const doi = '10.5555/calmandstudy.strict.openalex';
     const pdfUrl = 'https://api.openalex.org/files/strict-test.pdf';
     const acceptedWork = {
@@ -135,7 +135,7 @@ describe('API de pesquisa', () => {
           is_oa: true,
           pdf_url: pdfUrl,
           landing_page_url: 'https://api.openalex.org/landing/strict-test',
-          license: 'cc-by',
+          license: null,
           version: 'publishedVersion',
           source: { type: 'journal', display_name: 'Revista de teste' },
         },
@@ -170,12 +170,6 @@ describe('API de pesquisa', () => {
                 DOI: doi,
                 title: ['Artigo aberto confirmado pelos testes'],
                 type: 'journal-article',
-                license: [
-                  {
-                    URL: 'https://creativecommons.org/licenses/by/4.0/',
-                    'content-version': 'vor',
-                  },
-                ],
                 link: [
                   { URL: pdfUrl, 'content-type': 'application/pdf', 'content-version': 'vor' },
                 ],
@@ -199,6 +193,8 @@ describe('API de pesquisa', () => {
     expect(body.results[0].verification.corroboratedBy).toContain('Crossref');
     expect(body.results[0].publicationChannel).toBe('journal');
     expect(body.results[0].publicationVersion).toBe('published');
+    expect(body.results[0].license).toBeUndefined();
+    expect(body.results[0].note).toMatch(/não informou licença de reutilização/i);
     expect(openAlex?.status).toBe('ok');
     expect(fetchMock.mock.calls.some(([input]) => String(input).includes('W456'))).toBe(false);
   });

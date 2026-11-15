@@ -1,4 +1,4 @@
-# Calm & Study — guía en español
+# Sala de Calma e Estudo — guía en español
 
 Creé este índice para que cualquiera pueda entender el proyecto sin conocer toda su historia.
 
@@ -7,6 +7,7 @@ Creé este índice para que cualquiera pueda entender el proyecto sin conocer to
 - [Ejecutarlo localmente](RUN.md)
 - [Resumen de arquitectura](ARQUITECTURA.md)
 - [Contribuir](CONTRIBUIR.md)
+- [Apoyo voluntario](APOYO_VOLUNTARIO.md)
 - [Decisiones y cronología](DECISIONES.md)
 - [Publicar en Cloudflare](PUBLICAR.md)
 

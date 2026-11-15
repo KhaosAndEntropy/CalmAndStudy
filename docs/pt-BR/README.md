@@ -1,4 +1,4 @@
-# Calm & Study — guia em português
+# Sala de Calma e Estudo — guia em português
 
 Eu criei este índice para que qualquer pessoa consiga entender o projeto sem precisar conhecer toda a sua história.
 

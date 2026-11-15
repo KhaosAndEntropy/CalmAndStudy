@@ -1,4 +1,4 @@
-# Rodar Calm & Study no meu computador
+# Rodar Sala de Calma e Estudo no meu computador
 
 Este é o caminho curto para conhecer o projeto localmente. Não preciso de conta Cloudflare nem de banco remoto.
 

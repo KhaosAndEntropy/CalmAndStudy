@@ -78,4 +78,15 @@ describe('KnowledgeMap', () => {
     fireEvent.click(sequence);
     expect(screen.getByRole('heading', { name: 'Você está aqui' })).toBeTruthy();
   });
+
+  it('adapta a apresentação do mapa ao Modo aventura sem alterar os assuntos', () => {
+    render(<KnowledgeMap topics={topics} onOpenTopic={vi.fn()} mode="adventure" />);
+
+    expect(screen.getByText('MAPA DA EXPEDIÇÃO')).toBeTruthy();
+    expect(
+      screen.getByRole('heading', { name: 'Trace seu próximo caminho de descoberta.' }),
+    ).toBeTruthy();
+    expect(screen.getByText(/constelação completa de assuntos/)).toBeTruthy();
+    expect(screen.getByRole('combobox', { name: 'Assunto selecionado' })).toBeTruthy();
+  });
 });
