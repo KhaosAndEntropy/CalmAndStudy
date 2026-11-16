@@ -1,4 +1,4 @@
-# Sala de Calma e Estudo — English guide
+# Estude com Calma — English guide
 
 I created this index so people can understand the project without knowing its full history.
 

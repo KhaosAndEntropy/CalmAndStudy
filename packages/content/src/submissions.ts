@@ -39,7 +39,7 @@ export async function postSubmission(
     });
   } catch {
     throw new SubmissionError(
-      'Não foi possível conectar à Sala de Calma e Estudo. A sugestão continua guardada neste dispositivo.',
+      'Não foi possível conectar ao Estude com Calma. A sugestão continua guardada neste dispositivo.',
       'network_error',
     );
   }

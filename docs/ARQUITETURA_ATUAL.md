@@ -1,4 +1,4 @@
-# Arquitetura atual da Sala de Calma e Estudo
+# Arquitetura atual do Estude com Calma
 
 ## Resumo
 

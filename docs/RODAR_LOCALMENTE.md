@@ -1,6 +1,6 @@
-# Rodar a Sala de Calma e Estudo no computador
+# Rodar o Estude com Calma no computador
 
-Este guia inicia a versão web responsiva da Sala de Calma e Estudo. Ela também pode ser instalada como PWA pelo navegador; não é necessário instalar Expo.
+Este guia inicia a versão web responsiva do Estude com Calma. Ela também pode ser instalada como PWA pelo navegador; não é necessário instalar Expo.
 
 ## O que instalar
 

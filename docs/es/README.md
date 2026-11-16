@@ -1,4 +1,4 @@
-# Sala de Calma e Estudo — guía en español
+# Estude com Calma — guía en español
 
 Creé este índice para que cualquiera pueda entender el proyecto sin conocer toda su historia.
 

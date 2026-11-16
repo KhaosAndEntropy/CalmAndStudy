@@ -1,6 +1,6 @@
 # Apoyo voluntario
 
-La Sala de Calma y Estudio sigue siendo gratuita y abierta. Si el proyecto te resultó útil y quieres —y puedes— apoyarlo, puedes contribuir voluntariamente por Pix. No hay suscripción, recompensa, contenido exclusivo ni presión para contribuir.
+Estude com Calma sigue siendo gratuito y abierto. Si el proyecto te resultó útil y quieres —y puedes— apoyarlo, puedes contribuir voluntariamente por Pix. No hay suscripción, recompensa, contenido exclusivo ni presión para contribuir.
 
 ## Cómo funciona
 

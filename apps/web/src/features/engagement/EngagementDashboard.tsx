@@ -107,7 +107,7 @@ export function EngagementDashboard({
         <p>
           {adventure
             ? 'Acompanhe as leituras e recomendações da comunidade nesta expedição.'
-            : 'Veja os assuntos que estão sendo lidos e curtidos por quem explora a Sala de Calma e Estudo.'}
+            : 'Veja os assuntos que estão sendo lidos e curtidos por quem explora o Estude com Calma.'}
         </p>
         <span className="engagement-hero-note">
           <TrendingUp size={15} aria-hidden="true" />

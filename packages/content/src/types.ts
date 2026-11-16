@@ -47,6 +47,7 @@ export type AssessmentQuestion = {
   choices: string[];
   correctAnswer: string;
   explanation: string;
+  difficulty: 'initial' | 'developing' | 'challenge';
 };
 
 export type KnowledgeAssessment = {

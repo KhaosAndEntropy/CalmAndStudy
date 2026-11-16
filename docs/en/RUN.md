@@ -1,4 +1,4 @@
-# Run Sala de Calma e Estudo on my computer
+# Run Estude com Calma on my computer
 
 This is the shortest route to explore the project locally. No Cloudflare account or remote database is needed.
 

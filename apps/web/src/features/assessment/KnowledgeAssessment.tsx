@@ -2,6 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import { Check, RotateCcw, Send, X } from 'lucide-react';
 import type { KnowledgeAssessment as KnowledgeAssessmentData } from '@calmandstudy/content';
 
+const difficultyLabels = {
+  initial: 'Começo',
+  developing: 'Em prática',
+  challenge: 'Desafio',
+} as const;
+
 type KnowledgeAssessmentProps = {
   assessment: KnowledgeAssessmentData;
   collapsible?: boolean;
@@ -80,6 +86,9 @@ export function KnowledgeAssessment({ assessment, collapsible = false }: Knowled
                   {String(index + 1).padStart(2, '0')}
                 </span>
                 <span className="assessment-question-prompt">{question.prompt}</span>
+                <span className={`assessment-question-difficulty is-${question.difficulty}`}>
+                  {difficultyLabels[question.difficulty]}
+                </span>
               </legend>
               <div className="assessment-choices">
                 {question.choices.map((choice, choiceIndex) => {

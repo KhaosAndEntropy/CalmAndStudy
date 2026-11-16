@@ -4,12 +4,12 @@ export function MaintenancePage() {
   return (
     <main className="maintenance-page">
       <section className="maintenance-card" aria-labelledby="maintenance-title">
-        <a className="maintenance-brand" href="/" aria-label="Sala de Calma e Estudo — início">
+        <a className="maintenance-brand" href="/" aria-label="Estude com Calma — início">
           <span className="maintenance-brand-mark" aria-hidden="true">
             <Sparkles size={20} />
           </span>
           <span>
-            Sala de Calma e Estudo<span>.</span>
+            Estude com Calma<span>.</span>
           </span>
         </a>
 
@@ -24,16 +24,16 @@ export function MaintenancePage() {
         <h1 id="maintenance-title">
           Estamos preparando
           <br />
-          <em>uma nova Sala de Calma e Estudo.</em>
+          <em>um novo capítulo.</em>
         </h1>
         <p className="maintenance-copy">
           O site está temporariamente em manutenção. Estamos organizando algumas melhorias para
           voltar com uma experiência ainda melhor.
         </p>
-        <p className="maintenance-signoff">Até breve — e obrigado por sua curiosidade.</p>
+        <p className="maintenance-signoff">Até breve — e obrigado por estar aqui.</p>
       </section>
       <footer className="maintenance-footer">
-        Sala de Calma e Estudo · conhecimento para explorar no seu ritmo
+        Estude com Calma · conhecimento para explorar no seu ritmo
       </footer>
     </main>
   );

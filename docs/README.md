@@ -1,10 +1,10 @@
-# Guias da Sala de Calma e Estudo
+# Guias do Estude com Calma
 
 Bem-vindo! Esta página ajuda a encontrar a informação certa sem precisar ler todos os documentos.
 
-## Quero conhecer a Sala de Calma e Estudo
+## Quero conhecer o Estude com Calma
 
-- [O que é a Sala de Calma e Estudo e quais são seus compromissos](../README.md)
+- [O que é o Estude com Calma e quais são seus compromissos](../README.md)
 - [Direitos, licenças e transparência](DIREITOS_E_TRANSPARENCIA.md)
 - [Como os conteúdos são pesquisados e revisados](FLUXO_EDITORIAL.md)
 - [Como os modos de estudo funcionam e respeitam o bem-estar](EXPERIENCIAS_DE_ESTUDO.md)
@@ -27,7 +27,7 @@ Bem-vindo! Esta página ajuda a encontrar a informação certa sem precisar ler 
 - [Como imagens são escolhidas e identificadas](IMAGENS.md)
 - [Direção visual da versão atual](LAYOUT_V2.md)
 
-## Quero operar ou publicar a Sala de Calma e Estudo
+## Quero operar ou publicar o Estude com Calma
 
 - [Publicar no Cloudflare Pages](GUIA_EXECUCAO_PUBLICACAO.md)
 - [Como funciona o CI e a liberação para publicação](GITHUB_DEPLOY_GATE.md)

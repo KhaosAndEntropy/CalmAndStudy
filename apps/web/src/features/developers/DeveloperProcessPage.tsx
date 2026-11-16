@@ -17,7 +17,7 @@ type Front = 'creative' | 'technical';
 const copy = {
   pt: {
     eyebrow: 'BASTIDORES DO PROJETO',
-    title: 'Como esta sala foi pensada e construída',
+    title: 'Como o Estude com Calma foi pensado e construído',
     intro:
       'Uma visão direta das ideias, das decisões e do caminho técnico. O conteúdo e os critérios de verificação são os mesmos nos dois modos.',
     creative: 'Processo criativo',
