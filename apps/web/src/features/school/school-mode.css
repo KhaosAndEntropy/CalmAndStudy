@@ -19,7 +19,11 @@
   border: 1px solid color-mix(in srgb, var(--v2-paper) 24%, transparent);
   border-radius: 24px 24px 24px 7px;
   background:
-    radial-gradient(circle at 88% 18%, color-mix(in srgb, var(--v2-highlight) 22%, transparent), transparent 33%),
+    radial-gradient(
+      circle at 88% 18%,
+      color-mix(in srgb, var(--v2-highlight) 22%, transparent),
+      transparent 33%
+    ),
     linear-gradient(118deg, var(--v2-hero), var(--v2-hero-end));
   color: var(--v2-hero-text);
 }

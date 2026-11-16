@@ -69,7 +69,8 @@ export const pilotSkills: SchoolSkill[] = [
       'Organize três objetos em fila e diga qual está em primeiro, segundo e terceiro lugar.',
       'Observe um número de ônibus ou de casa: ele identifica algo, não conta objetos.',
     ],
-    practicePrompt: 'Na linha de ônibus 305, o número indica uma quantidade, uma ordem ou uma identificação?',
+    practicePrompt:
+      'Na linha de ônibus 305, o número indica uma quantidade, uma ordem ou uma identificação?',
     practiceAnswer: 'É uma identificação: o número diferencia aquela linha de outras.',
   },
   {
@@ -86,8 +87,10 @@ export const pilotSkills: SchoolSkill[] = [
       'Registre se é possível distinguir os materiais a olho nu.',
       'Classifique as misturas e explique qual observação ajudou na decisão.',
     ],
-    practicePrompt: 'Em água e óleo, os dois materiais ficam distribuídos em uma única fase visível?',
-    practiceAnswer: 'Não. É possível observar fases diferentes, por isso essa mistura é heterogênea.',
+    practicePrompt:
+      'Em água e óleo, os dois materiais ficam distribuídos em uma única fase visível?',
+    practiceAnswer:
+      'Não. É possível observar fases diferentes, por isso essa mistura é heterogênea.',
   },
   {
     stage: 'medio',
@@ -105,7 +108,8 @@ export const pilotSkills: SchoolSkill[] = [
       'Indique o que mudou, o que se conservou e quais dados sustentam sua previsão.',
     ],
     practicePrompt: 'Ao ligar uma lâmpada, a energia desaparece ou se transforma?',
-    practiceAnswer: 'Ela se transforma: parte vira luz e parte é transferida como calor ao ambiente.',
+    practiceAnswer:
+      'Ela se transforma: parte vira luz e parte é transferida como calor ao ambiente.',
   },
 ];
 

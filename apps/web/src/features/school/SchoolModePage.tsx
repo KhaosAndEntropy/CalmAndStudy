@@ -1,5 +1,12 @@
 import { useMemo, useState } from 'react';
-import { ArrowRight, BookOpen, ExternalLink, GraduationCap, Lightbulb, Sparkles } from 'lucide-react';
+import {
+  ArrowRight,
+  BookOpen,
+  ExternalLink,
+  GraduationCap,
+  Lightbulb,
+  Sparkles,
+} from 'lucide-react';
 import {
   bnccHighSchoolSourceUrl,
   bnccSourceUrl,
