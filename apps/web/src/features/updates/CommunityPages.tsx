@@ -4,7 +4,7 @@ import { HeartHandshake, Newspaper } from 'lucide-react';
 export const releaseNotes = [
   [
     'Uma forma opcional de apoiar o projeto',
-    'Se a Sala de Calma e Estudo foi útil, agora é possível contribuir por Pix. O apoio é voluntário; todo o conteúdo continua gratuito e aberto, sem vantagens ou cobranças.',
+    'Se o Estude com Calma foi útil, agora é possível contribuir por Pix. O apoio é voluntário; todo o conteúdo continua gratuito e aberto, sem vantagens ou cobranças.',
   ],
   [
     'Um lugar de estudo com identidade brasileira',
@@ -19,7 +19,7 @@ export const releaseNotes = [
     'Escolha entre Estudo calmo e Modo aventura. O check-in é opcional, e um lembrete discreto pode sugerir uma pausa depois de um tempo de navegação ativa. As escolhas pessoais não são enviadas.',
   ],
   [
-    'Agora é mais fácil participar da Sala de Calma e Estudo',
+    'Agora é mais fácil participar do Estude com Calma',
     'O projeto está aberto a contribuições educativas, correções e melhorias. Toda proposta é revisada antes de entrar no catálogo.',
   ],
   [
@@ -28,7 +28,7 @@ export const releaseNotes = [
   ],
   [
     'Um banner mais realista para dar boas-vindas',
-    'A página inicial agora recebe uma imagem fotográfica criada para a Sala de Calma e Estudo, com objetos de leitura e descoberta e uma área escura que preserva a leitura do texto.',
+    'A página inicial agora recebe uma imagem fotográfica criada para o Estude com Calma, com objetos de leitura e descoberta e uma área escura que preserva a leitura do texto.',
   ],
   [
     'As questões das trilhas voltaram a ficar alinhadas',
@@ -48,19 +48,19 @@ export const releaseNotes = [
   ],
   [
     'Tutoriais e trilhas mais fáceis de acompanhar',
-    'Agora você pode buscar por assunto e filtrar por área nas duas seções. Os tutoriais têm capas fotográficas ilustrativas, permitem rever a etapa final e guardam um check no card quando você conclui cada atividade. A apresentação e o rodapé também identificam quem criou e desenvolveu a Sala de Calma e Estudo.',
+    'Agora você pode buscar por assunto e filtrar por área nas duas seções. Os tutoriais têm capas fotográficas ilustrativas, permitem rever a etapa final e guardam um check no card quando você conclui cada atividade. A apresentação e o rodapé também identificam quem criou e desenvolveu o Estude com Calma.',
   ],
   [
     'Mais fácil instalar e explorar o catálogo',
-    'A opção para instalar a Sala de Calma e Estudo como app ficou mais clara, os artigos passaram a carregar em pequenos lotes e o atalho de sugestão sai da frente do link “Sobre a Sala de Calma e Estudo” quando você chega ao rodapé no celular.',
+    'A opção para instalar o Estude com Calma como app ficou mais clara, os artigos passaram a carregar em pequenos lotes e o atalho de sugestão sai da frente do link “Sobre o Estude com Calma” quando você chega ao rodapé no celular.',
   ],
   [
-    'A Sala de Calma e Estudo fica mais acessível',
+    'O Estude com Calma fica mais acessível',
     'Ficou mais confortável navegar pelo teclado, ampliar o conteúdo e usar os controles com tecnologias assistivas.',
   ],
   [
     'Uma apresentação para quem chega',
-    'Na primeira visita, uma mensagem explica a proposta da Sala de Calma e Estudo, as formas de explorar os assuntos e como consultar as referências. Ela pode ser aberta novamente pelo link “Sobre a Sala de Calma e Estudo”, no rodapé.',
+    'Na primeira visita, uma mensagem explica a proposta do Estude com Calma, as formas de explorar os assuntos e como consultar as referências. Ela pode ser aberta novamente pelo link “Sobre o Estude com Calma”, no rodapé.',
   ],
   [
     'Ilustrações para todos os artigos',
@@ -88,11 +88,11 @@ export const releaseNotes = [
   ],
   [
     'Fontes públicas, com transparência',
-    'A Sala de Calma e Estudo explicita o compromisso de priorizar informações sustentadas por fontes públicas e rastreáveis. A checagem automática informa se um link respondeu; não comprova, sozinha, a qualidade da evidência nem a ausência de paywall.',
+    'O Estude com Calma explicita o compromisso de priorizar informações sustentadas por fontes públicas e rastreáveis. A checagem automática informa se um link respondeu; não comprova, sozinha, a qualidade da evidência nem a ausência de paywall.',
   ],
   [
     'Ícones para navegador e celular',
-    'O site agora usa o símbolo da Sala de Calma e Estudo na aba do navegador e oferece ícones adequados para adicionar um atalho à tela inicial do celular.',
+    'O site agora usa o símbolo do Estude com Calma na aba do navegador e oferece ícones adequados para adicionar um atalho à tela inicial do celular.',
   ],
   [
     'O leitor mantém os controles sempre visíveis',
@@ -104,7 +104,7 @@ export const releaseNotes = [
   ],
   [
     'Uma saída simples da biblioteca',
-    'A tela de Salvos ganhou um botão para voltar às descobertas, e o botão voltar do celular agora navega entre as seções da Sala de Calma e Estudo.',
+    'A tela de Salvos ganhou um botão para voltar às descobertas, e o botão voltar do celular agora navega entre as seções do Estude com Calma.',
   ],
   [
     'Leitura mais suave e no seu ritmo',
@@ -120,7 +120,7 @@ export const ReleaseNotes = () => {
     <section className="updates-page" aria-labelledby="updates-title">
       <header className="updates-intro">
         <div className="eyebrow">
-          <Newspaper size={14} aria-hidden="true" /> NOVIDADES DA SALA DE CALMA E ESTUDO
+          <Newspaper size={14} aria-hidden="true" /> NOVIDADES DO ESTUDE COM CALMA
         </div>
         <h1 id="updates-title">Novidades por aqui.</h1>
         <p>
@@ -195,7 +195,7 @@ export const AcknowledgementsPage = () => (
       <div className="eyebrow">
         <HeartHandshake size={14} aria-hidden="true" /> COM A AJUDA DE QUEM USA
       </div>
-      <h1 id="acknowledgements-title">A Sala de Calma e Estudo cresce em comunidade.</h1>
+      <h1 id="acknowledgements-title">O Estude com Calma cresce em comunidade.</h1>
       <p>
         Um espaço para reconhecer as pessoas que ajudam a melhorar o produto com ideias, observações
         e feedbacks.
@@ -219,9 +219,7 @@ export const AcknowledgementsPage = () => (
           <HeartHandshake size={22} aria-hidden="true" />
         </span>
         <h2>Obrigado a quem compartilha feedback.</h2>
-        <p>
-          Suas observações ajudam a deixar a Sala de Calma e Estudo mais clara, útil e acolhedora.
-        </p>
+        <p>Suas observações ajudam a deixar o Estude com Calma mais clara, útil e acolhedora.</p>
         <small>
           Os nomes aparecerão aqui somente com autorização. Ainda não há pessoas listadas.
         </small>

@@ -57,7 +57,7 @@ type ResearchCandidate = Omit<ResearchResult, 'verification'> & {
 
 const API_HEADERS = {
   Accept: 'application/json',
-  'User-Agent': 'Sala de Calma e Estudo/0.1 (public-source research)',
+  'User-Agent': 'Estude com Calma/0.1 (public-source research)',
 };
 const MAX_RESULTS_PER_PROVIDER = 6;
 const OPENALEX_RESULTS_PER_PAGE = 40;
@@ -1156,7 +1156,7 @@ async function handleLinkCheck(request: Request): Promise<Response> {
           method: 'HEAD',
           redirect: 'manual',
           signal: AbortSignal.timeout(3500),
-          headers: { 'User-Agent': 'Sala de Calma e Estudo/0.1 (+https://calmandstudy.pages.dev)' },
+          headers: { 'User-Agent': 'Estude com Calma/0.1 (+https://calmandstudy.pages.dev)' },
         });
         if (response.status === 405 || response.status === 501) {
           await response.body?.cancel();
@@ -1166,7 +1166,7 @@ async function handleLinkCheck(request: Request): Promise<Response> {
             signal: AbortSignal.timeout(3500),
             headers: {
               Range: 'bytes=0-0',
-              'User-Agent': 'Sala de Calma e Estudo/0.1 (+https://calmandstudy.pages.dev)',
+              'User-Agent': 'Estude com Calma/0.1 (+https://calmandstudy.pages.dev)',
             },
           });
         }
@@ -1189,7 +1189,7 @@ async function handleLinkCheck(request: Request): Promise<Response> {
             redirect: 'manual',
             signal: AbortSignal.timeout(3500),
             headers: {
-              'User-Agent': 'Sala de Calma e Estudo/0.1 (+https://calmandstudy.pages.dev)',
+              'User-Agent': 'Estude com Calma/0.1 (+https://calmandstudy.pages.dev)',
             },
           });
           redirects++;

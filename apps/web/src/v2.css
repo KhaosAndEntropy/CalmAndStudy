@@ -1,4 +1,4 @@
-/* Sala de Calma e Estudo v2 — uma direção editorial calorosa, com foco no conteúdo e em boa leitura. */
+/* Estude com Calma v2 — uma direção editorial calorosa, com foco no conteúdo e em boa leitura. */
 @property --v2-page {
   syntax: '<color>';
   inherits: true;
@@ -480,6 +480,22 @@ summary:focus-visible {
   --v2-orbit-accent: #ffb36b;
   color: #111111;
   color-scheme: light;
+}
+
+/* Extended article sections follow the active palette instead of retaining
+   the light-only colors from the legacy stylesheet. */
+.shell .expanded-section {
+  border-left-color: var(--v2-accent);
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+
+.shell .expanded-section h2 {
+  color: var(--v2-ink);
+}
+
+.shell .expanded-section p {
+  color: var(--v2-muted);
 }
 
 .sidebar {
@@ -3932,6 +3948,24 @@ footer span {
 .welcome-path-shortcuts > button svg {
   flex: 0 0 auto;
 }
+.welcome-path-shortcuts > button:first-child {
+  justify-content: flex-start;
+  text-align: left;
+}
+.welcome-quick-copy {
+  display: grid;
+  flex: 1 1 auto;
+  gap: 2px;
+}
+.welcome-quick-copy strong {
+  font-size: 12px;
+}
+.welcome-quick-copy small {
+  color: var(--v2-muted);
+  font-size: 11px;
+  font-weight: 450;
+  line-height: 1.4;
+}
 .welcome-source-note {
   display: flex;
   align-items: flex-start;
@@ -4573,12 +4607,48 @@ footer span {
   font-weight: 650;
   line-height: 1.5;
 }
-.game-question legend span {
+.game-question-number {
   display: inline-block;
   margin-right: 8px;
   color: var(--v2-accent);
   font-size: 10px;
   font-weight: 700;
+}
+.game-question-prompt {
+  color: var(--v2-ink);
+}
+.game-question-difficulty,
+.game-difficulty {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 4px 8px;
+  border: 1px solid var(--v2-line);
+  border-radius: 999px;
+  color: var(--v2-muted);
+  font-size: 10px;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.game-question-difficulty {
+  margin: 6px 0 0 34px;
+}
+.game-question-difficulty.is-developing,
+.game-difficulty.is-developing {
+  background: color-mix(in srgb, var(--v2-accent), var(--v2-paper) 88%);
+}
+.game-question-difficulty.is-challenge,
+.game-difficulty.is-challenge {
+  border-color: color-mix(in srgb, var(--v2-accent), var(--v2-line) 45%);
+  background: color-mix(in srgb, var(--v2-accent), var(--v2-paper) 78%);
+  color: var(--v2-ink);
+}
+.game-phase-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
 }
 .game-choices {
   display: grid;
@@ -6544,6 +6614,27 @@ footer span {
   background: #080808;
   color: #fff;
 }
+
+/* Reader controls keep their text readable while the area hue remains decorative. */
+.reader .reader-body .field-tag {
+  border: 1px solid color-mix(in srgb, var(--area-tone, var(--v2-accent)) 38%, var(--v2-line));
+  background: color-mix(in srgb, var(--v2-paper) 88%, var(--area-tone, var(--v2-accent)) 12%);
+  color: var(--v2-ink);
+}
+.reader .reader-audio .outline-btn {
+  border-color: var(--v2-line);
+  background: var(--v2-paper);
+  color: var(--v2-ink);
+}
+.reader .reader-audio .outline-btn:hover:not(:disabled) {
+  border-color: var(--v2-accent);
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.reader .reader-audio .outline-btn:disabled {
+  color: var(--v2-muted);
+  opacity: 1;
+}
 .shell.mode-adventure.palette-contrast .developer-process-hero :where(h1, p, .eyebrow),
 .shell.mode-adventure.palette-contrast .developer-process :where(h2, h3, p, strong, span) {
   color: #fff;
@@ -6922,8 +7013,23 @@ footer span {
 }
 @media (max-width: 600px) {
   .glossary-tooltip {
-    max-width: min(300px, calc(100vw - 32px));
+    position: fixed;
+    z-index: 1000;
+    right: max(12px, env(safe-area-inset-right));
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: max(12px, env(safe-area-inset-left));
+    box-sizing: border-box;
+    width: auto;
+    max-width: none;
+    max-height: min(32vh, 260px);
+    overflow-y: auto;
     font-size: 0.84rem;
+    transform: translateY(4px);
+  }
+  .glossary-term-wrap:hover .glossary-tooltip,
+  .glossary-term:focus-visible + .glossary-tooltip,
+  .glossary-term[aria-expanded='true'] + .glossary-tooltip {
+    transform: translateY(0);
   }
 }
 .shell.mode-adventure
@@ -7934,6 +8040,29 @@ footer span {
     grid-column: 2;
     grid-row: 1;
     width: 100%;
+  }
+
+  .assessment-question-difficulty {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: start;
+    margin: 0;
+  }
+
+  .game-question legend {
+    float: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .game-question-prompt {
+    min-width: 0;
+    flex: 1 1 180px;
+  }
+
+  .game-question-difficulty {
+    margin: 2px 0 0 26px;
   }
 
   .assessment-choice,

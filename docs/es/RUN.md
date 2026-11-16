@@ -1,4 +1,4 @@
-# Ejecutar Sala de Calma e Estudo en mi ordenador
+# Ejecutar Estude com Calma en mi ordenador
 
 Esta es la forma más breve de explorar el proyecto localmente. No necesito una cuenta de Cloudflare ni una base de datos remota.
 

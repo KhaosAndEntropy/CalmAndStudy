@@ -42,12 +42,11 @@ export function CheckedSourceLinks({ sources }: { sources: VerifiableSource[] })
         <span>{links.length} links responderam agora</span>
       </div>
       <p>
-        A Sala de Calma e Estudo prioriza referências públicas de universidades, órgãos e
-        instituições de pesquisa. Esta checagem confirma somente que o endereço respondeu HTTP 2xx
-        nesta consulta; ela não atesta revisão por pares, acesso integral sem paywall ou a
-        veracidade de cada afirmação. Consulte as fontes e considere o contexto do artigo. O link
-        permite leitura da origem, mas não concede automaticamente licença para republicar seu
-        conteúdo.
+        O Estude com Calma prioriza referências públicas de universidades, órgãos e instituições de
+        pesquisa. Esta checagem confirma somente que o endereço respondeu HTTP 2xx nesta consulta;
+        ela não atesta revisão por pares, acesso integral sem paywall ou a veracidade de cada
+        afirmação. Consulte as fontes e considere o contexto do artigo. O link permite leitura da
+        origem, mas não concede automaticamente licença para republicar seu conteúdo.
       </p>
       {links.map(source => (
         <a

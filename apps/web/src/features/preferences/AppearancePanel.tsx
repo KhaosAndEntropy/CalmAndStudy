@@ -240,8 +240,8 @@ export function AppearancePanel({
         <p className="pref-help sound-study-guidance">
           Não existe um som ideal para todo mundo. Para leitura exigente, experimente primeiro o
           silêncio; se preferir música, teste uma faixa instrumental suave e em volume baixo. Você
-          também pode usar sua própria música em outro aplicativo — a Sala não reproduz faixas
-          protegidas por direitos autorais.
+          também pode usar sua própria música em outro aplicativo — o Estude com Calma não reproduz
+          faixas protegidas por direitos autorais.
         </p>
         <details className="sound-evidence">
           <summary>O que as pesquisas indicam?</summary>

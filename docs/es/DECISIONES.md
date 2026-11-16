@@ -9,9 +9,9 @@ Registro por separado las decisiones de producto que tomé y las recomendaciones
 | 11–12 nov. 2026 | Consolidé la PWA adaptable, accesibilidad, preferencias visuales, herramientas de lectura, progreso, participación y navegación.                                                                        |
 | 12–13 nov. 2026 | Reforcé la API, validaciones, D1, privacidad, límites de solicitudes, CI, análisis estático y revisión pasiva. Elegí el despliegue integrado GitHub–Cloudflare tras las comprobaciones.                 |
 | 13–14 nov. 2026 | Elegí MIT para el código y CC BY 4.0 para textos originales, mantuve el proyecto gratuito, abrí contribuciones y definí dos modos de estudio con criterios editoriales comunes y atención al bienestar. |
-| 15 nov. 2026    | Inicié el cambio de marca a Sala de Calma e Estudo y la migración del repositorio, con documentación en portugués, inglés y español.                                                                    |
+| 15 nov. 2026    | Inicié el cambio de marca o Estude com Calma y la migración del repositorio, con documentación en portugués, inglés y español.                                                                          |
 
-El nombre **Sala de Calma e Estudo** fue sugerido por el asistente de IA mientras explorábamos nombres; yo decidí conservarlo, también por su representación femenina en un contexto donde las mujeres suelen ser infravaloradas. La plataforma recibe a personas de todos los géneros.
+El nombre **Estude com Calma** fue sugerido por el asistente de IA mientras explorábamos nombres; yo decidí conservarlo, también por su representación femenina en un contexto donde las mujeres suelen ser infravaloradas. La plataforma recibe a personas de todos los géneros.
 
 ## Decisiones que tomé
 

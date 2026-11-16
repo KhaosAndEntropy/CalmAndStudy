@@ -11,9 +11,9 @@ Eu registro abaixo as decisões de produto que tomei e separo-as das recomendaç
 | 11–12 nov. 2026 | Consolidei a PWA responsiva, acessibilidade, preferências visuais, recursos de leitura, progresso, engajamento e melhorias de navegação.                                                                                                |
 | 12–13 nov. 2026 | Fortaleci API, validação, D1, privacidade, limites de requisição, CI, análise estática e varredura passiva. Decidi manter deploy automático pela integração GitHub–Cloudflare depois das verificações.                                  |
 | 13–14 nov. 2026 | Escolhi MIT para o código e CC BY 4.0 para textos originais, mantive o projeto gratuito e abri caminho para contribuições públicas. Também defini dois modos de aprendizagem com os mesmos critérios editoriais e atenção ao bem-estar. |
-| 15 nov. 2026    | Iniciei a migração e o rebranding para Sala de Calma e Estudo, com uma nova identidade GitHub e documentação organizada em português, inglês e espanhol.                                                                                |
+| 15 nov. 2026    | Iniciei a migração e o rebranding paro Estude com Calma, com uma nova identidade GitHub e documentação organizada em português, inglês e espanhol.                                                                                      |
 
-O nome de trabalho anterior, **Calm & Study**, foi sugerido pelo assistente de IA; eu decidi mantê-lo por um período, também por sua representatividade feminina em um contexto em que mulheres são frequentemente desvalorizadas. Em seguida, escolhi **Sala de Calma e Estudo** como marca principal em português, por priorizar o público brasileiro. A plataforma é acolhedora para pessoas de qualquer gênero.
+O nome de trabalho anterior, **Calm & Study**, foi sugerido pelo assistente de IA; eu decidi mantê-lo por um período, também por sua representatividade feminina em um contexto em que mulheres são frequentemente desvalorizadas. Em seguida, escolhi **Estude com Calma** como marca principal em português, por priorizar o público brasileiro. A plataforma é acolhedora para pessoas de qualquer gênero.
 
 ## O que é decisão minha
 

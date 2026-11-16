@@ -1,6 +1,6 @@
 # Apoio voluntário por Pix
 
-A Sala de Calma e Estudo continua gratuita e aberta. Quem gostar do projeto e quiser — e puder — pode contribuir voluntariamente por Pix. Não há assinatura, meta, recompensa, conteúdo exclusivo nem mudança no acesso para quem não contribui.
+O Estude com Calma continua gratuita e aberta. Quem gostar do projeto e quiser — e puder — pode contribuir voluntariamente por Pix. Não há assinatura, meta, recompensa, conteúdo exclusivo nem mudança no acesso para quem não contribui.
 
 ## Como a opção funciona
 

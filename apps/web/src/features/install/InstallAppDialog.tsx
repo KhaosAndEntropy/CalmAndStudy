@@ -37,20 +37,20 @@ export function InstallAppDialog({
         <div className="install-dialog-mark">
           <Smartphone size={20} aria-hidden="true" />
         </div>
-        <div className="eyebrow">LEVE A SALA DE CALMA E ESTUDO COM VOCÊ</div>
-        <h2 id="install-dialog-title">Instale a Sala de Calma e Estudo no seu dispositivo.</h2>
+        <div className="eyebrow">LEVE O ESTUDE COM CALMA COM VOCÊ</div>
+        <h2 id="install-dialog-title">Instale o Estude com Calma no seu dispositivo.</h2>
         <p id="install-dialog-description">
           A versão web pode ser adicionada à tela inicial ou instalada pelo navegador. Ela abre em
           uma janela própria, como um aplicativo, sem passar por uma loja.
         </p>
         {isInstalled ? (
           <p className="install-status" role="status">
-            A Sala de Calma e Estudo já está instalada neste dispositivo.
+            O Estude com Calma já está instalado neste dispositivo.
           </p>
         ) : (
           canInstall && (
             <button className="primary install-native-button" onClick={onInstall}>
-              <Download size={16} aria-hidden="true" /> Instalar Sala de Calma e Estudo
+              <Download size={16} aria-hidden="true" /> Instalar Estude com Calma
             </button>
           )
         )}
@@ -79,7 +79,7 @@ export function InstallAppDialog({
         </div>
         <p className="install-dialog-note">
           <ExternalLink size={13} aria-hidden="true" /> A opção pode variar conforme o navegador. A
-          Sala de Calma e Estudo continua disponível pelo site mesmo sem instalação.
+          Estude com Calma continua disponível pelo site mesmo sem instalação.
         </p>
       </section>
     </div>

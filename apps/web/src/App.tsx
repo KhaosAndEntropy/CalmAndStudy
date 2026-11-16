@@ -199,7 +199,7 @@ const welcomeStorageKey = 'calmandstudy-welcome-seen-v2';
 const welcomeTourStops: WelcomeTourStop[] = [
   {
     section: 'Navegação',
-    title: 'Este é o mapa da Sala de Calma e Estudo',
+    title: 'Este é o mapa do Estude com Calma',
     description:
       'Use o menu para alternar entre descobertas, pesquisa, trilhas, tutoriais e outras áreas. O passeio vai visitar cada uma delas.',
     target: '.sidebar nav',
@@ -315,7 +315,7 @@ const welcomeTourStops: WelcomeTourStop[] = [
   {
     section: 'Novidades',
     title: 'Acompanhe as melhorias',
-    description: 'Esta seção reúne as mudanças e atualizações feitas na Sala de Calma e Estudo.',
+    description: 'Esta seção reúne as mudanças e atualizações feitas no Estude com Calma.',
     target: '.updates-list',
   },
   {
@@ -329,7 +329,7 @@ const welcomeTourStops: WelcomeTourStop[] = [
     section: 'Direitos e transparência',
     title: 'Entenda fontes, imagens e licenças',
     description:
-      'Veja como a Sala de Calma e Estudo diferencia referências, conteúdo editorial, ilustrações de IA e direitos de reutilização.',
+      'Veja como o Estude com Calma diferencia referências, conteúdo editorial, ilustrações de IA e direitos de reutilização.',
     target: '.content-policy-page',
   },
   {
@@ -342,7 +342,7 @@ const welcomeTourStops: WelcomeTourStop[] = [
   },
   {
     section: 'Instalação',
-    title: 'Leve a Sala de Calma e Estudo para a tela inicial',
+    title: 'Leve o Estude com Calma para a tela inicial',
     description:
       'A versão web pode ser instalada como PWA pelo navegador. As instruções variam um pouco entre celular e computador.',
     target: '.install-dialog',
@@ -379,6 +379,7 @@ type InstallPromptEvent = Event & {
 export default function App() {
   const footerRef = useRef<HTMLElement | null>(null);
   const [footerVisible, setFooterVisible] = useState(false);
+  const [searchVisible, setSearchVisible] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [installDialogOpen, setInstallDialogOpen] = useState(false);
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
@@ -454,6 +455,22 @@ export default function App() {
     isBoolean,
   );
   const ambientSound = useAmbientSoundscape();
+  useEffect(() => {
+    const search = document.getElementById('search');
+    if (!search || !('IntersectionObserver' in window)) {
+      setSearchVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setSearchVisible(entry.isIntersecting);
+      },
+      { threshold: 0.05 },
+    );
+    observer.observe(search);
+    return () => observer.disconnect();
+  }, [active]);
   useEffect(() => {
     const timer = window.setInterval(() => {
       if (document.visibilityState !== 'visible') return;
@@ -601,6 +618,14 @@ export default function App() {
   };
   const random = useCallback(() => {
     const options = matching.length ? matching : topics;
+    const next = options[Math.floor(Math.random() * options.length)];
+    setSelected(next);
+    setActive('Descobrir');
+  }, [matching]);
+  const randomQuickArticle = useCallback(() => {
+    const shortMatches = matching.filter(topic => topic.readingTime <= 5);
+    const shortTopics = topics.filter(topic => topic.readingTime <= 5);
+    const options = shortMatches.length ? shortMatches : shortTopics.length ? shortTopics : topics;
     const next = options[Math.floor(Math.random() * options.length)];
     setSelected(next);
     setActive('Descobrir');
@@ -1005,11 +1030,11 @@ export default function App() {
     };
   }, [mobileMenuOpen]);
   const activeDialogTitle = welcomeOpen
-    ? 'Conheça a proposta da Sala de Calma e Estudo'
+    ? 'Conheça a proposta do Estude com Calma'
     : welcomeTourIndex !== null
-      ? 'Tour interativo da Sala de Calma e Estudo'
+      ? 'Tour interativo do Estude com Calma'
       : installDialogOpen
-        ? 'Instale a Sala de Calma e Estudo no seu dispositivo'
+        ? 'Instale o Estude com Calma no seu dispositivo'
         : suggestionOpen
           ? suggestionDraft.kind === 'review'
             ? 'Sugerir revisão do artigo'
@@ -1061,7 +1086,7 @@ export default function App() {
         <a
           className="brand"
           href="#conteudo"
-          aria-label="Sala de Calma e Estudo, ir para a página inicial"
+          aria-label="Estude com Calma, ir para a página inicial"
           onClick={() => {
             setActive('Descobrir');
             setSelected(null);
@@ -1073,9 +1098,9 @@ export default function App() {
           </span>
           <span className="brand-copy">
             <span className="brand-wordmark" aria-hidden="true">
-              Sala de
+              Estude com
               <strong>
-                Calma e Estudo<span className="brand-dot">.</span>
+                Calma<span className="brand-dot">.</span>
               </strong>
             </span>
             {learningMode === 'adventure' && <small>Modo aventura</small>}
@@ -1130,7 +1155,7 @@ export default function App() {
               <Download size={18} aria-hidden="true" />
               {learningMode === 'adventure'
                 ? 'Levar a expedição comigo'
-                : 'Instalar a Sala de Calma e Estudo'}
+                : 'Instalar o Estude com Calma'}
             </button>
           </section>
         </nav>
@@ -1154,8 +1179,8 @@ export default function App() {
             <span className="tiny-icon">
               <Lightbulb size={16} aria-hidden="true" />
             </span>
-            <strong>Curiosidade não tem pressa</strong>
-            <p>Uma pergunta de cada vez. Explore no seu ritmo.</p>
+            <strong>Estudo no seu ritmo</strong>
+            <p>Uma leitura breve ou um caminho mais longo. Você escolhe.</p>
             <div className="streak">
               <span aria-hidden="true">✳</span> Conhecimento com contexto
             </div>
@@ -1193,7 +1218,7 @@ export default function App() {
             )}
           </button>
           <nav className="breadcrumb" aria-label="Você está em">
-            <span>{learningMode === 'adventure' ? 'Expedição' : 'Sala'}</span>
+            <span>{learningMode === 'adventure' ? 'Expedição' : 'Estudo calmo'}</span>
             <span aria-hidden="true">/</span>
             <b aria-current="page">{active}</b>
           </nav>
@@ -1202,7 +1227,7 @@ export default function App() {
             <LearningModePicker mode={learningMode} onChange={changeLearningMode} />
             <button
               className="install-trigger"
-              aria-label="Instalar a Sala de Calma e Estudo como aplicativo"
+              aria-label="Instalar o Estude com Calma como aplicativo"
               onClick={openInstallDialog}
             >
               <Download size={16} aria-hidden="true" />
@@ -1314,7 +1339,7 @@ export default function App() {
                 <p>
                   {learningMode === 'adventure'
                     ? 'Retome os assuntos que você marcou durante a expedição.'
-                    : 'Revisite os assuntos que despertaram sua curiosidade.'}
+                    : 'Revisite os assuntos que você quer estudar com calma.'}
                 </p>
                 <button className="outline-btn saved-back" onClick={returnToDiscover}>
                   <ArrowLeft size={15} aria-hidden="true" /> Voltar para descobrir
@@ -1401,13 +1426,12 @@ export default function App() {
             <a href="https://edststechhub.pages.dev/" target="_blank" rel="noopener noreferrer">
               <strong>Ednaldo Nicolau dos Santos</strong>
             </a>
-            . Sala de Calma e Estudo · © {new Date().getFullYear()}. Código sob MIT; textos
-            originais sob CC BY 4.0; materiais de terceiros seguem suas próprias licenças e
-            atribuições.
+            . Estude com Calma · © {new Date().getFullYear()}. Código sob MIT; textos originais sob
+            CC BY 4.0; materiais de terceiros seguem suas próprias licenças e atribuições.
           </p>
           <nav className="footer-links" aria-label="Informações do projeto">
             <button className="about-link" onClick={() => setWelcomeOpen(true)}>
-              Sobre a Sala de Calma e Estudo
+              Sobre o Estude com Calma
             </button>
             <button className="about-link" onClick={() => setActive('Agradecimentos')}>
               Agradecimentos
@@ -1443,8 +1467,8 @@ export default function App() {
             <strong>Uma pausa também faz parte de aprender.</strong>
             <p>
               Esta aba está ativa há um tempinho. Se puder, respire, beba uma água, faça carinho no
-              pet ou mande uma mensagem a alguém querido. Seu bem-estar vem antes da Sala de Calma e
-              Estudo.
+              pet ou mande uma mensagem a alguém querido. Seu bem-estar vem antes de continuar no
+              Estude com Calma.
             </p>
           </div>
           <div className="screen-break-actions">
@@ -1513,7 +1537,7 @@ export default function App() {
             onClose={closeWelcome}
             onQuick={() => {
               closeWelcome();
-              random();
+              randomQuickArticle();
             }}
             onTour={startWelcomeTour}
             onModeSelect={changeLearningMode}
@@ -1568,11 +1592,15 @@ export default function App() {
           <span>Topo</span>
         </button>
       )}
-      {!footerVisible && !welcomeOpen && !installDialogOpen && !suggestionOpen && (
-        <button className="mobile-suggest" onClick={openSuggestion}>
-          <Lightbulb size={16} aria-hidden="true" /> Sugerir tema
-        </button>
-      )}
+      {!footerVisible &&
+        !searchVisible &&
+        !welcomeOpen &&
+        !installDialogOpen &&
+        !suggestionOpen && (
+          <button className="mobile-suggest" onClick={openSuggestion}>
+            <Lightbulb size={16} aria-hidden="true" /> Sugerir tema
+          </button>
+        )}
       {toast && (
         <div className="toast" role="status" aria-live="polite">
           <Check size={15} aria-hidden="true" />

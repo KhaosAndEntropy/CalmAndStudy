@@ -98,7 +98,7 @@ export interface EditorialRecord {
 
 export const confidenceMethod = {
   id: 'calmandstudy-confidence-v1' as const,
-  label: 'Índice editorial Sala de Calma e Estudo v1',
+  label: 'Índice editorial Estude com Calma v1',
   weights: {
     claimCoverage: 25,
     evidenceQuality: 25,
