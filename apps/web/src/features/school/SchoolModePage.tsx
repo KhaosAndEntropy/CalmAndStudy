@@ -59,7 +59,21 @@ export function SchoolModePage() {
       <section className="school-hero">
         <div className="school-hero-copy">
           <span className="school-eyebrow">
-            <GraduationCap size={15} aria-hidden="true" /> PRIMEIROS PASSOS · BNCC
+            <GraduationCap size={15} aria-hidden="true" />
+            <span className="school-brazil-flag" role="img" aria-label="Projeto brasileiro">
+              <svg viewBox="0 0 60 42" aria-hidden="true" focusable="false">
+                <rect width="60" height="42" fill="#009739" />
+                <path d="M30 4 55 21 30 38 5 21Z" fill="#ffdf00" />
+                <circle cx="30" cy="21" r="10.2" fill="#002776" />
+                <path
+                  d="M20 18.4c6.4-1.2 13.2-.6 19.7 1.8"
+                  fill="none"
+                  stroke="#fff"
+                  strokeWidth="1.35"
+                />
+              </svg>
+            </span>
+            APOIO ESCOLAR · BNCC
           </span>
           <h1 id="school-title">
             Um caminho de estudo

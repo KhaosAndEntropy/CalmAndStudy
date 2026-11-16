@@ -1558,6 +1558,7 @@ export default function App() {
             }}
             onTour={startWelcomeTour}
             onModeSelect={changeLearningMode}
+            onSchoolMode={() => selectSection('Modo escolar')}
           />
         )}
         {welcomeTourIndex !== null && (

@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { ArrowRight, BookOpen, Gamepad2, Heart, Sparkles, Timer, X } from 'lucide-react';
+import {
+  ArrowRight,
+  BookOpen,
+  Gamepad2,
+  GraduationCap,
+  Heart,
+  Sparkles,
+  Timer,
+  X,
+} from 'lucide-react';
 import type { LearningMode } from '../preferences/learning-mode';
 import { recommendModeFromContext } from './context-recommendation';
 
@@ -10,11 +19,13 @@ export function WelcomeDialog({
   onQuick,
   onTour,
   onModeSelect,
+  onSchoolMode,
 }: {
   onClose: () => void;
   onQuick: () => void;
   onTour: () => void;
   onModeSelect: (mode: LearningMode) => void;
+  onSchoolMode?: () => void;
 }) {
   const [step, setStep] = useState<WelcomeStep>('paths');
   const [optionalContext, setOptionalContext] = useState('');
@@ -193,6 +204,28 @@ export function WelcomeDialog({
                   Fazer um tour pelo Estude com Calma <ArrowRight size={15} aria-hidden="true" />
                 </button>
               </div>
+              {onSchoolMode && (
+                <button
+                  className="welcome-school-cta"
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    onSchoolMode();
+                  }}
+                >
+                  <span className="welcome-school-cta-icon">
+                    <GraduationCap size={19} aria-hidden="true" />
+                  </span>
+                  <span className="welcome-school-cta-copy">
+                    <strong>Apoio escolar gratuito</strong>
+                    <small>
+                      Explore percursos por etapa e ano, orientados pela BNCC. A amostra está
+                      começando.
+                    </small>
+                  </span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                </button>
+              )}
             </div>
           </>
         ) : (

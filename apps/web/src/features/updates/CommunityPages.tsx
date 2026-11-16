@@ -4,7 +4,7 @@ import { HeartHandshake, Newspaper } from 'lucide-react';
 export const releaseNotes = [
   [
     'Primeiros passos do Modo escolar',
-    'Já dá para escolher etapa, ano e componente e explorar três exemplos de estudo alinhados a habilidades da BNCC. Esta amostra inicial não substitui matrícula ou certificação; novos percursos serão acrescentados com fontes e revisão.',
+    'Já dá para escolher etapa, ano e componente e explorar três exemplos de estudo alinhados a habilidades da BNCC. O popup de entrada agora também aponta para o apoio escolar gratuito, que segue em ampliação e não substitui matrícula ou certificação.',
   ],
   [
     'Cabeçalho melhor ajustado no celular',

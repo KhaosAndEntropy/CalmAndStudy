@@ -7,6 +7,7 @@ Este arquivo registra mudanças percebidas por quem usa o Estude com Calma. A se
 - Uma nova área organiza o estudo por etapa, ano e componente, usando códigos e habilidades da BNCC como referência.
 - A demonstração inicial inclui três percursos curtos, um por recorte curricular, e informa com clareza o que ainda não está coberto.
 - O Modo escolar é complementar: não oferece matrícula ou certificação e não substitui a escola.
+- O popup de entrada agora destaca o apoio escolar gratuito e leva diretamente à nova área; a identificação BNCC também reforça a origem brasileira do projeto.
 
 ## 2026-11-16 — Cabeçalho e seletores em telas pequenas
 
