@@ -2459,6 +2459,8 @@ footer span {
     flex: 0 0 auto;
   }
   .learning-mode-options {
+    position: fixed;
+    top: calc(86px + env(safe-area-inset-top));
     right: max(8px, env(safe-area-inset-right));
     width: min(310px, calc(100vw - 32px));
     max-height: calc(100dvh - 84px - env(safe-area-inset-top));
