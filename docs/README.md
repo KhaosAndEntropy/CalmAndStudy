@@ -10,6 +10,7 @@
 ## Segurança e publicação
 
 - [Segredos e configuração segura](SEGURANCA.md)
+- [Auditoria de segurança — 16/11/2026](pt-BR/AUDITORIA_SEGURANCA_2026-11-16.md)
 - [Publicar seu fork](GUIA_EXECUCAO_PUBLICACAO.md)
 - [CI e liberação de produção](GITHUB_DEPLOY_GATE.md)
 

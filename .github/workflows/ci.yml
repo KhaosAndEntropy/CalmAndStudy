@@ -33,7 +33,7 @@ jobs:
       - name: Preparar pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.0.0
+          version: 10.27.0
       - name: Preparar Node.js
         uses: actions/setup-node@v4
         with:
@@ -129,7 +129,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Construir a imagem com bases atualizadas
-        run: docker build --pull --tag calmandstudy:ci .
+        run: docker build --pull --no-cache --tag calmandstudy:ci .
       - name: Preparar imagem para análise
         run: docker image save calmandstudy:ci --output "$RUNNER_TEMP/calmandstudy-image.tar"
       - name: Bloquear vulnerabilidades conhecidas na imagem

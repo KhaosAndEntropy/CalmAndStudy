@@ -1,28 +1,51 @@
-FROM node:22-bookworm-slim AS build
+FROM node:22-trixie-slim AS dependencies
 
 WORKDIR /app
 
 RUN apt-get update \
+    && apt-get upgrade --yes --no-install-recommends \
     && apt-get install --yes --no-install-recommends ca-certificates libc++1 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN corepack enable \
-    && corepack prepare pnpm@10.0.0 --activate
+    && corepack prepare pnpm@10.27.0 --activate
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/web/package.json apps/web/package.json
+COPY functions/package.json functions/package.json
+COPY packages/content/package.json packages/content/package.json
+COPY packages/research/package.json packages/research/package.json
+
+RUN --mount=type=cache,id=calmandstudy-pnpm-store,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile
+
+FROM dependencies AS build
 
 COPY . .
 
-RUN pnpm install --frozen-lockfile \
-    && pnpm --filter @calmandstudy/web build \
+RUN pnpm --filter @calmandstudy/web build \
     && mkdir -p /out \
-    && ./node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/bin/esbuild \
+    && ./node_modules/.pnpm/esbuild@0.28.2/node_modules/esbuild/bin/esbuild \
       packages/research/src/index.ts \
       --bundle --platform=node --format=esm --target=node22 --outfile=/out/research-api.mjs \
     && cp server.mjs /out/server.mjs \
     && cp -R apps/web/dist /out/dist
 
-FROM build AS pages-local
+FROM dependencies AS pages-local
 
-RUN mkdir -p /data /app/.wrangler \
+COPY functions/ functions/
+COPY packages/content/src/ packages/content/src/
+COPY packages/research/src/ packages/research/src/
+COPY scripts/docker-compose-entrypoint.sh scripts/docker-compose-entrypoint.sh
+COPY wrangler.toml wrangler.toml
+COPY --from=build /app/apps/web/dist/ apps/web/dist/
+
+RUN rm -rf /root/.cache/node/corepack /root/.cache/corepack /root/.npm \
+      /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
+      /opt/yarn-v1.22.22 /usr/local/bin/npm /usr/local/bin/npx \
+      /usr/local/bin/pnpm /usr/local/bin/pnpx /usr/local/bin/corepack \
+      /usr/local/share/man \
+    && mkdir -p /data /app/.wrangler \
     && ln -s /tmp /app/.wrangler/tmp \
     && ln -s /tmp /app/node_modules/.mf \
     && chown -R node:node /data /app/.wrangler

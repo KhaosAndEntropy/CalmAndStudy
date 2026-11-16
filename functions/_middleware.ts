@@ -42,9 +42,25 @@ export async function onRequest({ request, env, next }: PagesContext): Promise<R
             ? 'engagement'
             : null;
   if (!category || (category === 'submissions' && request.method === 'OPTIONS')) return next();
-  if (!isAllowedApiRequest(request)) return next();
+  if (!isAllowedApiRequest(request)) return apiError(403, 'Origem não permitida.');
   const limited = await enforceApiRateLimit(request, env, category);
   return limited ? addRateLimitCors(limited, request) : next();
+}
+
+function apiError(status: number, error: string): Response {
+  return new Response(JSON.stringify({ error, code: 'origin_not_allowed' }), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'Referrer-Policy': 'no-referrer',
+      'Cross-Origin-Resource-Policy': 'same-origin',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+      'Content-Security-Policy': "default-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+    },
+  });
 }
 
 export async function enforceApiRateLimit(
