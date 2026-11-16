@@ -7096,6 +7096,91 @@ footer span {
   outline: 2px solid var(--v2-highlight);
   outline-offset: 2px;
 }
+
+/* Feedback and tutorial copy stay readable on dark adventure palettes. */
+.shell.mode-adventure .game-choice.is-correct {
+  border-color: #8de09a;
+  background: #17351e;
+  color: #fff;
+}
+.shell.mode-adventure .game-choice.is-wrong {
+  border-color: #ff9e80;
+  background: #451d16;
+  color: #fff;
+}
+.shell.mode-adventure.palette-contrast :where(.game-choice.is-correct, .game-choice.is-wrong) {
+  border-color: var(--v2-highlight);
+  background: #000;
+  color: #fff;
+}
+.shell.mode-adventure .game-choice:is(.is-correct, .is-wrong):has(input:checked) {
+  background: #451d16;
+  color: #fff;
+}
+.shell.mode-adventure .game-choice.is-correct:has(input:checked) {
+  border-color: #8de09a;
+  background: #17351e;
+}
+.shell.mode-adventure.palette-contrast .game-choice:is(.is-correct, .is-wrong):has(input:checked) {
+  border-color: var(--v2-highlight);
+  background: #000;
+  color: #fff;
+}
+.shell .tutorial-dialog .tutorial-materials,
+.shell .tutorial-dialog .tutorial-progress,
+.shell .tutorial-dialog .tutorial-step p,
+.shell .tutorial-dialog .tutorial-wrapup p {
+  color: var(--v2-muted);
+}
+.shell .tutorial-dialog .tutorial-materials b,
+.shell .tutorial-dialog .tutorial-step h3,
+.shell .tutorial-dialog .tutorial-wrapup b {
+  color: var(--v2-ink);
+}
+.shell .tutorial-dialog .step-number,
+.shell .tutorial-dialog .step-check {
+  color: var(--v2-ink);
+}
+.shell .tutorial-dialog .tutorial-step.done .step-number {
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.shell.mode-adventure.palette-contrast
+  .tutorial-dialog
+  :where(
+    .tutorial-materials,
+    .tutorial-progress,
+    .tutorial-step p,
+    .tutorial-wrapup p,
+    .tutorial-step h3,
+    .tutorial-wrapup b,
+    .step-number,
+    .step-check
+  ) {
+  color: #fff;
+}
+.shell.mode-adventure.palette-contrast .tutorial-dialog .tutorial-source {
+  color: var(--v2-highlight);
+}
+.shell.mode-adventure .empty {
+  border-color: var(--v2-line);
+  color: var(--v2-muted);
+}
+.shell.mode-adventure .empty h3 {
+  color: var(--v2-ink);
+}
+.shell.mode-adventure .empty p {
+  color: var(--v2-muted);
+}
+.shell.mode-adventure .saved-back {
+  border-color: var(--v2-highlight);
+  background: var(--v2-highlight);
+  color: var(--v2-highlight-ink, var(--v2-on-accent));
+}
+.shell.mode-adventure .saved-back:hover {
+  border-color: var(--v2-highlight-hover, var(--v2-highlight));
+  background: var(--v2-highlight-hover, var(--v2-highlight));
+}
 .shell
   .appearance-panel
   :where(.appearance-head > span, .palette-choice small, .layout-choice small) {
