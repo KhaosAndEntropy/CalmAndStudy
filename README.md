@@ -2,6 +2,10 @@
 
 Projeto gratuito de aprendizagem com artigos, trilhas, tutoriais e fontes abertas. Estudo calmo e Modo aventura usam o mesmo conteúdo e os mesmos critérios editoriais.
 
+## Sobre o projeto
+
+Criado no Brasil por Ednaldo Santos, o Estude com Calma é um projeto independente e aberto à colaboração de outros desenvolvedores brasileiros. Contribuições para código, documentação, acessibilidade, segurança e conteúdo educativo são bem-vindas; todas passam por revisão e seguem as licenças e os critérios editoriais do projeto.
+
 ## Rodar localmente
 
 Requisitos: Node.js 22.13 ou superior e pnpm 10 (via Corepack).
