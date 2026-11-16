@@ -16,6 +16,7 @@ import {
   bnccSourceUrl,
   pilotSkillRelations,
   pilotSkills,
+  schoolSkills,
   schoolStages,
   type SchoolStageId,
 } from './school-curriculum';
@@ -38,6 +39,7 @@ export function SchoolModePage() {
   const [year, setYear] = useState(schoolStages[0].years[0]?.value ?? '1');
   const [subject, setSubject] = useState('Matemática');
   const [relationshipView, setRelationshipView] = useState<RelationshipView>('sequence');
+  const [answers, setAnswers] = useState<Record<string, number>>({});
   const currentStage = schoolStages.find(option => option.id === stageId) ?? schoolStages[0];
   const currentYear = currentStage.years.some(option => option.value === year)
     ? year
@@ -47,7 +49,7 @@ export function SchoolModePage() {
     : (currentStage.subjects[0] ?? '');
   const skill = useMemo(
     () =>
-      pilotSkills.find(
+      schoolSkills.find(
         item =>
           item.stage === stageId &&
           (item.year === currentYear || item.year === '1-3') &&
@@ -188,13 +190,26 @@ export function SchoolModePage() {
               <code>{skill.code}</code>
             </div>
             <h3>{skill.title}</h3>
-            <p className="school-skill-description">{skill.description}</p>
+            <p className="school-summary-label">Síntese de estudo</p>
+            <p className="school-skill-summary">{skill.summary}</p>
             <div className="school-goal">
               <Lightbulb size={17} aria-hidden="true" />
               <p>
                 <b>O que você vai praticar</b>
                 <span>{skill.goal}</span>
               </p>
+            </div>
+            <div className="school-study-content">
+              <h4>Estude o tema</h4>
+              {skill.studyContent.map((section, index) => (
+                <section key={section.title}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    <h5>{section.title}</h5>
+                    <p>{section.body}</p>
+                  </div>
+                </section>
+              ))}
             </div>
             <div className="school-steps">
               <h4>Vamos por partes</h4>
@@ -209,14 +224,52 @@ export function SchoolModePage() {
             </div>
             <details className="school-practice">
               <summary>
-                <span>Experimente responder</span>
+                <span>Pratique com {skill.questions.length} questões</span>
                 <ArrowRight size={16} aria-hidden="true" />
               </summary>
-              <p>{skill.practicePrompt}</p>
-              <details>
-                <summary>Ver uma explicação</summary>
-                <p>{skill.practiceAnswer}</p>
-              </details>
+              <div className="school-question-list">
+                {skill.questions.map((question, questionIndex) => {
+                  const questionKey = `${skill.code}:${questionIndex}`;
+                  const selectedOption = answers[questionKey];
+                  return (
+                    <article className="school-question" key={questionKey}>
+                      <h4>
+                        <span>Questão {questionIndex + 1}</span>
+                        {question.prompt}
+                      </h4>
+                      <div role="group" aria-label={`Alternativas da questão ${questionIndex + 1}`}>
+                        {question.options.map((option, optionIndex) => {
+                          const selected = selectedOption === optionIndex;
+                          const correct = optionIndex === question.correctOption;
+                          return (
+                            <button
+                              className={selected ? (correct ? 'is-correct' : 'is-incorrect') : ''}
+                              key={option}
+                              type="button"
+                              aria-pressed={selected}
+                              onClick={() =>
+                                setAnswers(current => ({ ...current, [questionKey]: optionIndex }))
+                              }
+                            >
+                              <span aria-hidden="true">
+                                {String.fromCharCode(65 + optionIndex)}
+                              </span>
+                              {option}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {selectedOption !== undefined && (
+                        <p className="school-question-feedback" role="status" aria-live="polite">
+                          {selectedOption === question.correctOption
+                            ? `Boa! ${question.explanation}`
+                            : `Ainda não. ${question.hint}`}
+                        </p>
+                      )}
+                    </article>
+                  );
+                })}
+              </div>
             </details>
             <a className="school-source-link" href={sourceUrl} target="_blank" rel="noreferrer">
               Conferir habilidade na BNCC oficial <ExternalLink size={14} aria-hidden="true" />
@@ -228,8 +281,8 @@ export function SchoolModePage() {
             <div>
               <h3>Este percurso está sendo preparado</h3>
               <p>
-                A amostra cobre alguns recortes da BNCC. Escolha uma das demonstrações abaixo para
-                ver como uma habilidade vira uma atividade de estudo.
+                A amostra cobre cinco habilidades em alguns recortes da BNCC. Escolha um percurso
+                mapeado abaixo para ver como uma habilidade vira uma atividade de estudo.
               </p>
             </div>
           </div>
@@ -247,7 +300,7 @@ export function SchoolModePage() {
             </p>
           </div>
           <span className="school-pilot-tag">
-            <GitBranch size={13} aria-hidden="true" /> 3 habilidades · 2 conexões sugeridas
+            <GitBranch size={13} aria-hidden="true" /> 3 habilidades no mapa · 2 conexões sugeridas
           </span>
         </div>
 
@@ -301,7 +354,7 @@ export function SchoolModePage() {
           >
             <div className="school-tree-root">Educação Básica · recortes da BNCC</div>
             <div className="school-tree-branches">
-              {pilotSkills.map(sample => {
+              {schoolSkills.map(sample => {
                 const sampleStage = schoolStages.find(option => option.id === sample.stage);
                 return (
                   <div className="school-tree-branch" key={sample.code}>
@@ -373,7 +426,7 @@ export function SchoolModePage() {
       <section className="school-samples" aria-labelledby="school-samples-title">
         <div className="school-section-heading">
           <div>
-            <span className="school-kicker">TRÊS EXEMPLOS CURTOS</span>
+            <span className="school-kicker">TRÊS PERCURSOS DE DEMONSTRAÇÃO</span>
             <h2 id="school-samples-title">Veja outros pontos de partida</h2>
           </div>
         </div>

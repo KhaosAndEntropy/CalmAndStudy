@@ -3,8 +3,8 @@ import { HeartHandshake, Newspaper } from 'lucide-react';
 
 export const releaseNotes = [
   [
-    'Primeiros passos do Modo escolar',
-    'Já dá para escolher etapa, ano e componente, ver a árvore curricular e explorar uma sequência ou conexões entre três exemplos da BNCC. O popup de entrada também aponta para o apoio escolar gratuito, que segue em ampliação e não substitui matrícula ou certificação.',
+    'Estudos e questões originais no Modo escolar',
+    'A amostra agora reúne cinco habilidades: Matemática, Ciências e Geografia. Cada percurso tem explicações próprias, etapas de estudo e três questões com dicas e comentários. A cobertura continua parcial e é ampliada com revisão.',
   ],
   [
     'Cabeçalho melhor ajustado no celular',
