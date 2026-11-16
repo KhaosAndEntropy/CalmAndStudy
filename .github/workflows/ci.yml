@@ -27,7 +27,7 @@ jobs:
     timeout-minutes: 25
     steps:
       - name: Baixar o repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Preparar pnpm
@@ -105,7 +105,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Baixar o repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Procurar riscos de segurança e secrets
@@ -125,7 +125,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Baixar o repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Construir a imagem com bases atualizadas
@@ -149,7 +149,7 @@ jobs:
     timeout-minutes: 8
     steps:
       - name: Baixar o repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
       - name: Aguardar e verificar deploy público
