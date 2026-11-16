@@ -1,4 +1,4 @@
-# Estude com Calma
+# Estude Com Calma Brasil
 
 Projeto gratuito de aprendizagem com artigos, trilhas, tutoriais e fontes abertas. Estudo calmo e Modo aventura usam o mesmo conteúdo e os mesmos critérios editoriais.
 
