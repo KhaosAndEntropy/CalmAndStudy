@@ -217,10 +217,10 @@ export function WelcomeDialog({
                     <GraduationCap size={19} aria-hidden="true" />
                   </span>
                   <span className="welcome-school-cta-copy">
-                    <strong>Apoio escolar gratuito</strong>
+                    <strong>Apoio escolar gratuito · Protótipo</strong>
                     <small>
-                      Explore percursos por etapa e ano, orientados pela BNCC. A amostra está
-                      começando.
+                      Explore cinco habilidades de demonstração alinhadas à BNCC. A cobertura
+                      ainda é parcial.
                     </small>
                   </span>
                   <ArrowRight size={16} aria-hidden="true" />
