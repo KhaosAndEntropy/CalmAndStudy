@@ -123,6 +123,9 @@ const SupportPage = lazy(() =>
 const KnowledgeMap = lazy(() =>
   import('./features/map/KnowledgeMap').then(module => ({ default: module.KnowledgeMap })),
 );
+const SchoolModePage = lazy(() =>
+  import('./features/school/SchoolModePage').then(module => ({ default: module.SchoolModePage })),
+);
 
 function PageLoading() {
   return (
@@ -861,6 +864,7 @@ export default function App() {
             items: [
               ['Jornada', Gamepad2],
               ['Descobrir', Compass],
+              ['Modo escolar', GraduationCap],
               ['Trilhas de estudo', History],
               ['Tutoriais', GraduationCap],
             ],
@@ -891,6 +895,7 @@ export default function App() {
             title: 'APRENDER',
             items: [
               ['Descobrir', Compass],
+              ['Modo escolar', GraduationCap],
               ['Trilhas de estudo', History],
               ['Tutoriais', GraduationCap],
             ],
@@ -1271,7 +1276,9 @@ export default function App() {
           )}
         </header>
         <Suspense fallback={<PageLoading />}>
-          {active === 'Novidades' ? (
+          {active === 'Modo escolar' ? (
+            <SchoolModePage />
+          ) : active === 'Novidades' ? (
             <ReleaseNotes />
           ) : active === 'Apoiar o projeto' ? (
             <SupportPage />
@@ -1551,6 +1558,7 @@ export default function App() {
             }}
             onTour={startWelcomeTour}
             onModeSelect={changeLearningMode}
+            onSchoolMode={() => selectSection('Modo escolar')}
           />
         )}
         {welcomeTourIndex !== null && (

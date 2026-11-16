@@ -3,6 +3,14 @@ import { HeartHandshake, Newspaper } from 'lucide-react';
 
 export const releaseNotes = [
   [
+    'Primeiros passos do Modo escolar',
+    'Já dá para escolher etapa, ano e componente e explorar três exemplos de estudo alinhados a habilidades da BNCC. O popup de entrada agora também aponta para o apoio escolar gratuito, que segue em ampliação e não substitui matrícula ou certificação.',
+  ],
+  [
+    'Cabeçalho melhor ajustado no celular',
+    'O nome da seção agora se adapta ao espaço disponível, e as opções de modo ficam dentro da tela mesmo em celulares estreitos ou na horizontal.',
+  ],
+  [
     'Controles mais fáceis de enxergar',
     'O selo do acervo e o botão de curtida ganharam texto, ícone e contornos com mais contraste no tema base. O foco pelo teclado e os estados de interação também ficaram mais claros.',
   ],

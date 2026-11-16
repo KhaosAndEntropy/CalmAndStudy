@@ -2,6 +2,18 @@
 
 Este arquivo registra mudanças percebidas por quem usa o Estude com Calma. A seção **Novidades** no site apresenta um resumo em linguagem simples.
 
+## 2026-11-16 — Primeiros passos do Modo escolar
+
+- Uma nova área organiza o estudo por etapa, ano e componente, usando códigos e habilidades da BNCC como referência.
+- A demonstração inicial inclui três percursos curtos, um por recorte curricular, e informa com clareza o que ainda não está coberto.
+- O Modo escolar é complementar: não oferece matrícula ou certificação e não substitui a escola.
+- O popup de entrada agora destaca o apoio escolar gratuito e leva diretamente à nova área; a identificação BNCC também reforça a origem brasileira do projeto.
+
+## 2026-11-16 — Cabeçalho e seletores em telas pequenas
+
+- O cabeçalho agora reserva espaço para os controles e encurta o nome da seção quando necessário, evitando que o seletor de modo e as ações saiam da tela.
+- As opções de modo respeitam a largura e a altura disponíveis no celular e podem ser roladas quando o espaço vertical é curto.
+
 ## 2026-11-16 — Controles com contraste mais claro
 
 - O selo de quantidade de artigos e o botão de curtida agora têm texto, ícone e contornos mais legíveis no tema base.
