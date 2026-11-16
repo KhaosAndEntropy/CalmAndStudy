@@ -779,6 +779,16 @@ export default function App() {
       };
     });
   const finishTutorial = (tutorialId: string) => {
+    const tutorial = tutorials.find(item => item.id === tutorialId);
+    const checkedSteps = tutorialProgress[tutorialId] ?? [];
+    if (
+      !tutorial ||
+      tutorial.steps.length === 0 ||
+      !tutorial.steps.every((_, index) => checkedSteps.includes(index))
+    ) {
+      notify('Marque o check de cada etapa antes de concluir o tutorial.');
+      return;
+    }
     setCompletedTutorials(current =>
       current.includes(tutorialId) ? current : [...current, tutorialId],
     );
