@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { enforceApiRateLimit, isAllowedApiRequest } from './_middleware';
+import { enforceApiRateLimit, isAllowedApiRequest, onRequest } from './_middleware';
 
 describe('proteções de borda da API', () => {
   it('permite somente origens próprias e de desenvolvimento explicitamente autorizadas', () => {
@@ -52,5 +52,23 @@ describe('proteções de borda da API', () => {
     );
     expect(response?.status).toBe(503);
     expect(response?.headers.get('Cache-Control')).toBe('no-store');
+  });
+
+  it('bloqueia origem cruzada antes de chamar o endpoint', async () => {
+    let endpointCalled = false;
+    const response = await onRequest({
+      request: new Request('https://calm.example/api/research', {
+        headers: { Origin: 'https://attacker.example' },
+      }),
+      env: {},
+      next: async () => {
+        endpointCalled = true;
+        return new Response('ok');
+      },
+    });
+
+    expect(response.status).toBe(403);
+    expect(response.headers.get('Cache-Control')).toBe('no-store');
+    expect(endpointCalled).toBe(false);
   });
 });

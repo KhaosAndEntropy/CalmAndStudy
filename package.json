@@ -2,7 +2,7 @@
   "name": "calmandstudy",
   "private": true,
   "version": "0.1.0",
-  "packageManager": "pnpm@10.0.0",
+  "packageManager": "pnpm@10.27.0",
   "scripts": {
     "dev": "pnpm --filter @calmandstudy/web dev",
     "build": "turbo run build",
@@ -23,7 +23,8 @@
       "workerd"
     ],
     "overrides": {
-      "decode-uri-component": "^0.5.1"
+      "decode-uri-component": "^0.5.1",
+      "brace-expansion@2.0.2": "^2.1.5"
     }
   }
 }

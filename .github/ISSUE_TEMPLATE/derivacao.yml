@@ -1,0 +1,47 @@
+name: Sugerir fork ou derivação
+description: Solicite a revisão de um projeto que reutiliza o código ou conteúdo do Estude com Calma.
+title: 'Revisão de fork ou derivação: '
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Esta solicitação é pública e será revisada por uma pessoa. Ela não coloca o projeto automaticamente na lista nem declara infração. Não inclua dados pessoais, acusações ou informações confidenciais.
+  - type: input
+    id: project-url
+    attributes:
+      label: URL pública do projeto
+      description: Repositório ou página que você quer sugerir para revisão.
+      placeholder: https://github.com/usuario/projeto
+    validations:
+      required: true
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Relação que você está sugerindo
+      options:
+        - Fork reconhecido pelo GitHub
+        - Derivação independente
+        - Cópia ou relação ainda não confirmada
+    validations:
+      required: true
+  - type: input
+    id: origin-evidence
+    attributes:
+      label: Evidência pública da origem
+      description: Link para o fork, histórico, arquivo de créditos ou declaração do responsável.
+      placeholder: https://...
+  - type: textarea
+    id: license-and-changes
+    attributes:
+      label: Créditos, licença e alterações observadas
+      description: Informe links públicos e fatos verificáveis. A equipe fará sua própria conferência.
+      placeholder: Onde aparecem os créditos? O projeto indica uma licença? O que mudou?
+    validations:
+      required: true
+  - type: checkboxes
+    id: public-review
+    attributes:
+      label: Revisão pública
+      options:
+        - label: Entendo que esta solicitação ficará pública, será revisada manualmente e não garante inclusão, endosso nem conclusão jurídica.
+          required: true

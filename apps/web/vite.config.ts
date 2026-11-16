@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { handleResearchRequest } from '../../packages/research/src/index';
+import { handleResearchRequest } from '../../packages/research/src/index.ts';
 
 const localResearchApi = {
   name: 'calmandstudy-local-research-api',

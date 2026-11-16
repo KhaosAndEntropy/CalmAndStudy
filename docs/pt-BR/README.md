@@ -7,6 +7,7 @@ Eu criei este índice para que qualquer pessoa consiga entender o projeto sem pr
 - [Rodar no computador](RODAR.md)
 - [Arquitetura em poucas palavras](ARQUITETURA.md)
 - [Contribuir](CONTRIBUIR.md)
+- [Forks e derivados](DERIVACOES.md)
 - [Decisões e linha do tempo](DECISOES.md)
 - [Publicar na Cloudflare](PUBLICAR.md)
 
