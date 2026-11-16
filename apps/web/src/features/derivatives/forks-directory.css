@@ -1,0 +1,156 @@
+.forks-directory {
+  gap: 1.5rem;
+}
+
+.forks-origin-card,
+.forks-listed-section,
+.forks-rules,
+.forks-license-note {
+  border: 1px solid var(--v2-line);
+  border-radius: 1.25rem;
+  background: var(--v2-paper);
+  padding: clamp(1.1rem, 2.5vw, 1.65rem);
+}
+
+.forks-origin-card,
+.forks-section-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
+}
+
+.forks-origin-card {
+  background: color-mix(in srgb, var(--v2-soft) 72%, var(--v2-paper));
+}
+
+.forks-card-icon {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 0.85rem;
+  color: var(--v2-accent);
+  background: color-mix(in srgb, var(--v2-accent) 12%, var(--v2-paper));
+}
+
+.forks-origin-card h2,
+.forks-listed-section h2,
+.forks-rules h2,
+.forks-license-note h2 {
+  margin: 0.2rem 0 0.55rem;
+  color: var(--v2-ink);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+}
+
+.forks-origin-card p,
+.forks-section-heading p,
+.forks-empty-state p,
+.forks-rules p,
+.forks-license-note p,
+.forks-submit-note {
+  color: var(--v2-muted);
+  line-height: 1.65;
+}
+
+.forks-origin-card p,
+.forks-section-heading p,
+.forks-empty-state p,
+.forks-rules p,
+.forks-license-note p {
+  margin: 0;
+}
+
+.forks-status {
+  color: var(--v2-accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+}
+
+.forks-origin-card a,
+.forks-license-links a,
+.forks-submit-note a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--v2-accent);
+  font-weight: 700;
+  text-underline-offset: 0.2em;
+}
+
+.forks-origin-card a {
+  margin-top: 0.85rem;
+}
+
+.forks-empty-state {
+  margin-top: 1rem;
+  border-left: 3px solid var(--v2-highlight);
+  border-radius: 0 0.8rem 0.8rem 0;
+  background: color-mix(in srgb, var(--v2-soft) 44%, var(--v2-paper));
+  padding: 1rem 1.15rem;
+}
+
+.forks-empty-state strong {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--v2-ink);
+}
+
+.forks-rules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.forks-rules-grid article {
+  min-width: 0;
+  border: 1px solid var(--v2-line);
+  border-radius: 0.9rem;
+  padding: 1rem;
+}
+
+.forks-rules-grid article > svg {
+  color: var(--v2-accent);
+}
+
+.forks-rules-grid h3 {
+  margin: 0.65rem 0 0.4rem;
+  color: var(--v2-ink);
+  font-size: 1rem;
+}
+
+.forks-license-note {
+  background: color-mix(in srgb, var(--v2-soft) 62%, var(--v2-paper));
+}
+
+.forks-license-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.1rem;
+  margin-top: 1rem;
+}
+
+.forks-license-note small {
+  display: block;
+  margin-top: 1rem;
+  color: var(--v2-muted);
+  line-height: 1.5;
+}
+
+.forks-submit-note {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 720px) {
+  .forks-rules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .forks-license-links {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

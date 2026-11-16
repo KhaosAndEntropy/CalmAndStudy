@@ -117,17 +117,21 @@ export async function onRequest({ request, env }: PagesContext): Promise<Respons
       'application/json'
     )
       return respond({ error: 'Envie os dados em JSON.' }, 415, corsHeaders(origin));
-    const raw = await request.text();
-    if (new TextEncoder().encode(raw).byteLength > MAX_BODY_BYTES)
+    const raw = await readLimitedBody(request, MAX_BODY_BYTES);
+    if (!raw.ok)
       return respond(
-        { error: 'A solicitação excede o tamanho permitido.' },
-        413,
+        {
+          error: raw.tooLarge
+            ? 'A solicitação excede o tamanho permitido.'
+            : 'Não foi possível ler a solicitação.',
+        },
+        raw.tooLarge ? 413 : 400,
         corsHeaders(origin),
       );
 
     let body: unknown;
     try {
-      body = JSON.parse(raw);
+      body = JSON.parse(raw.value);
     } catch {
       return respond({ error: 'O JSON enviado não é válido.' }, 400, corsHeaders(origin));
     }
@@ -177,6 +181,37 @@ export async function onRequest({ request, env }: PagesContext): Promise<Respons
       503,
       corsHeaders(origin),
     );
+  }
+}
+
+async function readLimitedBody(
+  request: Request,
+  limit: number,
+): Promise<{ ok: true; value: string } | { ok: false; tooLarge: boolean }> {
+  const reader = request.body?.getReader();
+  if (!reader) return { ok: false, tooLarge: false };
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > limit) {
+        await reader.cancel();
+        return { ok: false, tooLarge: true };
+      }
+      chunks.push(value);
+    }
+    const body = new Uint8Array(total);
+    let offset = 0;
+    for (const chunk of chunks) {
+      body.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    return { ok: true, value: new TextDecoder().decode(body) };
+  } catch {
+    return { ok: false, tooLarge: false };
   }
 }
 

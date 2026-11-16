@@ -11,6 +11,10 @@ export const releaseNotes = [
     'O nome da seção agora se adapta ao espaço disponível, e as opções de modo ficam dentro da tela mesmo em celulares estreitos ou na horizontal.',
   ],
   [
+    'Controles mais fáceis de enxergar',
+    'O selo do acervo e o botão de curtida ganharam texto, ícone e contornos com mais contraste no tema base. O foco pelo teclado e os estados de interação também ficaram mais claros.',
+  ],
+  [
     'Uma forma opcional de apoiar o projeto',
     'Se o Estude com Calma foi útil, agora é possível contribuir por Pix. O apoio é voluntário; todo o conteúdo continua gratuito e aberto, sem vantagens ou cobranças.',
   ],

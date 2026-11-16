@@ -17,7 +17,6 @@
 }
 body {
   margin: 0;
-  min-width: 320px;
 }
 button,
 input {
@@ -1058,7 +1057,9 @@ footer span {
   .chips {
     flex-wrap: nowrap;
     overflow: auto;
-    width: calc(100vw - 40px);
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     padding-bottom: 2px;
   }
   .chip {

@@ -6,6 +6,7 @@ describe('recommendModeFromContext', () => {
     expect(recommendModeFromContext('Quero estudar em silêncio e sem pressa.')).toEqual({
       mode: 'calm',
       mentionsDistress: false,
+      isDefault: false,
     });
   });
 
@@ -13,6 +14,7 @@ describe('recommendModeFromContext', () => {
     expect(recommendModeFromContext('Quero aprender jogando com desafios.')).toEqual({
       mode: 'adventure',
       mentionsDistress: false,
+      isDefault: false,
     });
   });
 
@@ -20,13 +22,15 @@ describe('recommendModeFromContext', () => {
     expect(recommendModeFromContext('Estou ansiosa e um pouco sobrecarregada.')).toEqual({
       mode: 'calm',
       mentionsDistress: true,
+      isDefault: false,
     });
   });
 
-  it('does not infer a preference from unrelated or ambiguous text', () => {
+  it('suggests calm study as a gentle default for unrelated or ambiguous text', () => {
     expect(recommendModeFromContext('Vim conhecer o projeto.')).toEqual({
-      mode: null,
+      mode: 'calm',
       mentionsDistress: false,
+      isDefault: true,
     });
   });
 });

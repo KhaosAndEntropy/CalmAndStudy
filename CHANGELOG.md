@@ -13,6 +13,11 @@ Este arquivo registra mudanças percebidas por quem usa o Estude com Calma. A se
 - O cabeçalho agora reserva espaço para os controles e encurta o nome da seção quando necessário, evitando que o seletor de modo e as ações saiam da tela.
 - As opções de modo respeitam a largura e a altura disponíveis no celular e podem ser roladas quando o espaço vertical é curto.
 
+## 2026-11-16 — Controles com contraste mais claro
+
+- O selo de quantidade de artigos e o botão de curtida agora têm texto, ícone e contornos mais legíveis no tema base.
+- Os estados de hover, foco pelo teclado e curtida ativa também ficaram mais fáceis de identificar.
+
 ## 2026-11-15 — Desafios em dificuldade progressiva
 
 - As perguntas de artigos, trilhas e tutoriais agora começam com conceitos mais diretos e avançam até questões de aplicação e compreensão central.
