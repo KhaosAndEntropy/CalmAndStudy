@@ -219,8 +219,8 @@ export function WelcomeDialog({
                   <span className="welcome-school-cta-copy">
                     <strong>Apoio escolar gratuito · Protótipo</strong>
                     <small>
-                      Explore cinco habilidades de demonstração alinhadas à BNCC. A cobertura
-                      ainda é parcial.
+                      Explore cinco habilidades de demonstração alinhadas à BNCC. A cobertura ainda
+                      é parcial.
                     </small>
                   </span>
                   <ArrowRight size={16} aria-hidden="true" />
