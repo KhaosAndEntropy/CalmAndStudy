@@ -23,6 +23,8 @@ describe('WelcomeDialog', () => {
     fireEvent.click(screen.getByText(/quer contar como está se sentindo/i));
     const context = screen.getByRole('textbox', { name: /não é uma avaliação/i });
     fireEvent.change(context, { target: { value: 'Quero algo divertido, com jogo e desafios.' } });
+    expect(screen.queryByText(/talvez o modo aventura combine/i)).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /ver sugestão/i }));
     expect(screen.getByText(/talvez o modo aventura combine/i)).toBeTruthy();
     expect(screen.getByRole('button', { name: /explorar jogando/i })).toBeTruthy();
   });
@@ -53,6 +55,7 @@ describe('WelcomeDialog', () => {
     fireEvent.change(screen.getByRole('textbox', { name: /não é uma avaliação/i }), {
       target: { value: 'Estou triste e ansiosa.' },
     });
+    fireEvent.click(screen.getByRole('button', { name: /ver sugestão/i }));
     fireEvent.click(screen.getByRole('button', { name: /ver acolhimento e opções de apoio/i }));
 
     expect(screen.getByText(/você não está só/i)).toBeTruthy();

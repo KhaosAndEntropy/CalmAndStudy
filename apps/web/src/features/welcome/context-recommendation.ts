@@ -3,6 +3,7 @@ import type { LearningMode } from '../preferences/learning-mode';
 export type ContextRecommendation = {
   mode: LearningMode | null;
   mentionsDistress: boolean;
+  isDefault: boolean;
 };
 
 const calmSignals = [
@@ -72,12 +73,13 @@ export function recommendModeFromContext(value: string): ContextRecommendation {
   const text = normalize(value.trim());
   const mentionsDistress = countSignals(text, distressSignals) > 0;
 
-  if (mentionsDistress) return { mode: 'calm', mentionsDistress };
+  if (mentionsDistress) return { mode: 'calm', mentionsDistress, isDefault: false };
 
   const calm = countSignals(text, calmSignals);
   const adventure = countSignals(text, adventureSignals);
 
-  if (calm > adventure) return { mode: 'calm', mentionsDistress };
-  if (adventure > calm) return { mode: 'adventure', mentionsDistress };
-  return { mode: null, mentionsDistress };
+  if (calm > adventure) return { mode: 'calm', mentionsDistress, isDefault: false };
+  if (adventure > calm) return { mode: 'adventure', mentionsDistress, isDefault: false };
+  // When the text gives no clear preference, offer calm study as a gentle default.
+  return { mode: 'calm', mentionsDistress, isDefault: true };
 }

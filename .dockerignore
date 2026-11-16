@@ -4,6 +4,7 @@
 .turbo
 .wrangler
 node_modules
+.pnpm-store
 **/node_modules
 **/dist
 **/.vite

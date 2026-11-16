@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
       pull: true
+      no_cache: true
       target: pages-local
     image: calmandstudy:local
     container_name: calmandstudy-local

@@ -17,6 +17,7 @@ import {
 import { useAmbientSoundscape } from './features/preferences/useAmbientSoundscape';
 import { type VerifiableSource } from './features/reader/ReaderSupport';
 import { DiscoveryScreen } from './features/discovery/DiscoveryScreen';
+import { ForksDirectoryPage } from './features/derivatives/ForksDirectoryPage';
 import {
   AcknowledgementsPage,
   ReleaseNotes,
@@ -35,6 +36,7 @@ import {
   Compass,
   Download,
   Gamepad2,
+  GitFork,
   GraduationCap,
   HeartHandshake,
   History,
@@ -877,6 +879,7 @@ export default function App() {
               ['Pesquisar fontes', BookOpen],
               ['Novidades', Newspaper],
               ['Direitos e transparência', Scale],
+              ['Forks e derivados', GitFork],
               ['Agradecimentos', HeartHandshake],
               ['Apoiar o projeto', HeartHandshake],
               ['Processo do projeto', Workflow],
@@ -908,6 +911,7 @@ export default function App() {
               ['Agradecimentos', HeartHandshake],
               ['Apoiar o projeto', HeartHandshake],
               ['Direitos e transparência', Scale],
+              ['Forks e derivados', GitFork],
               ['Processo do projeto', Workflow],
             ],
           },
@@ -1122,6 +1126,7 @@ export default function App() {
                   'Pesquisar fontes': 'Fontes para conferir',
                   Novidades: 'Diário de bordo',
                   'Direitos e transparência': 'Regras e transparência',
+                  'Forks e derivados': 'Derivações da comunidade',
                   Agradecimentos: 'Comunidade da expedição',
                   'Apoiar o projeto': 'Apoiar a expedição',
                   'Processo do projeto': 'Como a expedição nasceu',
@@ -1274,6 +1279,8 @@ export default function App() {
             <AcknowledgementsPage />
           ) : active === 'Direitos e transparência' ? (
             <ContentPolicyPage />
+          ) : active === 'Forks e derivados' ? (
+            <ForksDirectoryPage />
           ) : active === 'Processo do projeto' ? (
             <DeveloperProcessPage mode={learningMode} />
           ) : active === 'Pesquisar fontes' ? (
@@ -1438,6 +1445,9 @@ export default function App() {
             </button>
             <button className="about-link" onClick={() => setActive('Direitos e transparência')}>
               Direitos e transparência
+            </button>
+            <button className="about-link" onClick={() => selectSection('Forks e derivados')}>
+              Forks e derivados
             </button>
             <button className="about-link" onClick={() => selectSection('Processo do projeto')}>
               Processo do projeto

@@ -18,7 +18,7 @@ export function WelcomeDialog({
 }) {
   const [step, setStep] = useState<WelcomeStep>('paths');
   const [optionalContext, setOptionalContext] = useState('');
-  const [hasLeftContextField, setHasLeftContextField] = useState(false);
+  const [showContextRecommendation, setShowContextRecommendation] = useState(false);
   const contextRecommendation = recommendModeFromContext(optionalContext);
 
   const chooseMode = (mode: LearningMode) => {
@@ -73,23 +73,32 @@ export function WelcomeDialog({
                   value={optionalContext}
                   onChange={event => {
                     setOptionalContext(event.target.value.slice(0, 500));
-                    setHasLeftContextField(false);
+                    setShowContextRecommendation(false);
                   }}
-                  onBlur={() => setHasLeftContextField(true)}
                   maxLength={500}
                   rows={3}
                   placeholder="Se quiser, escreva algumas palavras. Não inclua dados pessoais."
                 />
               </label>
-              {optionalContext.trim() && (
+              <button
+                className="welcome-context-suggest"
+                type="button"
+                disabled={!optionalContext.trim()}
+                onClick={() => setShowContextRecommendation(true)}
+              >
+                Ver sugestão <ArrowRight size={15} aria-hidden="true" />
+              </button>
+              {showContextRecommendation && optionalContext.trim() && (
                 <section className="welcome-context-recommendation" aria-live="polite">
                   <b>Uma sugestão, sem compromisso</b>
                   <p>
-                    {contextRecommendation.mode === 'calm'
-                      ? 'Talvez o Estudo calmo combine com o que você procura agora.'
-                      : contextRecommendation.mode === 'adventure'
-                        ? 'Talvez o Modo aventura combine com o que você procura agora.'
-                        : 'Não há uma preferência clara — você pode escolher livremente.'}
+                    {contextRecommendation.isDefault
+                      ? 'Não identifiquei uma preferência clara. O Estudo calmo é uma sugestão para começar, mas você pode escolher livremente.'
+                      : contextRecommendation.mode === 'calm'
+                        ? 'Talvez o Estudo calmo combine com o que você procura agora.'
+                        : contextRecommendation.mode === 'adventure'
+                          ? 'Talvez o Modo aventura combine com o que você procura agora.'
+                          : 'Você pode escolher livremente.'}
                   </p>
                   <p>É só uma sugestão a partir deste texto; você decide e pode mudar depois.</p>
                   {contextRecommendation.mode && (
@@ -113,7 +122,7 @@ export function WelcomeDialog({
             <div className="welcome-choices">
               <button
                 className={`welcome-choice${
-                  hasLeftContextField && contextRecommendation.mode === 'calm'
+                  showContextRecommendation && contextRecommendation.mode === 'calm'
                     ? ' welcome-choice-suggested'
                     : ''
                 }`}
@@ -124,7 +133,7 @@ export function WelcomeDialog({
                 </span>
                 <span className="welcome-choice-copy">
                   <b>Estudo calmo</b>
-                  {hasLeftContextField && contextRecommendation.mode === 'calm' && (
+                  {showContextRecommendation && contextRecommendation.mode === 'calm' && (
                     <span className="welcome-choice-recommendation">Sugestão para você</span>
                   )}
                   <small>
@@ -138,7 +147,7 @@ export function WelcomeDialog({
               </button>
               <button
                 className={`welcome-choice welcome-choice-adventure${
-                  hasLeftContextField && contextRecommendation.mode === 'adventure'
+                  showContextRecommendation && contextRecommendation.mode === 'adventure'
                     ? ' welcome-choice-suggested'
                     : ''
                 }`}
@@ -149,7 +158,7 @@ export function WelcomeDialog({
                 </span>
                 <span className="welcome-choice-copy">
                   <b>Modo aventura</b>
-                  {hasLeftContextField && contextRecommendation.mode === 'adventure' && (
+                  {showContextRecommendation && contextRecommendation.mode === 'adventure' && (
                     <span className="welcome-choice-recommendation">Sugestão para você</span>
                   )}
                   <small>
