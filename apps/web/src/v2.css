@@ -3863,8 +3863,8 @@ footer span {
   margin: 1px 0 2px;
   padding: 3px 8px;
   border-radius: 999px;
-  background: var(--v2-accent);
-  color: var(--v2-on-accent);
+  background: color-mix(in srgb, var(--v2-accent) 12%, var(--v2-paper));
+  color: var(--v2-accent);
   font-size: 10px;
   font-weight: 750;
   line-height: 1.4;
@@ -7221,6 +7221,31 @@ footer span {
   outline: 3px solid var(--v2-accent);
   outline-offset: 2px;
 }
+.welcome-context-suggest {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 10px;
+  padding: 8px 14px;
+  border: 1px solid color-mix(in srgb, var(--v2-accent) 42%, var(--v2-line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--v2-accent) 10%, var(--v2-paper));
+  color: var(--v2-accent);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.welcome-context-suggest:disabled {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+.welcome-context-suggest:focus-visible {
+  outline: 3px solid var(--v2-highlight);
+  outline-offset: 3px;
+}
 
 /* Diretórios e mapa usam os mesmos contrastes nas sete paletas. */
 .shell
@@ -7329,12 +7354,12 @@ footer span {
   max-width: 100%;
   padding: 11px 18px;
   border-radius: 999px;
-  border-color: var(--v2-accent);
-  background: var(--v2-accent);
-  color: var(--v2-on-accent);
+  border-color: color-mix(in srgb, var(--v2-accent) 42%, var(--v2-line));
+  background: color-mix(in srgb, var(--v2-accent) 12%, var(--v2-paper));
+  color: var(--v2-accent);
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, #fff 20%, transparent),
-    0 4px 12px color-mix(in srgb, var(--v2-accent) 24%, transparent);
+    inset 0 1px 0 color-mix(in srgb, #fff 70%, transparent),
+    0 2px 8px color-mix(in srgb, var(--v2-accent) 12%, transparent);
 }
 .welcome-context-use-mode:hover,
 .welcome-context-support:hover {
@@ -7343,7 +7368,7 @@ footer span {
   box-shadow: 0 4px 14px color-mix(in srgb, var(--v2-accent) 22%, transparent);
 }
 .welcome-context-use-mode:hover {
-  background: color-mix(in srgb, var(--v2-accent) 90%, var(--v2-ink));
+  background: color-mix(in srgb, var(--v2-accent) 18%, var(--v2-paper));
 }
 .welcome-context-use-mode:focus-visible,
 .welcome-context-support:focus-visible {
@@ -7464,9 +7489,9 @@ footer span {
 }
 
 .shell.mode-adventure .welcome-context-use-mode {
-  border-color: var(--v2-accent);
-  background: var(--v2-accent);
-  color: var(--v2-on-accent);
+  border-color: color-mix(in srgb, var(--v2-accent) 42%, var(--v2-line));
+  background: color-mix(in srgb, var(--v2-accent) 12%, var(--v2-paper));
+  color: var(--v2-accent);
 }
 
 /* A navegação acompanha a paleta ativa em vez de manter o roxo fixo da primeira versão. */
