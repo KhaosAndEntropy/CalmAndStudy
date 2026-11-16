@@ -5,7 +5,8 @@ Este arquivo registra mudanças percebidas por quem usa o Estude com Calma. A se
 ## 2026-11-16 — Primeiros passos do Modo escolar
 
 - Uma nova área organiza o estudo por etapa, ano e componente, usando códigos e habilidades da BNCC como referência.
-- A demonstração inicial inclui três percursos curtos, um por recorte curricular, e informa com clareza o que ainda não está coberto.
+- A amostra tem cinco habilidades mapeadas em Matemática, Ciências e Geografia, com explicações originais em partes, etapas de estudo e três questões comentadas por percurso.
+- O Modo escolar informa que a cobertura é parcial; não apresenta uma porcentagem global antes de importar e validar o inventário completo de habilidades.
 - As habilidades da amostra agora podem ser exploradas em sequência, árvore curricular ou grafo de conexões pedagógicas.
 - O Modo escolar é complementar: não oferece matrícula ou certificação e não substitui a escola.
 - O popup de entrada agora destaca o apoio escolar gratuito e leva diretamente à nova área; a identificação BNCC também reforça a origem brasileira do projeto.

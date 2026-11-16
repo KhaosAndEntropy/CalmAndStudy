@@ -84,6 +84,8 @@ O conteúdo é versionado: pesquisa de referências e envios de usuários não p
 
 Apenas a hierarquia cadastrada na árvore representa a estrutura curricular usada no recorte. Sequência e grafo são propostas pedagógicas do projeto, não pré-requisitos oficiais nem ordem obrigatória da BNCC. A cobertura é parcial; confira [o escopo e as fontes do Modo escolar](MODO_ESCOLAR.md) antes de ampliar dados.
 
+O conteúdo didático da aplicação deve ser autoral e vinculado a um código e fonte oficial. A ferramenta de download da BNCC fornece recortes editáveis para consulta; não presumimos que isso conceda licença para republicar em massa os textos. Para expansão, registre a cobertura contra um inventário validado e peça análise jurídica antes de redistribuir grandes trechos oficiais.
+
 ## 6. Servidor, endpoints e dados
 
 Em produção, Cloudflare Pages serve os arquivos estáticos e executa as Pages Functions do diretório `functions/`. D1 é o banco usado por funções específicas. Localmente, Wrangler pode simular Pages/D1; `compose.yaml` prepara essa experiência. `wrangler.toml` contém valores fictícios locais e não deve ser tratado como configuração de produção.
