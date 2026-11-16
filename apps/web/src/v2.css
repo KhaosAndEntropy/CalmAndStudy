@@ -2426,6 +2426,7 @@ footer span {
   .topbar {
     height: 62px;
     gap: 8px;
+    min-width: 0;
   }
   .mobile-menu {
     display: grid;
@@ -2436,15 +2437,31 @@ footer span {
     background: var(--v2-paper);
   }
   .breadcrumb {
+    min-width: 0;
+    flex: 1 1 auto;
     margin-right: auto;
     margin-left: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
   .demo-badge {
     display: none;
   }
   .top-actions {
+    min-width: 0;
+    flex: 0 0 auto;
     gap: 7px;
+  }
+  .learning-mode-picker {
+    flex: 0 0 auto;
+  }
+  .learning-mode-options {
+    right: max(8px, env(safe-area-inset-right));
+    width: min(310px, calc(100vw - 32px));
+    max-height: calc(100dvh - 84px - env(safe-area-inset-top));
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
   .search-top {
     width: 36px;

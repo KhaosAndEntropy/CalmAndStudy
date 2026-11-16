@@ -3,6 +3,14 @@ import { HeartHandshake, Newspaper } from 'lucide-react';
 
 export const releaseNotes = [
   [
+    'Primeiros passos do Modo escolar',
+    'Já dá para escolher etapa, ano e componente e explorar três exemplos de estudo alinhados a habilidades da BNCC. Esta amostra inicial não substitui matrícula ou certificação; novos percursos serão acrescentados com fontes e revisão.',
+  ],
+  [
+    'Cabeçalho melhor ajustado no celular',
+    'O nome da seção agora se adapta ao espaço disponível, e as opções de modo ficam dentro da tela mesmo em celulares estreitos ou na horizontal.',
+  ],
+  [
     'Uma forma opcional de apoiar o projeto',
     'Se o Estude com Calma foi útil, agora é possível contribuir por Pix. O apoio é voluntário; todo o conteúdo continua gratuito e aberto, sem vantagens ou cobranças.',
   ],
