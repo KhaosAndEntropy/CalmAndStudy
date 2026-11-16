@@ -26,6 +26,8 @@ Abra <http://localhost:4173>. A execução local não exige conta Cloudflare, ba
 
 ## Desenvolvimento
 
+Para entender como as partes se conectam, consulte o [guia técnico completo para desenvolvedores](docs/pt-BR/GUIA_TECNICO_COMPLETO.md).
+
 - `apps/web`: aplicação web e PWA.
 - `packages/content`: artigos, áreas, trilhas, tutoriais e exercícios.
 - `packages/research`: busca e referências públicas.

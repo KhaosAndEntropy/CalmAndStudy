@@ -113,6 +113,31 @@ export const pilotSkills: SchoolSkill[] = [
   },
 ];
 
+export type SchoolSkillRelation = {
+  from: string;
+  to: string;
+  label: string;
+  explanation: string;
+};
+
+// Relações editoriais para mostrar usos interdisciplinares possíveis; não são pré-requisitos da BNCC.
+export const pilotSkillRelations: SchoolSkillRelation[] = [
+  {
+    from: 'EF01MA01',
+    to: 'EF06CI01',
+    label: 'Registrar observações com números',
+    explanation:
+      'Reconhecer números como quantidade pode apoiar o registro de quantos materiais foram usados ou quantas fases são observadas numa mistura.',
+  },
+  {
+    from: 'EF06CI01',
+    to: 'EM13CNT101',
+    label: 'Da mistura aos sistemas de matéria',
+    explanation:
+      'Misturas oferecem um exemplo concreto para investigar matéria, transformações e conservação em sistemas.',
+  },
+];
+
 export const bnccSourceUrl =
   'https://basenacionalcomum.mec.gov.br/images/BNCC_EI_EF_110518_versaofinal_site.pdf';
 export const bnccHighSchoolSourceUrl = 'https://www.gov.br/mec/pt-br/cne/bncc_ensino_medio.pdf';

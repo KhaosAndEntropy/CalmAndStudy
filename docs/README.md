@@ -6,6 +6,7 @@
 - [Contribuir e abrir um PR](../CONTRIBUTING.md)
 - [Organização do monorepo](ORGANIZACAO_DO_MONOREPO.md)
 - [Arquitetura atual](ARQUITETURA_ATUAL.md)
+- [Guia técnico completo (pt-BR)](pt-BR/GUIA_TECNICO_COMPLETO.md)
 
 ## Segurança e publicação
 

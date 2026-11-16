@@ -12,6 +12,16 @@ Esta primeira demonstração traz três recortes:
 
 Os demais filtros aparecem como planejados, mas ainda não têm conteúdos mapeados. A interface sinaliza essa limitação e oferece consulta à fonte oficial.
 
+## Relações entre habilidades
+
+A amostra pode ser explorada de três formas:
+
+- **Árvore:** etapa, ano, componente/área e habilidade cadastrada, seguindo os campos disponíveis na organização da BNCC.
+- **Sequência:** um percurso editorial que aproxima os três exemplos da amostra.
+- **Grafo:** as conexões pedagógicas sugeridas entre habilidades. Cada ligação explica o contexto em que os assuntos podem conversar.
+
+A árvore representa a estrutura curricular cadastrada. Sequências e conexões são propostas do Estude com Calma para apoiar o estudo; não são pré-requisitos oficiais nem uma ordem obrigatória da BNCC. As relações atuais são apenas uma demonstração e devem ser ampliadas com justificativa e revisão.
+
 ## Fonte e limites
 
 - [BNCC — Educação Infantil e Ensino Fundamental (PDF oficial)](https://basenacionalcomum.mec.gov.br/images/BNCC_EI_EF_110518_versaofinal_site.pdf)
