@@ -1,52 +1,35 @@
 # Estude com Calma
 
-Estude com Calma é um projeto gratuito de aprendizagem. Reúne artigos curtos, trilhas, tutoriais e fontes abertas para ajudar qualquer pessoa a explorar diferentes assuntos no próprio ritmo.
+Projeto gratuito de aprendizagem com artigos, trilhas, tutoriais e fontes abertas. Estudo calmo e Modo aventura usam o mesmo conteúdo e os mesmos critérios editoriais.
 
-Há dois modos de estudo — **Estudo calmo** e **Modo aventura** — com o mesmo conteúdo e os mesmos critérios editoriais. O projeto valoriza fontes verificáveis, transparência sobre incertezas, privacidade e bem-estar.
+## Rodar localmente
 
-## Começar em poucos minutos
+Requisitos: Node.js 22.13 ou superior e pnpm 10 (via Corepack).
 
-Requisitos: Node.js 22.13 ou superior e pnpm 10.
+Para contribuir a partir de um fork, faça fork do repositório no GitHub e clone o seu fork. Para apenas executar o projeto, clone o repositório diretamente:
 
 ```sh
-pnpm install
+git clone https://github.com/KhaosAndEntropy/CalmAndStudy.git
+cd CalmAndStudy
+corepack enable
+pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Abra [http://localhost:4173](http://localhost:4173). Para usar Docker, basta ter o Docker Desktop iniciado e executar:
+Abra <http://localhost:4173>. A execução local não exige conta Cloudflare, banco remoto nem chaves. O Docker Compose é uma alternativa: `docker compose up --build`.
 
-```sh
-docker compose up --build
-```
+`OPENALEX_API_KEY` é opcional. Se precisar dela, configure-a no arquivo `.env` local; nunca a coloque no código ou em commits. Consulte [Rodar localmente](docs/RODAR_LOCALMENTE.md).
 
-Mais detalhes: [guia para rodar localmente](docs/RODAR_LOCALMENTE.md).
+## Desenvolvimento
 
-## Onde encontrar as coisas
-
-- `apps/web`: site responsivo e PWA.
+- `apps/web`: aplicação web e PWA.
 - `packages/content`: artigos, áreas, trilhas, tutoriais e exercícios.
-- `packages/research`: pesquisa em fontes públicas.
-- `functions`: API e migrações do Cloudflare D1.
-- `docs`: guias para leitores, desenvolvedores e mantenedores.
+- `packages/research`: busca e referências públicas.
+- `functions`: Pages Functions e migrações D1.
+- `docs`: guias de desenvolvimento, arquitetura e publicação.
 
-## Contribuir
+Antes de abrir um PR, rode `pnpm format:check`, `pnpm typecheck`, `pnpm test` e `pnpm build`. Veja [como contribuir](CONTRIBUTING.md).
 
-O código usa licença [MIT](LICENSE). Os textos originais de aprendizagem usam [CC BY 4.0](CONTENT-LICENSE.md); conteúdos de terceiros mantêm suas próprias licenças e atribuições.
+## Licenças
 
-Contribuições são bem-vindas quando têm propósito educativo, linguagem respeitosa e fontes verificáveis. Consulte [como contribuir](CONTRIBUTING.md) antes de abrir uma proposta.
-
-Quem desejar também pode conhecer a opção de [apoio voluntário](docs/APOIO_VOLUNTARIO.md). Ela não é necessária para usar o projeto e não altera o acesso ao conteúdo.
-
-## Guias
-
-O [índice da documentação](docs/README.md) aponta para o guia certo conforme o que você quer fazer: conhecer o projeto, executar, contribuir, entender a arquitetura ou publicar.
-
-## Idiomas
-
-- [Português (Brasil)](docs/pt-BR/README.md)
-- [English](docs/en/README.md)
-- [Español](docs/es/README.md)
-
-## Usar no celular
-
-Abra o site no navegador do celular e escolha **Instalar o Estude com Calma** ou **Adicionar à tela inicial**. É a versão web responsiva instalada como PWA; não é necessário instalar um aplicativo separado.
+O código usa [MIT](LICENSE). Os textos originais usam [CC BY 4.0](CONTENT-LICENSE.md). Materiais de terceiros mantêm seus próprios créditos e licenças.
