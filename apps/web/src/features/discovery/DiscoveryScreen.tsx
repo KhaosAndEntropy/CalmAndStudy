@@ -115,7 +115,7 @@ export function DiscoveryScreen({
         <h1>
           {adventure ? (
             <>
-              Curiosidade em
+              Aprender em
               <br />
               <em>modo missão!</em>
             </>
@@ -129,7 +129,7 @@ export function DiscoveryScreen({
         </h1>
         <p>
           {adventure
-            ? 'Prepare-se para descobrir, cumprir missões e conectar ideias. Qual será sua próxima fase?'
+            ? 'Transforme o estudo em missões, conecte ideias e avance no seu ritmo. Qual será sua próxima fase?'
             : 'Encontre um ritmo tranquilo, escolha uma leitura e dê espaço para uma ideia de cada vez.'}
         </p>
         <div className="welcome-actions">
@@ -139,7 +139,7 @@ export function DiscoveryScreen({
             <ArrowRight size={16} aria-hidden="true" />
           </button>
           <span className="soft-note">
-            <Sparkles size={14} /> Sem ordem obrigatória. Só curiosidade.
+            <Sparkles size={14} /> Uma etapa de cada vez, no seu ritmo.
           </span>
         </div>
         <aside className="brazil-origin" aria-label="Origem brasileira do projeto">
@@ -197,7 +197,7 @@ export function DiscoveryScreen({
           </span>
         </aside>
         {latestUpdate && (
-          <aside className="welcome-update" aria-label="Novidade recente da Sala de Calma e Estudo">
+          <aside className="welcome-update" aria-label="Novidade recente do Estude com Calma">
             <span className="welcome-update-icon">
               <Sparkles size={17} aria-hidden="true" />
             </span>
@@ -217,7 +217,7 @@ export function DiscoveryScreen({
           <div>
             <div className="eyebrow muted">UM BOM LUGAR PRA COMEÇAR</div>
             <h2>
-              O que você quer descobrir<span>?</span>
+              O que você quer estudar<span>?</span>
             </h2>
           </div>
           <button
@@ -246,7 +246,7 @@ export function DiscoveryScreen({
             <input
               id="search"
               maxLength={160}
-              placeholder="Que assunto desperta sua curiosidade?"
+              placeholder="O que você quer aprender?"
               value={query}
               onChange={event => {
                 const value = event.target.value;

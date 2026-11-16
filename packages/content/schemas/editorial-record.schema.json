@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://calmandstudy.local/schemas/editorial-record-v1.json",
-  "title": "Sala de Calma e Estudo Editorial Record v1",
+  "title": "Estude com Calma Editorial Record v1",
   "description": "Contrato de dados para pesquisa, evidências, revisão e publicação de artigos.",
   "type": "object",
   "additionalProperties": false,

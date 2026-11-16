@@ -15,7 +15,7 @@ import './v2.css';
 import './features/assessment/assessment.css';
 
 if (MAINTENANCE_MODE) {
-  document.title = 'Sala de Calma e Estudo — voltamos em breve';
+  document.title = 'Estude com Calma — voltamos em breve';
   const robots = document.createElement('meta');
   robots.name = 'robots';
   robots.content = 'noindex, nofollow';

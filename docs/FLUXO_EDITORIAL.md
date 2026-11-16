@@ -1,4 +1,4 @@
-# Fluxo editorial da Sala de Calma e Estudo
+# Fluxo editorial do Estude com Calma
 
 Este documento define como um artigo chega à aplicação, quais informações o leitor deve receber e como manter o primeiro ritmo planejado de **20 publicações por mês**. A documentação não afirma que os artigos existentes já passaram por este fluxo.
 
@@ -120,7 +120,7 @@ Não há geração em tempo real no app e, no plano gratuito, não haverá chama
 
 ### Limites para novas pautas
 
-A Sala de Calma e Estudo não aceita novas pautas cuja proposta central seja controversa, partidária ou voltada a disputas ideológicas. Isso inclui pautas eleitorais, propaganda religiosa ou política, conflitos em andamento tratados como torcida, teorias conspiratórias e ataques a grupos ou pessoas. O formulário apresenta e exige a confirmação dessa regra; o backend também exige o sinal de confirmação para novas pautas. Isso não é um filtro automático capaz de interpretar o tema: toda sugestão permanece pendente e precisa de revisão humana. Revisões factuais de conteúdo existente podem ser encaminhadas com fontes, independentemente do tema. Os demais limites estão em [Como contribuir](../CONTRIBUTING.md).
+O Estude com Calma não aceita novas pautas cuja proposta central seja controversa, partidária ou voltada a disputas ideológicas. Isso inclui pautas eleitorais, propaganda religiosa ou política, conflitos em andamento tratados como torcida, teorias conspiratórias e ataques a grupos ou pessoas. O formulário apresenta e exige a confirmação dessa regra; o backend também exige o sinal de confirmação para novas pautas. Isso não é um filtro automático capaz de interpretar o tema: toda sugestão permanece pendente e precisa de revisão humana. Revisões factuais de conteúdo existente podem ser encaminhadas com fontes, independentemente do tema. Os demais limites estão em [Como contribuir](../CONTRIBUTING.md).
 
 As contribuições devem ser educativas, respeitosas e verificáveis. A revisão humana avalia escopo e fontes, e não transforma o jogo ou as preferências de navegação em perfil secreto.
 

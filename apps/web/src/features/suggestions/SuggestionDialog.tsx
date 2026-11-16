@@ -138,7 +138,7 @@ export function SuggestionDialog({
               </p>
               <p className="suggestion-editorial-boundary">
                 Não aceitamos pautas controversas, partidárias ou centradas em disputas ideológicas.
-                A Sala de Calma e Estudo prioriza temas educativos, verificáveis e apresentados com
+                O Estude com Calma prioriza temas educativos, verificáveis e apresentados com
                 respeito às pessoas.
               </p>
               <label className="suggestion-policy-confirmation">

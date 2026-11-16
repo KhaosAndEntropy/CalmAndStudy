@@ -13,6 +13,7 @@ const assessment: AssessmentData = {
     choices: ['Resposta correta', 'Alternativa B', 'Alternativa C', 'Alternativa D'],
     correctAnswer: 'Resposta correta',
     explanation: `Explicação da questão ${index + 1}.`,
+    difficulty: index < 2 ? 'initial' : index < 4 ? 'developing' : 'challenge',
   })),
 };
 

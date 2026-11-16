@@ -23,7 +23,14 @@ import {
 
 type GameTrackId = 'articles' | 'trails' | 'tutorials';
 type GameProgress = { passed: string[]; bestScores: Record<string, number> };
-type GameStage = { id: string; type: string; title: string; assessment: KnowledgeAssessment };
+type Difficulty = 'initial' | 'developing' | 'challenge';
+type GameStage = {
+  id: string;
+  type: string;
+  title: string;
+  assessment: KnowledgeAssessment;
+  difficulty: Difficulty;
+};
 type GameTrack = {
   id: GameTrackId;
   title: string;
@@ -34,6 +41,46 @@ type GameTrack = {
 type AttemptResult = { stageId: string; score: number; correct: number; passed: boolean };
 
 const storageKey = 'calmandstudy-game-progress-v1';
+
+const difficultyLabels: Record<Difficulty, string> = {
+  initial: 'Começo',
+  developing: 'Em prática',
+  challenge: 'Desafio',
+};
+
+function prerequisiteDepths(topics: Topic[]): Map<string, number> {
+  const topicsById = new Map(topics.map(topic => [topic.id, topic]));
+  const depths = new Map<string, number>();
+  const visiting = new Set<string>();
+
+  const getDepth = (topicId: string): number => {
+    const cached = depths.get(topicId);
+    if (cached !== undefined) return cached;
+    if (visiting.has(topicId)) return 0;
+    visiting.add(topicId);
+    const topic = topicsById.get(topicId);
+    const depth = Math.max(
+      0,
+      ...(topic?.recommendedBefore ?? []).map(item =>
+        item.topicId && topicsById.has(item.topicId) ? getDepth(item.topicId) + 1 : 0,
+      ),
+    );
+    visiting.delete(topicId);
+    depths.set(topicId, depth);
+    return depth;
+  };
+
+  topics.forEach(topic => getDepth(topic.id));
+  return depths;
+}
+
+function difficultyAt(index: number, length: number): Difficulty {
+  const firstBandEnd = Math.ceil(length / 3);
+  const secondBandEnd = Math.ceil((length * 2) / 3);
+  if (index < firstBandEnd) return 'initial';
+  if (index < secondBandEnd) return 'developing';
+  return 'challenge';
+}
 
 function readProgress(validStageIds: ReadonlySet<string>): GameProgress {
   try {
@@ -88,47 +135,83 @@ export function GameModeScreen({
   trails: StudyPath[];
   tutorials: Tutorial[];
 }) {
-  const tracks = useMemo<GameTrack[]>(
-    () => [
+  const tracks = useMemo<GameTrack[]>(() => {
+    const depths = prerequisiteDepths(topics);
+    const orderedTopics = topics
+      .map((topic, originalIndex) => ({ topic, originalIndex }))
+      .sort(
+        (left, right) =>
+          (depths.get(left.topic.id) ?? 0) - (depths.get(right.topic.id) ?? 0) ||
+          left.topic.readingTime - right.topic.readingTime ||
+          left.originalIndex - right.originalIndex,
+      )
+      .map(item => item.topic);
+    const orderedTrails = trails
+      .map((trail, originalIndex) => {
+        const topicDepths = trail.topicIds.map(id => depths.get(id) ?? 0);
+        const averageDepth = topicDepths.length
+          ? topicDepths.reduce((sum, depth) => sum + depth, 0) / topicDepths.length
+          : 0;
+        return { trail, originalIndex, averageDepth, maxDepth: Math.max(0, ...topicDepths) };
+      })
+      .sort(
+        (left, right) =>
+          left.averageDepth - right.averageDepth ||
+          left.maxDepth - right.maxDepth ||
+          left.originalIndex - right.originalIndex,
+      )
+      .map(item => item.trail);
+    const orderedTutorials = tutorials
+      .map((tutorial, originalIndex) => ({
+        tutorial,
+        originalIndex,
+        effort: tutorial.durationMinutes + tutorial.steps.length * 2 + tutorial.materials.length,
+      }))
+      .sort((left, right) => left.effort - right.effort || left.originalIndex - right.originalIndex)
+      .map(item => item.tutorial);
+
+    return [
       {
         id: 'articles',
         title: 'Descobertas',
-        description: 'Fixe as ideias centrais de cada artigo.',
+        description: 'Comece pelos assuntos-base e avance conforme os pré-requisitos sugeridos.',
         icon: BookOpen,
-        stages: topics.map(topic => ({
+        stages: orderedTopics.map((topic, index) => ({
           id: `article:${topic.id}`,
           type: 'Artigo',
           title: topic.title,
           assessment: buildTopicAssessment(topic, topics),
+          difficulty: difficultyAt(index, orderedTopics.length),
         })),
       },
       {
         id: 'trails',
         title: 'Conexões',
-        description: 'Relacione os assuntos e aprenda em sequência.',
+        description: 'Avance das trilhas com bases mais simples para as mais exigentes.',
         icon: History,
-        stages: trails.map(trail => ({
+        stages: orderedTrails.map((trail, index) => ({
           id: `trail:${trail.id}`,
           type: 'Trilha',
           title: trail.title,
           assessment: buildStudyPathAssessment(trail, topics),
+          difficulty: difficultyAt(index, orderedTrails.length),
         })),
       },
       {
         id: 'tutorials',
         title: 'Prática',
-        description: 'Aplique os métodos e revise cada tutorial.',
+        description: 'Pratique primeiro atividades mais curtas e avance para as mais completas.',
         icon: GraduationCap,
-        stages: tutorials.map(tutorial => ({
+        stages: orderedTutorials.map((tutorial, index) => ({
           id: `tutorial:${tutorial.id}`,
           type: 'Tutorial',
           title: tutorial.title,
           assessment: buildTutorialAssessment(tutorial, tutorials),
+          difficulty: difficultyAt(index, orderedTutorials.length),
         })),
       },
-    ],
-    [topics, trails, tutorials],
-  );
+    ];
+  }, [topics, trails, tutorials]);
   const validStageIds = useMemo(
     () => new Set(tracks.flatMap(item => item.stages.map(stageItem => stageItem.id))),
     [tracks],
@@ -327,7 +410,12 @@ export function GameModeScreen({
                 </span>
                 <h2 id="game-phase-title">{stage.title}</h2>
               </div>
-              <span className="game-phase-kind">{stage.type}</span>
+              <div className="game-phase-badges">
+                <span className="game-phase-kind">{stage.type}</span>
+                <span className={`game-difficulty is-${stage.difficulty}`}>
+                  {difficultyLabels[stage.difficulty]}
+                </span>
+              </div>
             </div>
             <div
               className="game-track-meter"
@@ -351,8 +439,13 @@ export function GameModeScreen({
               {stage.assessment.questions.map((question, questionIndex) => (
                 <fieldset className="game-question" key={question.id}>
                   <legend>
-                    <span>{String(questionIndex + 1).padStart(2, '0')}</span>
-                    {question.prompt}
+                    <span className="game-question-number" aria-hidden="true">
+                      {String(questionIndex + 1).padStart(2, '0')}
+                    </span>
+                    <span className="game-question-prompt">{question.prompt}</span>
+                    <span className={`game-question-difficulty is-${question.difficulty}`}>
+                      {difficultyLabels[question.difficulty]}
+                    </span>
                   </legend>
                   <div className="game-choices">
                     {question.choices.map(choice => {

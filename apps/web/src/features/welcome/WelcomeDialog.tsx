@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, BookOpen, Compass, Gamepad2, Heart, Sparkles, X } from 'lucide-react';
+import { ArrowRight, BookOpen, Gamepad2, Heart, Sparkles, Timer, X } from 'lucide-react';
 import type { LearningMode } from '../preferences/learning-mode';
 import { recommendModeFromContext } from './context-recommendation';
 
@@ -50,14 +50,14 @@ export function WelcomeDialog({
         <div className="welcome-dialog-mark">
           <Sparkles size={19} aria-hidden="true" />
         </div>
-        <div className="eyebrow">BOAS-VINDAS À SALA DE CALMA E ESTUDO</div>
+        <div className="eyebrow">BOAS-VINDAS AO ESTUDE COM CALMA</div>
         <h2 id="welcome-dialog-title">
           {step === 'support' ? 'Você merece apoio de verdade.' : 'Como você quer aprender hoje?'}
         </h2>
         <p id="welcome-dialog-description">
           {step === 'support'
-            ? 'Esta Sala não substitui ajuda profissional. Se algo estiver pesado, há pessoas e serviços preparados para conversar e cuidar de você.'
-            : 'Escolha seu caminho. Os artigos, as fontes e o cuidado com a informação são os mesmos; muda a experiência de navegação.'}
+            ? 'Este espaço não substitui ajuda profissional. Se algo estiver pesado, há pessoas e serviços preparados para conversar e cuidar de você.'
+            : 'Este é um espaço gratuito para estudar e fazer uma pausa no seu ritmo. Com poucos minutos, escolha uma leitura breve; se quiser ficar, avance por artigos, trilhas e tutoriais. Você pode pausar quando quiser. Os dois modos usam os mesmos conteúdos e critérios de fontes.'}
         </p>
 
         {step === 'paths' ? (
@@ -128,8 +128,8 @@ export function WelcomeDialog({
                     <span className="welcome-choice-recommendation">Sugestão para você</span>
                   )}
                   <small>
-                    Leituras, fontes e trilhas com uma apresentação discreta. Você escolhe por onde
-                    seguir.
+                    Leituras, fontes e trilhas com uma apresentação tranquila. Siga sem pressa ou
+                    aprofunde-se quando quiser.
                   </small>
                   <span className="welcome-choice-action">
                     Estudar com calma <ArrowRight size={15} aria-hidden="true" />
@@ -168,7 +168,12 @@ export function WelcomeDialog({
                     onQuick();
                   }}
                 >
-                  <Compass size={15} aria-hidden="true" /> Sortear um artigo
+                  <Timer size={17} aria-hidden="true" />
+                  <span className="welcome-quick-copy">
+                    <strong>Tenho 5 minutos</strong>
+                    <small>Uma leitura breve, sem compromisso — depois você segue o dia.</small>
+                  </span>
+                  <ArrowRight size={15} aria-hidden="true" />
                 </button>
                 <button
                   onClick={() => {
@@ -176,7 +181,7 @@ export function WelcomeDialog({
                     onTour();
                   }}
                 >
-                  Fazer um tour pela Sala <ArrowRight size={15} aria-hidden="true" />
+                  Fazer um tour pelo Estude com Calma <ArrowRight size={15} aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -188,8 +193,9 @@ export function WelcomeDialog({
               <div>
                 <b>Você não está só.</b>
                 <p>
-                  Esta é uma mensagem carinhosa de quem desenvolve a Sala: sentimos muito que este
-                  momento esteja difícil. Você merece acolhimento e ajuda, sem julgamento.
+                  Esta é uma mensagem carinhosa de quem desenvolve o Estude com Calma: sentimos
+                  muito que este momento esteja difícil. Você merece acolhimento e ajuda, sem
+                  julgamento.
                 </p>
                 <p>Se puder, converse com alguém de confiança e procure apoio profissional.</p>
               </div>
@@ -232,7 +238,8 @@ export function WelcomeDialog({
               </a>
             </div>
             <p className="welcome-support-note">
-              Você pode pausar, procurar alguém de confiança e voltar à Sala quando quiser.
+              Você pode pausar, procurar alguém de confiança e voltar ao Estude com Calma quando
+              quiser.
             </p>
             <button className="welcome-check-in-skip" onClick={() => setStep('paths')}>
               Voltar à escolha do modo
@@ -252,8 +259,8 @@ export function WelcomeDialog({
           Os índices demonstrativos do catálogo não são uma auditoria editorial independente.
         </p>
         <p className="welcome-dialog-copyright">
-          <strong>Sala de Calma e Estudo · © {new Date().getFullYear()}.</strong> Código sob MIT;
-          textos originais sob CC BY 4.0. Conteúdos de terceiros seguem suas próprias licenças.
+          <strong>Estude com Calma · © {new Date().getFullYear()}.</strong> Código sob MIT; textos
+          originais sob CC BY 4.0. Conteúdos de terceiros seguem suas próprias licenças.
         </p>
       </section>
     </div>

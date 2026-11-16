@@ -1,6 +1,6 @@
-# Contribuir com a Sala de Calma e Estudo
+# Contribuir com o Estude com Calma
 
-Obrigado por querer ajudar. A Sala de Calma e Estudo reúne aprendizagem gratuita e amigável, com o mesmo compromisso com evidências em todos os formatos.
+Obrigado por querer ajudar. O Estude com Calma reúne aprendizagem gratuita e amigável, com o mesmo compromisso com evidências em todos os formatos.
 
 ## O que aceitamos
 
@@ -10,7 +10,7 @@ Obrigado por querer ajudar. A Sala de Calma e Estudo reúne aprendizagem gratuit
 
 ## Limites editoriais
 
-Não aceitamos novas pautas partidárias, controversas ou centradas em disputas ideológicas, propaganda política ou religiosa, teorias conspiratórias, ataques ou desinformação sobre pessoas e grupos. A Sala de Calma e Estudo não é espaço de disputa: prioriza conteúdos educativos, verificáveis e úteis ao desenvolvimento humano. Revisões factuais de conteúdo existente podem ser propostas com evidências, mesmo que o assunto precise de cuidado editorial.
+Não aceitamos novas pautas partidárias, controversas ou centradas em disputas ideológicas, propaganda política ou religiosa, teorias conspiratórias, ataques ou desinformação sobre pessoas e grupos. O Estude com Calma não é espaço de disputa: prioriza conteúdos educativos, verificáveis e úteis ao desenvolvimento humano. Revisões factuais de conteúdo existente podem ser propostas com evidências, mesmo que o assunto precise de cuidado editorial.
 
 Conteúdo sexual explícito, exploração, assédio, instruções para dano e material ilegal são proibidos. Temas sensíveis só podem ser tratados quando houver finalidade educativa legítima, linguagem adequada e fontes fortes; a equipe pode recusar ou restringir uma contribuição. Não envie dados pessoais, material confidencial ou conteúdo de terceiros sem permissão.
 
@@ -24,7 +24,7 @@ Conteúdo sexual explícito, exploração, assédio, instruções para dano e ma
 
 ## Licenças
 
-Ao contribuir com código, você concorda que sua contribuição seja distribuída sob a licença [MIT](LICENSE). Textos originais aceitos para o catálogo são publicados sob [CC BY 4.0](CONTENT-LICENSE.md), salvo acordo escrito diferente. Só envie materiais que você criou ou tem direito de compartilhar sob essas condições. A Sala de Calma e Estudo preserva créditos e licenças de terceiros.
+Ao contribuir com código, você concorda que sua contribuição seja distribuída sob a licença [MIT](LICENSE). Textos originais aceitos para o catálogo são publicados sob [CC BY 4.0](CONTENT-LICENSE.md), salvo acordo escrito diferente. Só envie materiais que você criou ou tem direito de compartilhar sob essas condições. O Estude com Calma preserva créditos e licenças de terceiros.
 
 Não há exigência de cadastro, pagamento ou cessão de direitos sobre contribuições que não forem aceitas. A contribuição não concede poder editorial, acesso privilegiado nem garantia de inclusão.
 

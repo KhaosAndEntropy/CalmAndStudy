@@ -1,6 +1,6 @@
-# Sala de Calma e Estudo
+# Estude com Calma
 
-Sala de Calma e Estudo é um projeto gratuito de aprendizagem. Reúne artigos curtos, trilhas, tutoriais e fontes abertas para ajudar qualquer pessoa a explorar diferentes assuntos no próprio ritmo.
+Estude com Calma é um projeto gratuito de aprendizagem. Reúne artigos curtos, trilhas, tutoriais e fontes abertas para ajudar qualquer pessoa a explorar diferentes assuntos no próprio ritmo.
 
 Há dois modos de estudo — **Estudo calmo** e **Modo aventura** — com o mesmo conteúdo e os mesmos critérios editoriais. O projeto valoriza fontes verificáveis, transparência sobre incertezas, privacidade e bem-estar.
 
@@ -49,4 +49,4 @@ O [índice da documentação](docs/README.md) aponta para o guia certo conforme 
 
 ## Usar no celular
 
-Abra o site no navegador do celular e escolha **Instalar a Sala de Calma e Estudo** ou **Adicionar à tela inicial**. É a versão web responsiva instalada como PWA; não é necessário instalar um aplicativo separado.
+Abra o site no navegador do celular e escolha **Instalar o Estude com Calma** ou **Adicionar à tela inicial**. É a versão web responsiva instalada como PWA; não é necessário instalar um aplicativo separado.

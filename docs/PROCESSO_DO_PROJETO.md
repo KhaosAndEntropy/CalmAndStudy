@@ -1,6 +1,6 @@
 # Processo criativo e técnico
 
-Este guia registra, em linguagem direta, como a Sala de Calma e Estudo tomou forma. Ele separa as ideias e decisões do criador do apoio prestado por IA e explica o caminho técnico sem tratar automação como autoridade.
+Este guia registra, em linguagem direta, como o Estude com Calma tomou forma. Ele separa as ideias e decisões do criador do apoio prestado por IA e explica o caminho técnico sem tratar automação como autoridade.
 
 ## Quem fez o quê
 
@@ -14,17 +14,17 @@ O projeto tem origem brasileira, mas não limita o conhecimento ao Brasil. As pe
 
 Esta sequência mostra as etapas principais, não uma transcrição completa de cada conversa ou commit.
 
-| Etapa                    | Ideia ou decisão                                                                                                                                        | Origem e responsabilidade                                                                            |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| 1. Descobertas curtas    | Criar um lugar para aprender por artigos breves, com escolha de assunto ou exploração aleatória.                                                        | Ideia e direção do criador.                                                                          |
-| 2. Identidade do projeto | A IA sugeriu o nome inicial. O criador o adotou por sua representação feminina e acolhedora, mantendo o espaço aberto a qualquer pessoa.                | Sugestão de nome: IA. Decisão, intenção e adoção: criador.                                           |
-| 3. Conteúdo com contexto | Incluir áreas variadas, relações entre assuntos, trilhas, tutoriais, imagens e exercícios para tornar a leitura mais clara e conectada.                 | Necessidades definidas pelo criador; propostas de organização e execução elaboradas em conjunto.     |
-| 4. Fontes e rigor        | Priorizar fontes públicas, gratuitas, rastreáveis e com direitos claros; separar descoberta automática, confirmação documental e revisão humana.        | Critério definido pelo criador; adaptadores e filtros foram implementados com apoio de IA.           |
-| 5. Dois ritmos           | Manter o mesmo catálogo e os mesmos critérios em um modo calmo e em um modo aventura com navegação própria.                                             | Decisão do criador; desenho da experiência e implementação apoiados por IA.                          |
-| 6. Cuidado e autonomia   | Tornar acolhimento, acessibilidade, áudio, pausas e check-in opcionais, sem diagnosticar nem pressionar a pessoa.                                       | Objetivo definido pelo criador; implementação apoiada por IA.                                        |
-| 7. Abertura do projeto   | Manter acesso gratuito, abrir o código e aceitar contribuições dentro das regras editoriais e de segurança.                                             | Decisão do criador após avaliar as opções com apoio de IA.                                           |
-| 8. Nome em português     | Adotar “Sala de Calma e Estudo” como marca principal para falar primeiro com o público brasileiro, mantendo fontes e conteúdo de alcance internacional. | Decisão do criador; apoio de IA na transição da marca e dos textos.                                  |
-| 9. Operação simples      | Usar uma aplicação web instalável, serviços gratuitos da Cloudflare, CI para verificações e Docker Compose para execução local.                         | Preferências e decisões do criador; alternativas técnicas avaliadas e implementadas com apoio de IA. |
+| Etapa                    | Ideia ou decisão                                                                                                                                  | Origem e responsabilidade                                                                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| 1. Descobertas curtas    | Criar um lugar para aprender por artigos breves, com escolha de assunto ou exploração aleatória.                                                  | Ideia e direção do criador.                                                                          |
+| 2. Identidade do projeto | A IA sugeriu o nome inicial. O criador o adotou por sua representação feminina e acolhedora, mantendo o espaço aberto a qualquer pessoa.          | Sugestão de nome: IA. Decisão, intenção e adoção: criador.                                           |
+| 3. Conteúdo com contexto | Incluir áreas variadas, relações entre assuntos, trilhas, tutoriais, imagens e exercícios para tornar a leitura mais clara e conectada.           | Necessidades definidas pelo criador; propostas de organização e execução elaboradas em conjunto.     |
+| 4. Fontes e rigor        | Priorizar fontes públicas, gratuitas, rastreáveis e com direitos claros; separar descoberta automática, confirmação documental e revisão humana.  | Critério definido pelo criador; adaptadores e filtros foram implementados com apoio de IA.           |
+| 5. Dois ritmos           | Manter o mesmo catálogo e os mesmos critérios em um modo calmo e em um modo aventura com navegação própria.                                       | Decisão do criador; desenho da experiência e implementação apoiados por IA.                          |
+| 6. Cuidado e autonomia   | Tornar acolhimento, acessibilidade, áudio, pausas e check-in opcionais, sem diagnosticar nem pressionar a pessoa.                                 | Objetivo definido pelo criador; implementação apoiada por IA.                                        |
+| 7. Abertura do projeto   | Manter acesso gratuito, abrir o código e aceitar contribuições dentro das regras editoriais e de segurança.                                       | Decisão do criador após avaliar as opções com apoio de IA.                                           |
+| 8. Nome em português     | Adotar “Estude com Calma” como marca principal para falar primeiro com o público brasileiro, mantendo fontes e conteúdo de alcance internacional. | Decisão do criador; apoio de IA na transição da marca e dos textos.                                  |
+| 9. Operação simples      | Usar uma aplicação web instalável, serviços gratuitos da Cloudflare, CI para verificações e Docker Compose para execução local.                   | Preferências e decisões do criador; alternativas técnicas avaliadas e implementadas com apoio de IA. |
 
 ## Processo criativo em duas frentes
 

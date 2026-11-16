@@ -35,6 +35,7 @@ function question(
   correctAnswer: string,
   distractors: string[],
   explanation: string,
+  difficulty: AssessmentQuestion['difficulty'],
 ): AssessmentQuestion {
   const correct = compactText(correctAnswer);
   const choices = [
@@ -63,6 +64,7 @@ function question(
     choices: orderedChoices,
     correctAnswer: correct,
     explanation,
+    difficulty,
   };
 }
 
@@ -80,8 +82,9 @@ function topicQuestion(
   answer: string,
   distractors: string[],
   explanation: string,
+  difficulty: AssessmentQuestion['difficulty'],
 ) {
-  return question(assessmentId, index, prompt, answer, distractors, explanation);
+  return question(assessmentId, index, prompt, answer, distractors, explanation, difficulty);
 }
 
 export function buildTopicAssessment(topic: Topic, catalogue: Topic[]): KnowledgeAssessment {
@@ -101,42 +104,47 @@ export function buildTopicAssessment(topic: Topic, catalogue: Topic[]): Knowledg
       topicQuestion(
         id,
         0,
-        `Qual ideia central o artigo “${topic.title}” apresenta?`,
-        topic.fact,
-        factOptions,
-        'Esta é a ideia principal apresentada na seção “A descoberta”.',
-      ),
-      topicQuestion(
-        id,
-        1,
-        'Qual alternativa resume o assunto deste artigo?',
-        topic.summary,
-        summaryOptions,
-        'O resumo retoma o foco que o artigo desenvolve.',
-      ),
-      topicQuestion(
-        id,
-        2,
-        'Que explicação aparece no desenvolvimento do artigo?',
-        topic.detail,
-        detailOptions,
-        'A resposta está no desenvolvimento do artigo; releia o parágrafo principal se precisar.',
-      ),
-      topicQuestion(
-        id,
-        3,
-        'A qual área e período este artigo está associado?',
-        context,
-        contextOptions,
-        `O artigo aparece em ${context}.`,
-      ),
-      topicQuestion(
-        id,
-        4,
         'Qual palavra-chave está ligada a este tema?',
         topic.tags[0] ?? topic.field,
         tagOptions,
         'As palavras-chave do artigo ajudam a localizar os conceitos relacionados ao tema.',
+        'initial',
+      ),
+      topicQuestion(
+        id,
+        1,
+        'A qual área e período este artigo está associado?',
+        context,
+        contextOptions,
+        `O artigo aparece em ${context}.`,
+        'initial',
+      ),
+      topicQuestion(
+        id,
+        2,
+        'Qual alternativa resume o assunto deste artigo?',
+        topic.summary,
+        summaryOptions,
+        'O resumo retoma o foco que o artigo desenvolve.',
+        'developing',
+      ),
+      topicQuestion(
+        id,
+        3,
+        'Que explicação aparece no desenvolvimento do artigo?',
+        topic.detail,
+        detailOptions,
+        'A resposta está no desenvolvimento do artigo; releia o parágrafo principal se precisar.',
+        'developing',
+      ),
+      topicQuestion(
+        id,
+        4,
+        `Qual ideia central o artigo “${topic.title}” apresenta?`,
+        topic.fact,
+        factOptions,
+        'Esta é a ideia principal apresentada na seção “A descoberta”.',
+        'challenge',
       ),
     ],
   };
@@ -162,6 +170,7 @@ export function buildStudyPathAssessment(path: StudyPath, catalogue: Topic[]): K
         path.description,
         [],
         'A trilha ainda não tem artigos vinculados suficientes para perguntas específicas.',
+        index < 2 ? 'initial' : index < 4 ? 'developing' : 'challenge',
       );
     }
     const answerIndex = Math.floor(index / Math.max(1, linkedTopics.length / 2)) % 3;
@@ -177,6 +186,7 @@ export function buildStudyPathAssessment(path: StudyPath, catalogue: Topic[]): K
       answer,
       pool,
       `Este ponto pertence ao artigo “${topic.title}”, uma das etapas da trilha.`,
+      index < 2 ? 'initial' : index < 4 ? 'developing' : 'challenge',
     );
   });
   return { id, title: 'Prova da trilha', questions };
@@ -202,10 +212,29 @@ export function buildTutorialAssessment(
         tutorial.description,
         otherTutorials.map(item => item.description),
         'O objetivo é apresentado logo no início do tutorial.',
+        'initial',
       ),
       question(
         id,
         1,
+        'Qual material é indicado para realizar a atividade?',
+        tutorial.materials[0] ?? 'Acompanhar as etapas e registrar as observações.',
+        [...otherTutorials.flatMap(item => item.materials)],
+        'A lista de materiais do próprio tutorial indica o que será necessário.',
+        'initial',
+      ),
+      question(
+        id,
+        2,
+        'Qual etapa faz parte deste tutorial?',
+        selectedStep,
+        otherTutorials.flatMap(item => item.steps.map(step => step.title)),
+        'Esta etapa aparece na sequência de instruções do tutorial.',
+        'developing',
+      ),
+      question(
+        id,
+        3,
         `Qual etapa vem depois de “${steps[0]?.title ?? 'começar'}”?`,
         nextStep,
         [
@@ -213,30 +242,16 @@ export function buildTutorialAssessment(
           ...otherTutorials.flatMap(item => item.steps.map(step => step.title)),
         ],
         'Seguir a ordem ajuda a aplicar o método proposto no tutorial.',
-      ),
-      question(
-        id,
-        2,
-        'Qual material é indicado para realizar a atividade?',
-        tutorial.materials[0] ?? 'Acompanhar as etapas e registrar as observações.',
-        otherTutorials.flatMap(item => item.materials),
-        'A lista de materiais do próprio tutorial indica o que será necessário.',
-      ),
-      question(
-        id,
-        3,
-        'Que ideia o fechamento deste tutorial reforça?',
-        tutorial.wrapUp,
-        otherTutorials.map(item => item.wrapUp),
-        'A conclusão retoma o aprendizado que a atividade pretende deixar.',
+        'developing',
       ),
       question(
         id,
         4,
-        'Qual etapa faz parte deste tutorial?',
-        selectedStep,
-        otherTutorials.flatMap(item => item.steps.map(step => step.title)),
-        'Esta etapa aparece na sequência de instruções do tutorial.',
+        'Que ideia o fechamento deste tutorial reforça?',
+        tutorial.wrapUp,
+        otherTutorials.map(item => item.wrapUp),
+        'A conclusão retoma o aprendizado que a atividade pretende deixar.',
+        'challenge',
       ),
     ],
   };

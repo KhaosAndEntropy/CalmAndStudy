@@ -1,4 +1,4 @@
-# Acessibilidade da Sala de Calma e Estudo Web
+# Acessibilidade do Estude com Calma Web
 
 A interface web foi ajustada para reduzir barreiras de uso por teclado, leitores de tela, ampliação e preferências do sistema. A meta de implementação é se aproximar do nível AA das WCAG 2.2; isso não equivale a uma certificação nem substitui avaliação com pessoas com deficiência.
 

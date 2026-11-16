@@ -1,10 +1,10 @@
-# Entendendo a Sala de Calma e Estudo
+# Entendendo o Estude com Calma
 
-Este guia explica como a Sala de Calma e Estudo funciona hoje: onde ficam os artigos, como a pesquisa de fontes chega ao site, o que o D1 guarda, como executar e instalar a versão web responsiva e quais limites ainda existem.
+Este guia explica como o Estude com Calma funciona hoje: onde ficam os artigos, como a pesquisa de fontes chega ao site, o que o D1 guarda, como executar e instalar a versão web responsiva e quais limites ainda existem.
 
-## 1. A Sala de Calma e Estudo em poucas palavras
+## 1. O Estude com Calma em poucas palavras
 
-A Sala de Calma e Estudo é um app educativo de exploração. A pessoa pode descobrir um artigo ao acaso, filtrar por ciência, ler artigos, seguir trilhas, praticar em tutoriais e procurar referências públicas.
+O Estude com Calma é um app educativo de exploração. A pessoa pode descobrir um artigo ao acaso, filtrar por ciência, ler artigos, seguir trilhas, praticar em tutoriais e procurar referências públicas.
 
 O sistema tem três partes principais:
 
@@ -66,7 +66,7 @@ A quantidade de artigos deve vir de **topics.length**; evite fixar uma contagem 
 ### Modos e lembretes de bem-estar
 
 - **Estudo calmo** leva à descoberta e mantém uma apresentação discreta. **Modo aventura** abre a Jornada e organiza os mesmos artigos, trilhas e tutoriais como fases. O seletor do topo permite alternar; só a preferência de modo fica no `localStorage`, sem perfil nem conta.
-- O check-in inicial é opcional. A resposta não é persistida nem enviada e não altera recomendações. Se a pessoa pedir recursos de apoio, são apresentados contatos oficiais; a Sala de Calma e Estudo não oferece diagnóstico ou atendimento.
+- O check-in inicial é opcional. A resposta não é persistida nem enviada e não altera recomendações. Se a pessoa pedir recursos de apoio, são apresentados contatos oficiais; o Estude com Calma não oferece diagnóstico ou atendimento.
 - Após 30 minutos de aba visível, a interface pode sugerir uma pausa. A contagem existe apenas em memória durante a página, pausa quando a aba fica oculta e desaparece ao recarregar ou sair. Não coletamos horário local nem enviamos tempo de uso.
 - Detalhes de experiência, limites e referências de ajuda estão em [Experiências de estudo](EXPERIENCIAS_DE_ESTUDO.md).
 
@@ -81,11 +81,11 @@ A quantidade de artigos deve vir de **topics.length**; evite fixar uma contagem 
 
 Há duas coisas diferentes no produto:
 
-### Artigos da Sala de Calma e Estudo
+### Artigos do Estude com Calma
 
 São dados editoriais mantidos no próprio repositório em **packages/content**. As referências aparecem junto aos artigos. O catálogo não é uma cópia automática das buscas.
 
-Os percentuais e rótulos demonstrativos que ainda aparecem em artigos não são uma auditoria independente nem a probabilidade de o texto estar correto. A presença de várias referências também não prova que elas sejam independentes ou que sustentem todas as frases. A Sala de Calma e Estudo informa essas limitações ao leitor.
+Os percentuais e rótulos demonstrativos que ainda aparecem em artigos não são uma auditoria independente nem a probabilidade de o texto estar correto. A presença de várias referências também não prova que elas sejam independentes ou que sustentem todas as frases. O Estude com Calma informa essas limitações ao leitor.
 
 ### Pesquisa de fontes públicas
 
@@ -101,7 +101,7 @@ A tela **Pesquisar fontes** consulta os catálogos abaixo por meio de **packages
 
 Os provedores podem estar indisponíveis ou não se aplicar a uma área. A pesquisa sinaliza esses estados. O backend limita resultados, cruza os dados bibliográficos quando aplicável e exige sinais de acesso e procedência definidos no código. Para artigos acadêmicos, uma checagem automática não prova que o método seja bom, que o conteúdo esteja livre de qualquer restrição ou que a conclusão seja verdadeira. O leitor deve abrir e avaliar o documento original.
 
-No OpenAlex, uma chave gratuita aumenta a cota, mas não é indispensável para tentar uma busca. Se uma chave opcional for recusada por autorização, o backend tenta uma vez a consulta pública sem ela. Para confirmar um DOI do OpenAlex, a Sala de Calma e Estudo também pode consultar esse DOI diretamente no Crossref; isso evita depender somente dos primeiros registros devolvidos pela busca bibliográfica geral. A verificação de DOI continua necessária e não substitui a checagem de licença e do arquivo integral.
+No OpenAlex, uma chave gratuita aumenta a cota, mas não é indispensável para tentar uma busca. Se uma chave opcional for recusada por autorização, o backend tenta uma vez a consulta pública sem ela. Para confirmar um DOI do OpenAlex, o Estude com Calma também pode consultar esse DOI diretamente no Crossref; isso evita depender somente dos primeiros registros devolvidos pela busca bibliográfica geral. A verificação de DOI continua necessária e não substitui a checagem de licença e do arquivo integral.
 
 Imagens e ilustrações são decorativas. Elas não são evidência para as afirmações do artigo.
 
@@ -140,7 +140,7 @@ Na máquina local, o Vite encaminha a pesquisa e a verificação de links para o
 | Leituras e curtidas                                                           | Tabelas **content_reads** e **content_likes** no D1; uma participação por navegador/conteúdo.                      |
 | Limites diários e limites por minuto                                          | Tabelas de contagem do D1; identificadores de acesso são guardados como HMAC, não como endereço IP em texto.       |
 
-O D1 não é o banco do catálogo editorial e não publica conteúdo. Nas estatísticas, ele guarda apenas um registro por navegador e conteúdo, sem uma sequência detalhada de cada leitura. Também não existe uma tela administrativa dentro da Sala de Calma e Estudo para consultar a fila: a triagem é feita por uma pessoa com acesso ao console D1 da Cloudflare.
+O D1 não é o banco do catálogo editorial e não publica conteúdo. Nas estatísticas, ele guarda apenas um registro por navegador e conteúdo, sem uma sequência detalhada de cada leitura. Também não existe uma tela administrativa dentro do Estude com Calma para consultar a fila: a triagem é feita por uma pessoa com acesso ao console D1 da Cloudflare.
 
 ### Leituras, curtidas e estatísticas
 
@@ -222,7 +222,7 @@ O GitHub Actions faz os checks, mas não publica a aplicação. O Pages recebe o
 
 ## 10. Usar no celular
 
-Abra a URL **.pages.dev** no navegador do telefone e escolha **Instalar a Sala de Calma e Estudo** ou **Adicionar à tela inicial**, conforme o navegador. A PWA é a única versão mobile mantida e usa a mesma aplicação web responsiva.
+Abra a URL **.pages.dev** no navegador do telefone e escolha **Instalar o Estude com Calma** ou **Adicionar à tela inicial**, conforme o navegador. A PWA é a única versão mobile mantida e usa a mesma aplicação web responsiva.
 
 ## 11. Termos que aparecem no projeto
 

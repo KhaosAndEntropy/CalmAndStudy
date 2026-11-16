@@ -66,10 +66,10 @@ export function SupportPage() {
         </span>
         <div className="eyebrow">APOIO VOLUNTÁRIO · SEM PRESSA</div>
         <h1>
-          Se quiser, ajude a sala <em>a continuar.</em>
+          Se quiser, apoie o projeto <em>Estude com Calma.</em>
         </h1>
         <p>
-          A Sala de Calma e Estudo é gratuita e aberta. Se ela foi útil para você e fizer sentido,
+          O projeto Estude com Calma é gratuito e aberto. Se ele foi útil para você e fizer sentido,
           pode contribuir voluntariamente via Pix. Seguir estudando sem contribuir é igualmente
           bem-vindo.
         </p>
