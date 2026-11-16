@@ -1,6 +1,6 @@
 # CI e liberação para produção
 
-A publicação continua sob responsabilidade do Cloudflare Pages. O GitHub Actions apenas verifica mudanças; o Pages está conectado ao Git e publica a branch `main`. Os jobs que verificam o site publicado usam a variável de repositório `CALMANDSTUDY_PUBLIC_URL` (URL HTTPS `*.pages.dev`); sem ela, esses jobs são ignorados.
+A publicação continua sob responsabilidade do Cloudflare Pages. O GitHub Actions apenas verifica mudanças; o Pages está conectado ao Git e publica a branch `main`. O smoke check usa a variável `CALMANDSTUDY_PUBLIC_URL` (URL HTTPS do domínio oficial ou da origem `*.pages.dev`). A revisão passiva do OWASP ZAP aponta diretamente para `https://estudecomcalma.com.br` e não depende dessa variável.
 
 ## Verificações automáticas
 
@@ -10,9 +10,9 @@ Um único workflow, **Estude com Calma · qualidade e segurança**, organiza as 
 - **Segurança estática (Semgrep):** análise de código e procura de secrets; também roda semanalmente.
 - **Segurança web local (OWASP ZAP):** varredura passiva da versão compilada no runner; não envia ataques ativos ao site público. O relatório HTML fica disponível como artefato por 14 dias.
 - **Disponibilidade da produção:** verifica o site e a API depois de push em `main` e semanalmente, quando `CALMANDSTUDY_PUBLIC_URL` está configurada.
-- **Revisão passiva da produção (OWASP ZAP):** execução semanal somente leitura, sem bloquear merges.
+- **Revisão passiva da produção (OWASP ZAP):** execução diária somente leitura, sem bloquear merges.
 
-As verificações semanais aparecem como jobs no mesmo workflow: Semgrep na segunda às 08:23 UTC, smoke check na segunda às 10:17 UTC e ZAP de produção na quarta às 10:32 UTC. Execução manual roda os checks e as revisões de produção.
+As verificações agendadas aparecem como jobs no mesmo workflow: Semgrep na segunda às 08:23 UTC, smoke check na segunda às 10:17 UTC e ZAP de produção todos os dias às 10:32 UTC. A execução diária do ZAP não depende da variável de repositório. Execução manual também roda os checks e as revisões de produção.
 
 > Os workflows, sozinhos, não impedem que o Cloudflare publique um push direto. O bloqueio precisa ser configurado no GitHub para `main`.
 

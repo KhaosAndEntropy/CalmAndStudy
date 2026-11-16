@@ -21,20 +21,24 @@ def fetch(url: str) -> tuple[int, bytes]:
 
 def main() -> int:
     if len(sys.argv) != 2:
-        print("Uso: python scripts/smoke-pages.py https://<ambiente>.pages.dev")
+        print("Uso: python scripts/smoke-pages.py https://estudecomcalma.com.br")
         return 2
 
     base_url = sys.argv[1].rstrip("/")
     parsed = urlparse(base_url)
+    approved_domain = parsed.hostname in {"estudecomcalma.com.br", "www.estudecomcalma.com.br"}
+    approved_pages_origin = bool(parsed.hostname and parsed.hostname.endswith(".pages.dev"))
     if (
         parsed.scheme != "https"
         or not parsed.hostname
-        or not parsed.hostname.endswith(".pages.dev")
+        or not (approved_domain or approved_pages_origin)
         or parsed.path
         or parsed.query
         or parsed.fragment
     ):
-        print("Destino recusado: use somente a URL Pages aprovada do Estude com Calma.")
+        print(
+            "Destino recusado: use o domínio oficial ou a origem Pages aprovada do Estude com Calma."
+        )
         return 2
 
     root_url = base_url + "/"
