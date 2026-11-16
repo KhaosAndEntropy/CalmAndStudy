@@ -117,7 +117,7 @@ export function SchoolModePage() {
                 />
               </svg>
             </span>
-            APOIO ESCOLAR · BNCC
+            PROTÓTIPO DE APOIO ESCOLAR · BNCC
           </span>
           <h1 id="school-title">
             Um caminho de estudo
@@ -135,6 +135,17 @@ export function SchoolModePage() {
         </div>
       </section>
 
+      <aside className="school-prototype-notice" aria-label="Escopo do protótipo">
+        <Sparkles size={18} aria-hidden="true" />
+        <div>
+          <b>Modo escolar em protótipo</b>
+          <p>
+            O conteúdo ainda é uma demonstração: são cinco habilidades mapeadas, com estudos e
+            questões originais. A BNCC completa e os currículos das redes ainda não estão cobertos.
+          </p>
+        </div>
+      </aside>
+
       <section className="school-browser" aria-labelledby="school-browser-title">
         <div className="school-section-heading">
           <div>
@@ -142,7 +153,7 @@ export function SchoolModePage() {
             <h2 id="school-browser-title">Por onde você quer começar?</h2>
           </div>
           <span className="school-pilot-tag">
-            <Sparkles size={13} aria-hidden="true" /> Amostra inicial
+            <Sparkles size={13} aria-hidden="true" /> 5 habilidades de demonstração
           </span>
         </div>
 
@@ -281,8 +292,8 @@ export function SchoolModePage() {
             <div>
               <h3>Este percurso está sendo preparado</h3>
               <p>
-                A amostra cobre cinco habilidades em alguns recortes da BNCC. Escolha um percurso
-                mapeado abaixo para ver como uma habilidade vira uma atividade de estudo.
+                Este protótipo cobre cinco habilidades em alguns recortes da BNCC. Escolha um
+                percurso mapeado abaixo para ver como uma habilidade vira uma atividade de estudo.
               </p>
             </div>
           </div>
@@ -461,7 +472,7 @@ export function SchoolModePage() {
         <div>
           <b>Um apoio para estudar e revisar</b>
           <p>
-            Esta amostra se orienta pela BNCC, mas ainda não cobre todas as habilidades nem os
+            Este protótipo se orienta pela BNCC, mas ainda não cobre todas as habilidades nem os
             complementos de cada rede. Não oferece matrícula, certificação ou substitui a escola.
           </p>
         </div>
