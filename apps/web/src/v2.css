@@ -7181,6 +7181,58 @@ footer span {
   border-color: var(--v2-highlight-hover, var(--v2-highlight));
   background: var(--v2-highlight-hover, var(--v2-highlight));
 }
+.shell .suggestion-form .suggestion-sources {
+  min-width: 0;
+  margin: 2px 0 0;
+  padding: 13px 14px 14px;
+  border: 1px solid var(--v2-line);
+  border-radius: 12px;
+  background: var(--v2-paper);
+}
+.shell .suggestion-form .suggestion-sources legend {
+  padding: 0 6px;
+  color: var(--v2-ink);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.shell .suggestion-form .suggestion-sources > p:not(.suggestion-editorial-boundary) {
+  margin: 5px 0 10px;
+  color: var(--v2-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.shell .suggestion-form .suggestion-editorial-boundary {
+  margin: 0 0 10px;
+  border-left-color: var(--v2-highlight);
+  background: var(--v2-soft);
+  color: var(--v2-ink);
+}
+.shell .suggestion-form .suggestion-policy-confirmation {
+  margin: 0 0 10px;
+  border-color: var(--v2-line);
+  background: var(--v2-soft);
+  color: var(--v2-ink) !important;
+}
+.shell .suggestion-form .suggestion-source-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--v2-line);
+}
+.shell .suggestion-form .suggestion-source-row label {
+  min-width: 0;
+  color: var(--v2-ink);
+}
+.shell .suggestion-form .suggestion-source-row input {
+  min-width: 0;
+}
+@media (max-width: 560px) {
+  .shell .suggestion-form .suggestion-source-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
 .shell
   .appearance-panel
   :where(.appearance-head > span, .palette-choice small, .layout-choice small) {
