@@ -6669,6 +6669,31 @@ footer span {
   outline-offset: 3px;
 }
 
+/* Elementos compactos do tema base precisam continuar legíveis no cabeçalho e nos cards. */
+.shell:not(.mode-adventure) .demo-badge {
+  border-color: #b8c7b6;
+  background: #f2eee0;
+  color: #294c3d;
+}
+.shell:not(.mode-adventure) .content-like {
+  border-color: #829486;
+  background: #fffefa;
+  color: #244d3c;
+}
+.shell:not(.mode-adventure) .content-like:hover:not(:disabled) {
+  border-color: #426b55;
+  background: #edf3eb;
+}
+.shell:not(.mode-adventure) .content-like:focus-visible {
+  outline: 3px solid #426b55;
+  outline-offset: 2px;
+}
+.shell:not(.mode-adventure) .content-like.is-liked {
+  border-color: #a84f49;
+  background: #fff1ed;
+  color: #913d38;
+}
+
 /* Artigo e chamadas usam os mesmos tokens do modo escolhido. */
 .shell.mode-adventure .confidence {
   border-color: var(--v2-line);

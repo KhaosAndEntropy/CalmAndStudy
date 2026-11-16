@@ -3,6 +3,10 @@ import { HeartHandshake, Newspaper } from 'lucide-react';
 
 export const releaseNotes = [
   [
+    'Controles mais fáceis de enxergar',
+    'O selo do acervo e o botão de curtida ganharam texto, ícone e contornos com mais contraste no tema base. O foco pelo teclado e os estados de interação também ficaram mais claros.',
+  ],
+  [
     'Uma forma opcional de apoiar o projeto',
     'Se o Estude com Calma foi útil, agora é possível contribuir por Pix. O apoio é voluntário; todo o conteúdo continua gratuito e aberto, sem vantagens ou cobranças.',
   ],
