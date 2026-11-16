@@ -6,10 +6,10 @@ on:
   push:
     branches: [main]
   schedule:
-    # Semgrep semanal, checagem pública semanal e revisão passiva semanal.
+    # Semgrep semanal, disponibilidade semanal e revisão passiva diária.
     - cron: '23 8 * * 1'
     - cron: '17 10 * * 1'
-    - cron: '32 10 * * 3'
+    - cron: '32 10 * * *'
   workflow_dispatch:
 
 concurrency:
@@ -159,13 +159,15 @@ jobs:
 
   production-zap:
     name: Revisão passiva da produção (OWASP ZAP)
-    if: (github.event_name == 'workflow_dispatch' || (github.event_name == 'schedule' && github.event.schedule == '32 10 * * 3')) && vars.CALMANDSTUDY_PUBLIC_URL != ''
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'schedule' && github.event.schedule == '32 10 * * *')
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      CALMANDSTUDY_PUBLIC_URL: https://estudecomcalma.com.br
     steps:
       - name: Validar destino fixo de produção
-        env:
-          CALMANDSTUDY_PUBLIC_URL: ${{ vars.CALMANDSTUDY_PUBLIC_URL }}
         run: |
           python - <<'PY'
           import os
@@ -173,14 +175,23 @@ jobs:
 
           target = os.environ["CALMANDSTUDY_PUBLIC_URL"].rstrip("/")
           parsed = urlparse(target)
-          if parsed.scheme != "https" or not parsed.hostname or not parsed.hostname.endswith(".pages.dev") or parsed.path or parsed.query or parsed.fragment:
-              raise SystemExit("Destino de produção inválido.")
+          approved_domain = parsed.hostname in {"estudecomcalma.com.br", "www.estudecomcalma.com.br"}
+          approved_pages_origin = bool(parsed.hostname and parsed.hostname.endswith(".pages.dev"))
+          if (
+              parsed.scheme != "https"
+              or not parsed.hostname
+              or not (approved_domain or approved_pages_origin)
+              or parsed.path
+              or parsed.query
+              or parsed.fragment
+          ):
+              raise SystemExit("Destino recusado: use o domínio oficial ou a origem Pages aprovada.")
           print(f"Destino validado: {target}/")
           PY
       - name: Executar OWASP ZAP Baseline
         uses: zaproxy/action-baseline@v0.15.0
         with:
-          target: ${{ vars.CALMANDSTUDY_PUBLIC_URL }}
+          target: ${{ env.CALMANDSTUDY_PUBLIC_URL }}
           cmd_options: '-m 2 -T 10'
           fail_action: false
           allow_issue_writing: false
