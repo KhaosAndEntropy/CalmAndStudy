@@ -12,3 +12,9 @@ Uso GitHub Actions para comprobar los cambios y Cloudflare Pages para desplegarl
 Exige checks correctos antes de integrar cambios. Sus nombres aparecen en **Settings → Rules → Rulesets**. Configura el nuevo proyecto Pages con este repositorio, `main`, la salida de compilación de `apps/web` y los bindings D1 necesarios. Confirma el nombre y el dominio definitivos en Cloudflare; no supongo que la URL anterior seguirá activa.
 
 Consulta la [barrera de despliegue CI](../GITHUB_DEPLOY_GATE.md) y la [guía de publicación Cloudflare](../GUIA_EXECUCAO_PUBLICACAO.md) para los detalles.
+
+## Automatización de Dependabot
+
+El flujo **Dependabot · actualización segura** solo solicita la integración automática con squash para solicitudes oficiales de `dependabot[bot]` dirigidas a `main` cuando la actualización es SemVer `patch` o `minor`. Las actualizaciones `major` siguen siendo manuales. El flujo fija `dependabot/fetch-metadata` a un commit y no descarga ni ejecuta el código de la solicitud.
+
+GitHub completa la integración únicamente cuando pasan todos los checks obligatorios. Activa **Allow auto-merge** en **Settings → General → Pull Requests** y exige los checks de calidad/pruebas/dependencias y Semgrep en el ruleset activo de `main`. No agregues una excepción para Dependabot. La configuración requiere permiso de administración.
