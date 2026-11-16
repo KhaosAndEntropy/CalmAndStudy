@@ -2,6 +2,13 @@
 
 Este arquivo registra mudanças percebidas por quem usa o Estude com Calma. A seção **Novidades** no site apresenta um resumo em linguagem simples.
 
+## 2026-11-16 — Navegação móvel sem cortes
+
+- O menu lateral agora pode ser rolado em celulares e telas baixas, mantendo acessíveis todas as seções e ações.
+- O atalho para sugerir um tema fica dentro do menu móvel, em vez de cobrir mapas, cartões ou outros controles da página.
+- Telas de 320 px deixam de forçar uma largura mínima que criava rolagem horizontal junto à barra vertical do navegador.
+- A barra de filtros e o cabeçalho se ajustam entre celular e tablet sem ultrapassar a largura disponível.
+
 ## 2026-11-15 — Desafios em dificuldade progressiva
 
 - As perguntas de artigos, trilhas e tutoriais agora começam com conceitos mais diretos e avançam até questões de aplicação e compreensão central.
