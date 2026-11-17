@@ -23,10 +23,17 @@ export function TutorialDialog({
   onToggleStep,
 }: TutorialDialogProps) {
   const progress = tutorial.steps.length
-    ? Math.round((completedSteps.length / tutorial.steps.length) * 100)
+    ? Math.round(
+        (tutorial.steps.filter((_, index) => completedSteps.includes(index)).length /
+          tutorial.steps.length) *
+          100,
+      )
     : 0;
   const lastStepIndex = Math.max(0, tutorial.steps.length - 1);
-  const isComplete = tutorial.steps.length > 0 && step >= tutorial.steps.length;
+  const isAtEnd = tutorial.steps.length > 0 && step >= tutorial.steps.length;
+  const allStepsChecked =
+    tutorial.steps.length > 0 && tutorial.steps.every((_, index) => completedSteps.includes(index));
+  const isComplete = isAtEnd && allStepsChecked;
   return (
     <div
       className="overlay"
@@ -67,7 +74,9 @@ export function TutorialDialog({
           <span aria-live="polite" aria-atomic="true">
             {isComplete
               ? 'Tutorial concluído'
-              : `Etapa ${Math.min(step + 1, tutorial.steps.length)} de ${tutorial.steps.length}`}
+              : isAtEnd
+                ? 'Marque todos os itens para concluir'
+                : `Etapa ${Math.min(step + 1, tutorial.steps.length)} de ${tutorial.steps.length}`}
           </span>
           <span>{progress}% das etapas marcadas</span>
           <progress
@@ -95,7 +104,9 @@ export function TutorialDialog({
                 </div>
                 <button
                   type="button"
-                  aria-label={`${done ? 'Desmarcar' : 'Marcar como concluída'} etapa ${index + 1}: ${tutorialStep.title}`}
+                  aria-label={`${done ? 'Desmarcar' : 'Marcar como concluída'} etapa ${
+                    index + 1
+                  }: ${tutorialStep.title}`}
                   aria-pressed={done}
                   className="step-check"
                   onClick={() => onToggleStep(index)}
@@ -156,16 +167,27 @@ export function TutorialDialog({
               >
                 Etapa anterior
               </button>
-              <button
-                className="primary"
-                onClick={() => onStepChange(value => Math.min(tutorial.steps.length, value + 1))}
-              >
-                {step === lastStepIndex ? 'Finalizar tutorial' : 'Próxima etapa'}{' '}
-                <ArrowRight size={15} aria-hidden="true" />
-              </button>
+              {isAtEnd ? (
+                <button className="primary" disabled aria-describedby="tutorial-checklist-required">
+                  Concluir tutorial <Check size={15} aria-hidden="true" />
+                </button>
+              ) : (
+                <button
+                  className="primary"
+                  onClick={() => onStepChange(value => Math.min(tutorial.steps.length, value + 1))}
+                >
+                  {step === lastStepIndex ? 'Finalizar tutorial' : 'Próxima etapa'}{' '}
+                  <ArrowRight size={15} aria-hidden="true" />
+                </button>
+              )}
             </>
           )}
         </div>
+        {isAtEnd && !allStepsChecked && (
+          <p id="tutorial-checklist-required" className="tutorial-description" role="status">
+            Marque o check de cada etapa acima para liberar a conclusão do tutorial.
+          </p>
+        )}
       </section>
     </div>
   );
