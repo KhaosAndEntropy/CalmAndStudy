@@ -1103,7 +1103,25 @@ export default function App() {
           }}
         >
           <span className="brand-mark">
-            <Sparkles size={19} aria-hidden="true" />
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M12 19.5c-2.1-1.6-4.35-2.4-7-2.4V5.8c2.7 0 4.9.8 7 2.35 2.1-1.55 4.3-2.35 7-2.35v11.3c-2.65 0-4.9.8-7 2.4Z"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.7"
+              />
+              <path
+                d="M12 8.2v11.3"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeWidth="1.5"
+              />
+              <path
+                d="M18.4 2.1c.3 1.1.9 1.7 2 2-.1.1-.2.1-.3.1-1 .3-1.5.9-1.7 1.9-.3-1.1-.9-1.7-2-2 1.1-.3 1.7-.9 2-2Z"
+                fill="#e8cc88"
+              />
+            </svg>
           </span>
           <span className="brand-copy">
             <span className="brand-wordmark" aria-hidden="true">

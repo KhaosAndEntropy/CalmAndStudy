@@ -1,5 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="19" fill="#426a54"/>
-  <path d="M31 9c3.6 11.4 9.6 17.4 21 21-11.4 3.6-17.4 9.6-21 21-3.6-11.4-9.6-17.4-21-21C21.4 26.4 27.4 20.4 31 9Z" fill="#fffaf0"/>
-  <circle cx="47" cy="17" r="4" fill="#e8cc88"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Estude com Calma">
+  <rect width="512" height="512" rx="132" fill="#426a54" />
+  <g transform="translate(0 32)">
+    <path d="M256 365c-48-34-100-51-158-51V166c61 0 111 18 158 53 47-35 97-53 158-53v148c-58 0-110 17-158 51Z" fill="#fffaf0" />
+    <path d="M256 219v146" fill="none" stroke="#426a54" stroke-linecap="round" stroke-width="16" />
+    <path d="M132 190c43 3 78 15 108 37M380 190c-43 3-78 15-108 37" fill="none" stroke="#aebfae" stroke-linecap="round" stroke-width="11" />
+    <path d="M390 82c5 17 14 26 31 31-17 5-26 14-31 31-5-17-14-26-31-31 17-5 26-14 31-31Z" fill="#e8cc88" />
+  </g>
 </svg>
