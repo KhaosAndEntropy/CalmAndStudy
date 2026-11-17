@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Modelo de capa para carrossel do Estude com Calma</title>
+  <desc id="desc">Capa editorial em verde e creme com uma pergunta de ciência sobre Vênus.</desc>
+  <rect width="1080" height="1350" fill="#fffaf0" />
+  <rect width="1080" height="20" fill="#e8cc88" />
+  <circle cx="930" cy="150" r="112" fill="#e8eee4" />
+  <circle cx="930" cy="150" r="62" fill="#426a54" />
+  <path d="M930 117c-20-15-43-22-68-22v67c25 0 48 7 68 22 20-15 43-22 68-22V95c-25 0-48 7-68 22Z" fill="#fffaf0" />
+  <path d="M930 117v67" fill="none" stroke="#426a54" stroke-linecap="round" stroke-width="7" />
+  <path d="M1018 52c4 13 11 20 24 24-13 4-20 11-24 24-4-13-11-20-24-24 13-4 20-11 24-24Z" fill="#e8cc88" />
+  <text x="88" y="135" fill="#426a54" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4">ESTUDE COM CALMA</text>
+  <rect x="88" y="222" width="240" height="48" rx="24" fill="#e8eee4" />
+  <text x="112" y="254" fill="#426a54" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2">CIÊNCIA EM CONTEXTO</text>
+  <text x="88" y="430" fill="#24342c" font-family="Georgia, serif" font-size="88" font-weight="700">Uma pergunta</text>
+  <text x="88" y="530" fill="#426a54" font-family="Georgia, serif" font-size="88" font-style="italic">abre caminho.</text>
+  <path d="M91 568h290" stroke="#e8cc88" stroke-linecap="round" stroke-width="8" />
+  <rect x="88" y="642" width="904" height="400" rx="34" fill="#294f3d" />
+  <circle cx="174" cy="736" r="38" fill="#e8cc88" />
+  <path d="M174 717c-12-9-25-13-40-13v39c15 0 28 4 40 13 12-9 25-13 40-13v-39c-15 0-28 4-40 13Z" fill="#294f3d" />
+  <path d="M174 717v39" fill="none" stroke="#294f3d" stroke-linecap="round" stroke-width="4" />
+  <text x="136" y="866" fill="#fffaf0" font-family="Georgia, serif" font-size="48">Por que Vênus gira</text>
+  <text x="136" y="930" fill="#fffaf0" font-family="Georgia, serif" font-size="48">no sentido oposto?</text>
+  <text x="136" y="986" fill="#d6dfd4" font-family="Arial, sans-serif" font-size="24" letter-spacing="2">DESLIZE PARA ENTENDER  →</text>
+  <line x1="88" y1="1112" x2="992" y2="1112" stroke="#e8e3d9" stroke-width="2" />
+  <text x="88" y="1178" fill="#24342c" font-family="Arial, sans-serif" font-size="23" font-weight="700" letter-spacing="3">CONHECIMENTO COM CONTEXTO</text>
+  <text x="88" y="1224" fill="#5e675d" font-family="Arial, sans-serif" font-size="22">estudecomcalma.com.br</text>
+  <text x="990" y="1224" fill="#426a54" font-family="Arial, sans-serif" font-size="22" text-anchor="end">01 / 05</text>
+</svg>

@@ -533,6 +533,10 @@ summary:focus-visible {
   background: #d9e5d6;
   color: #426a54;
 }
+.brand-mark svg {
+  width: 22px;
+  height: 22px;
+}
 .brand-dot {
   color: #d38a62;
 }
@@ -7085,7 +7089,10 @@ footer span {
     transition: none;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 720px) {
+  .reader {
+    width: 100%;
+  }
   .glossary-tooltip {
     position: fixed;
     z-index: 1000;
