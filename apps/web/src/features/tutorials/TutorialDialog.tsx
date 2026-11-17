@@ -95,7 +95,9 @@ export function TutorialDialog({
                 </div>
                 <button
                   type="button"
-                  aria-label={`${done ? 'Desmarcar' : 'Marcar como concluída'} etapa ${index + 1}: ${tutorialStep.title}`}
+                  aria-label={`${done ? 'Desmarcar' : 'Marcar como concluída'} etapa ${index + 1}: ${
+                    tutorialStep.title
+                  }`}
                   aria-pressed={done}
                   className="step-check"
                   onClick={() => onToggleStep(index)}
