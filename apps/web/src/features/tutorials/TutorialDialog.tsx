@@ -32,8 +32,7 @@ export function TutorialDialog({
   const lastStepIndex = Math.max(0, tutorial.steps.length - 1);
   const isAtEnd = tutorial.steps.length > 0 && step >= tutorial.steps.length;
   const allStepsChecked =
-    tutorial.steps.length > 0 &&
-    tutorial.steps.every((_, index) => completedSteps.includes(index));
+    tutorial.steps.length > 0 && tutorial.steps.every((_, index) => completedSteps.includes(index));
   const isComplete = isAtEnd && allStepsChecked;
   return (
     <div
@@ -169,11 +168,7 @@ export function TutorialDialog({
                 Etapa anterior
               </button>
               {isAtEnd ? (
-                <button
-                  className="primary"
-                  disabled
-                  aria-describedby="tutorial-checklist-required"
-                >
+                <button className="primary" disabled aria-describedby="tutorial-checklist-required">
                   Concluir tutorial <Check size={15} aria-hidden="true" />
                 </button>
               ) : (
